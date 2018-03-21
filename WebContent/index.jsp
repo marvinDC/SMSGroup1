@@ -5,8 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<script type="text/javascript" src="js/prototype.js"></script>
+<script>
+	var contextPath = '${pageContext.request.contextPath}';
+</script>
 </head>
 <body>
-
+	<div id="mainContents">
+	</div>
 </body>
 </html>

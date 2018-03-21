@@ -1,1 +1,25 @@
 @charset "ISO-8859-1";
+
+.formInput {
+	width: 200px;
+}
+
+select.formInput {
+	width: 204px;
+}
+
+.formBtn {
+	width: 100px;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table tr {
+	height: 22px;
+}
+
+.tableHeader {
+	background: #d4edf7;
+}

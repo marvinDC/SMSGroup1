@@ -35,7 +35,7 @@ public class HomeAndLogin extends HttpServlet{
 
 		if ("login".equals(action)) {
 			// dummy user replace this!!! add validation!!!
-			Users currentUser = new Users("admin", "admin", "admin", "admin", "admin@gmail.com", "A", "Y", "A", new Date(), new Date(), "admin");
+			Users currentUser = new Users("admin", "admin", "admin", "admin", "admin@gmail.com", "A", "Y", "A", new Date().toString(), new Date().toString(), "admin");
 			request.setAttribute("currentUser", currentUser);
 			page = "pages/main.jsp";
 		} else if ("logout".equals(action)) {

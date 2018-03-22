@@ -1,34 +1,18 @@
 package com.sms.maintenance.entity;
 
-import java.util.Date;
-
 public class Users {
 	private String userId;
 	private String passWord;
 	private String firstName;
 	private String lastName;
-	private char midInitial;
-	private char activeTag;
+	private String midInitial;
+	private String email;
+	private String activeTag;
 	private String accessLevel;
-	private Date entryDate;
-	private Date lastLogin;
+	private String entryDate;
+	private String lastLogin;
 	private String lastUser;
 	
-	public Users(String userId, String passWord, String firstName, String lastName, char midInitial, char activeTag,
-			String accessLevel, Date entryDate, Date lastLogin, String lastUser) {
-		super();
-		this.userId = userId;
-		this.passWord = passWord;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.midInitial = midInitial;
-		this.activeTag = activeTag;
-		this.accessLevel = accessLevel;
-		this.entryDate = entryDate;
-		this.lastLogin = lastLogin;
-		this.lastUser = lastUser;
-	}
-
 	public String getUserId() {
 		return userId;
 	}
@@ -53,16 +37,22 @@ public class Users {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public char getMidInitial() {
+	public String getMidInitial() {
 		return midInitial;
 	}
-	public void setMidInitial(char midInitial) {
+	public void setMidInitial(String midInitial) {
 		this.midInitial = midInitial;
 	}
-	public char getActiveTag() {
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getActiveTag() {
 		return activeTag;
 	}
-	public void setActiveTag(char activeTag) {
+	public void setActiveTag(String activeTag) {
 		this.activeTag = activeTag;
 	}
 	public String getAccessLevel() {
@@ -71,16 +61,16 @@ public class Users {
 	public void setAccessLevel(String accessLevel) {
 		this.accessLevel = accessLevel;
 	}
-	public Date getEntryDate() {
+	public String getEntryDate() {
 		return entryDate;
 	}
-	public void setEntryDate(Date entryDate) {
+	public void setEntryDate(String entryDate) {
 		this.entryDate = entryDate;
 	}
-	public Date getLastLogin() {
+	public String getLastLogin() {
 		return lastLogin;
 	}
-	public void setLastLogin(Date lastLogin) {
+	public void setLastLogin(String lastLogin) {
 		this.lastLogin = lastLogin;
 	}
 	public String getLastUser() {
@@ -89,6 +79,8 @@ public class Users {
 	public void setLastUser(String lastUser) {
 		this.lastUser = lastUser;
 	}
+
+
 	
 	
 	

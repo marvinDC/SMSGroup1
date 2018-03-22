@@ -65,15 +65,15 @@
 				<th style="width:100px">Last Update</th>
 			</tr>
 			<c:forEach var="issuedSupply" items="${issuedSupplies}">
-				<tr>
-					<td><a href="#">${issuedSupply.issueId}</a></td>
+				<tr class="row">
+					<td title="${issuedSupply.issueId}"><a href="#">${issuedSupply.issueId}</a></td>
 					<td>${issuedSupply.supplyId}</td>
 					<td class="alignRight">${issuedSupply.quantity}</td>
 					<td>${issuedSupply.requestor}</td>
 					<td>${issuedSupply.deptId}</td>
-					<td class="alignRight"><fmt:formatDate pattern="MM/DD/YYYY" value="${issuedSupply.issueDate}"/></td>
+					<td class="alignRight"><fmt:formatDate pattern="MM/dd/YYYY" value="${issuedSupply.issueDate}"/></td>
 					<td>${issuedSupply.lastUser}</td>
-					<td class="alignRight"><fmt:formatDate pattern="MM/DD/YYYY" value="${issuedSupply.lastUpdate}"/> </td>
+					<td class="alignRight"><fmt:formatDate pattern="MM/dd/YYYY" value="${issuedSupply.lastUpdate}"/> </td>
 				</tr>
 			</c:forEach>
 		</table>

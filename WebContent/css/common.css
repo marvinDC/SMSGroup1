@@ -27,3 +27,11 @@ table tr {
 .alignRight {
 	text-align:right
 }
+
+.hover {
+	background: lightyellow;
+}
+
+.active {
+	background: yellow;
+}

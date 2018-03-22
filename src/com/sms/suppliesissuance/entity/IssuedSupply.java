@@ -11,20 +11,6 @@ public class IssuedSupply {
 	private String deptId;
 	private String lastUser;
 	private Date lastUpdate;
-	
-	
-	public IssuedSupply(Integer issueId, Integer supplyId, Date issueDate, String requestor, Integer quantity,
-			String deptId, String lastUser, Date lastUpdate) {
-		super();
-		this.issueId = issueId;
-		this.supplyId = supplyId;
-		this.issueDate = issueDate;
-		this.requestor = requestor;
-		this.quantity = quantity;
-		this.deptId = deptId;
-		this.lastUser = lastUser;
-		this.lastUpdate = lastUpdate;
-	}
 
 	public Integer getIssueId() {
 		return issueId;
@@ -80,6 +66,4 @@ public class IssuedSupply {
 				+ ", requestor=" + requestor + ", quantity=" + quantity + ", deptId=" + deptId + ", lastUser="
 				+ lastUser + ", lastUpdate=" + lastUpdate + "]";
 	}
-	
-	
 }

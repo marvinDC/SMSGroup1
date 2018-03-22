@@ -18,11 +18,12 @@
 	<select id="getIssueSupplies" resultMap="getIssueSupplyMap">
 		SELECT * 
 		FROM ISSUED_SUPPLIES_GROUP1
+		ORDER BY issue_id
 	</select>
 	
 	<insert id="insertIssueSupply" parameterClass="IssuedSupplyClass">
 		INSERT into ISSUED_SUPPLIES_GROUP1 (issue_id, supply_id, issue_date, requestor, quantity, dept_id, last_user, last_update)
-		VALUES(GROUP1_ISSUED_ID_SEQ.NEXTVAL, #issueId#, #supplyId#, #issueDate#, #requestor#, #quantity#, #deptId#, #lastUser#, #lastUpdate#)
+		VALUES(GROUP1_ISSUED_ID_SEQ.NEXTVAL, #supplyId#, #issueDate#, #requestor#, #quantity#, #deptId#, #lastUser#, SYSDATE)
 	</insert>
 	
 	<insert id="deleteIssueSupply" parameterClass="IssuedSupplyClass">
@@ -38,7 +39,7 @@
 			quantity = #quantity#,
 			dept_id = #deptId#,
 			last_user = #lastUser#,
-			last_update = #lastUpdate#
+			last_update = SYSDATE
 		WHERE issue_id = #issueId#
 	</insert>
 </sqlMap>

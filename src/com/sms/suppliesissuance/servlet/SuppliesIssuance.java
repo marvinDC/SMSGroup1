@@ -1,7 +1,10 @@
 package com.sms.suppliesissuance.servlet;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -34,9 +37,6 @@ public class SuppliesIssuance extends HttpServlet {
 					
 					List<IssuedSupply> issuedSupplies = new ArrayList<>(); 
 					issuedSupplies = suppliesIssuanceService.getIssuedSupplies();
-					for (IssuedSupply e:issuedSupplies){
-						System.out.println(e.toString());
-					}
 					request.setAttribute("issuedSupplies", issuedSupplies);
 				} catch (Exception e) {
 					// TODO: handle exception
@@ -55,19 +55,32 @@ public class SuppliesIssuance extends HttpServlet {
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
-		SuppliesIssuanceService newIssuance = new SuppliesIssuanceServiceImpl();
+		System.out.println("doPost");
 		String action = request.getParameter("action");
-		Integer supplyId = new Integer(request.getParameter("supplyId"));
-		Integer quantity = new Integer(request.getParameter("quantity"));
-		String requestedBy = request.getParameter("requestedBy");
-		Integer departmentId = new Integer(request.getParameter("departmentId"));
-		String issueDate = request.getParameter("issueDate");
-		
-		if("add".equals(action)) {
+		List<IssuedSupply> issuedSupplies = new ArrayList<>();
+		String page = "pages/listingAndIssuance.jsp";
+		try {
+			ApplicationContext applicationContext = 
+					new ClassPathXmlApplicationContext("/com/sms/suppliesissuance/resource/applicationContext.xml");
+			SuppliesIssuanceService suppliesIssuanceService = 
+					(SuppliesIssuanceService) applicationContext.getBean("SuppliesIssuanceService");
 			
-		}
-		else if("update".equals(action)) {
-			
+			if("add".equals(action)) {
+				System.out.println("add");
+				suppliesIssuanceService.insertIssueSupply(request);
+			}
+			else if("update".equals(action)) {
+				suppliesIssuanceService.updateIssuedSupply(request);
+				System.out.println("after update");
+			}
+			issuedSupplies = suppliesIssuanceService.getIssuedSupplies();
+			request.setAttribute("issuedSupplies", issuedSupplies);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+			dispatcher.forward(request, response);
 		}
 	}
 }

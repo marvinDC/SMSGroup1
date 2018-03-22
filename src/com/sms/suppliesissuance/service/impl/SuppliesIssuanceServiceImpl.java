@@ -1,7 +1,11 @@
 package com.sms.suppliesissuance.service.impl;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.sms.suppliesissuance.dao.SuppliesIssuanceDAO;
 import com.sms.suppliesissuance.entity.IssuedSupply;
@@ -25,9 +29,16 @@ public class SuppliesIssuanceServiceImpl implements SuppliesIssuanceService {
 	}
 
 	@Override
-	public void insertIssueSupply(IssuedSupply issuedSupply) throws SQLException {
-		this.suppliesIssuanceDAO.insertIssueSupply(issuedSupply);
-
+	public void insertIssueSupply(HttpServletRequest request) throws SQLException, ParseException {
+		IssuedSupply newIssueSupply = new IssuedSupply();
+		newIssueSupply.setDeptId(request.getParameter("departmentId"));
+		newIssueSupply.setIssueDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("issueDate")));
+		newIssueSupply.setLastUser("admin");
+		newIssueSupply.setQuantity(new Integer(request.getParameter("quantity")));
+		newIssueSupply.setRequestor(request.getParameter("requestedBy"));
+		newIssueSupply.setSupplyId( new Integer(request.getParameter("supplyId")));
+		System.out.println(newIssueSupply);
+		this.suppliesIssuanceDAO.insertIssueSupply(newIssueSupply);
 	}
 
 	@Override
@@ -36,8 +47,17 @@ public class SuppliesIssuanceServiceImpl implements SuppliesIssuanceService {
 	}
 
 	@Override
-	public void updateIssuedSupply(IssuedSupply issuedSupply) throws SQLException {
-		this.suppliesIssuanceDAO.updateIssueSupply(issuedSupply);
+	public void updateIssuedSupply(HttpServletRequest request) throws SQLException, ParseException {
+		IssuedSupply newIssueSupply = new IssuedSupply();
+		newIssueSupply.setDeptId(request.getParameter("departmentId"));
+		newIssueSupply.setIssueDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("issueDate")));
+		newIssueSupply.setLastUser("admin");
+		newIssueSupply.setQuantity(new Integer(request.getParameter("quantity")));
+		newIssueSupply.setRequestor(request.getParameter("requestedBy"));
+		newIssueSupply.setSupplyId( new Integer(request.getParameter("supplyId")));
+		newIssueSupply.setIssueId(new Integer(request.getParameter("issueId")));
+		System.out.println(newIssueSupply);
+		this.suppliesIssuanceDAO.updateIssueSupply(newIssueSupply);
 	}
 
 }

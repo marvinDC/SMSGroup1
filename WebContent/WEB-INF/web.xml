@@ -12,4 +12,12 @@
   	<servlet-name>supplyissuance</servlet-name>
   	<url-pattern>/supply-issuance</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<servlet-name>home</servlet-name>
+  	<servlet-class>com.sms.homeandlogin.servlet.HomeAndLogin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>home</servlet-name>
+  	<url-pattern></url-pattern>
+  </servlet-mapping>
 </web-app>

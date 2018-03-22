@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sqlmap-2.dtd">
+<sqlMap namespace="Emp">
+
+	<typeAlias alias="StockClass" type="com.sms.suppliesstocks.entity.Stocks"/>
+	
+	<resultMap id="getStockMap" class="StockClass">
+		<result column="stock_id" 		property="stockId"/>
+		<result column="supply_id" 		property="supplyId"/>
+		<result column="date_added" 	property="dateAdded"/>
+		<result column="purchase_date" 	property="purchaseDate"/>
+		<result column="reference_no" 	property="refNo"/>
+		<result column="quantity" 		property="quantity"/>
+		<result column="last_user" 		property="lastUser"/>
+		<result column="last_update" 	property="lastUpdate"/>
+	</resultMap>
+
+	<select id="getStock" resultMap="getStockMap">
+		SELECT STOCK_ID, SUPPLY_ID, DATE_ADDED, PURCHASE_DATE, REFERENCE_NO, QUANTITY, LAST_USER, LAST_UPDATE 
+		FROM SUPPLIES_STOCKS_GRPONE
+	</select>
+	
+	<insert id="insertStock" parameterClass="StockClass">
+<!-- 		INSERT into SUPPLIES_STOCKS_GRPONE (STOCK_ID, SUPPLY_ID, REFERENCE_NO, QUANTITY, LAST_USER)
+		VALUES(#stockId#, #supplyId#, #refNo#, #quantity#, #lastUser#) -->
+		INSERT into SUPPLIES_STOCKS_GRPONE (STOCK_ID, SUPPLY_ID, QUANTITY, REFERENCE_NO, LAST_UPDATE)
+		VALUES(#SUPPLY_STOCK_ID_SEQ.NEXTVAL#, #quantity#, #refNo#)
+	</insert>
+	
+	<insert id="deleteStock" parameterClass="StockClass">
+		DELETE from SUPPLIES_STOCKS_GRPONE
+		WHERE STOCK_ID = #stockId#
+	</insert>
+	
+	<insert id="updateStock" parameterClass="StockClass">
+		UPDATE SUPPLIES_STOCKS_GRPONE
+		SET LAST_USER = #lastUser#,
+		STOCK_ID = #stockId#
+	</insert>
+</sqlMap>

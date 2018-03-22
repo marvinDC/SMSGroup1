@@ -6,17 +6,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Supplies Management Systems</title>
+<link rel="stylesheet" href="css/common.css" type="text/css"/>
 <script type="text/javascript" src="js/prototype.js"></script>
 <script>
 	var contextPath = '${pageContext.request.contextPath}';
 </script>
-<link rel="stylesheet" type="text/css" href="css/common.css">
 <script type="text/javascript" src="js/IssueSupplies.js"></script>
+<script type="text/javascript" src="js/homeAndLogin.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
 </head>
 <body>
-	<input type="button" value="Supply Issuance" id="initBtn" onclick="supplyIssuance()">
-	<div id="mainContents">
+	<div id="contents">
+		<jsp:include page="pages/main.jsp"></jsp:include>
 	</div>
 </body>
 

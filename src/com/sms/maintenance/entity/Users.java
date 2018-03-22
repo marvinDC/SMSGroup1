@@ -13,6 +13,23 @@ public class Users {
 	private String lastLogin;
 	private String lastUser;
 	
+	
+	public Users(String userId, String passWord, String firstName, String lastName, String email, String midInitial, String activeTag,
+			String accessLevel, String entryDate, String lastLogin, String lastUser) {
+		super();
+		this.userId = userId;
+		this.passWord = passWord;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.midInitial = midInitial;
+		this.email = email;
+		this.activeTag = activeTag;
+		this.accessLevel = accessLevel;
+		this.entryDate = entryDate;
+		this.lastLogin = lastLogin;
+		this.lastUser = lastUser;
+	}
+
 	public String getUserId() {
 		return userId;
 	}
@@ -79,9 +96,4 @@ public class Users {
 	public void setLastUser(String lastUser) {
 		this.lastUser = lastUser;
 	}
-
-
-	
-	
-	
 }

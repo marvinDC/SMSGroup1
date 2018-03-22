@@ -23,3 +23,7 @@ table tr {
 .tableHeader {
 	background: #d4edf7;
 }
+
+.alignRight {
+	text-align:right
+}

@@ -1,15 +1,31 @@
 package com.sms.suppliesissuance.entity;
 
+import java.util.Date;
+
 public class IssuedSupply {
 	private Integer issueId;
 	private Integer supplyId;
-	private String issueDate;
+	private Date issueDate;
 	private String requestor;
 	private Integer quantity;
 	private String deptId;
 	private String lastUser;
-	private String lastUpdate;
+	private Date lastUpdate;
 	
+	
+	public IssuedSupply(Integer issueId, Integer supplyId, Date issueDate, String requestor, Integer quantity,
+			String deptId, String lastUser, Date lastUpdate) {
+		super();
+		this.issueId = issueId;
+		this.supplyId = supplyId;
+		this.issueDate = issueDate;
+		this.requestor = requestor;
+		this.quantity = quantity;
+		this.deptId = deptId;
+		this.lastUser = lastUser;
+		this.lastUpdate = lastUpdate;
+	}
+
 	public Integer getIssueId() {
 		return issueId;
 	}
@@ -22,10 +38,10 @@ public class IssuedSupply {
 	public void setSupplyId(Integer supplyId) {
 		this.supplyId = supplyId;
 	}
-	public String getIssueDate() {
+	public Date getIssueDate() {
 		return issueDate;
 	}
-	public void setIssueDate(String issueDate) {
+	public void setIssueDate(Date issueDate) {
 		this.issueDate = issueDate;
 	}
 	public String getRequestor() {
@@ -52,11 +68,17 @@ public class IssuedSupply {
 	public void setLastUser(String lastUser) {
 		this.lastUser = lastUser;
 	}
-	public String getLastUpdate() {
+	public Date getLastUpdate() {
 		return lastUpdate;
 	}
-	public void setLastUpdate(String lastUpdate) {
+	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
+	}
+	@Override
+	public String toString() {
+		return "IssuedSupply [issueId=" + issueId + ", supplyId=" + supplyId + ", issueDate=" + issueDate
+				+ ", requestor=" + requestor + ", quantity=" + quantity + ", deptId=" + deptId + ", lastUser="
+				+ lastUser + ", lastUpdate=" + lastUpdate + "]";
 	}
 	
 	

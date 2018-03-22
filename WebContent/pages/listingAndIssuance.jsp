@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div>
 	<h3>Issue Supplies</h3>
 	<table>
@@ -62,56 +64,18 @@
 				<th style="width:130px">Last Updated By</th>
 				<th style="width:100px">Last Update</th>
 			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
+			<c:forEach var="issuedSupply" items="${issuedSupplies}">
+				<tr>
+					<td><a href="#">${issuedSupply.issueId}</a></td>
+					<td>${issuedSupply.supplyId}</td>
+					<td class="alignRight">${issuedSupply.quantity}</td>
+					<td>${issuedSupply.requestor}</td>
+					<td>${issuedSupply.deptId}</td>
+					<td class="alignRight"><fmt:formatDate pattern="MM/DD/YYYY" value="${issuedSupply.issueDate}"/></td>
+					<td>${issuedSupply.lastUser}</td>
+					<td class="alignRight"><fmt:formatDate pattern="MM/DD/YYYY" value="${issuedSupply.lastUpdate}"/> </td>
+				</tr>
+			</c:forEach>
 		</table>
 	</div>
 </div>

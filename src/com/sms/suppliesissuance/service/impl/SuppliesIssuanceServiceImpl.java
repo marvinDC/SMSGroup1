@@ -25,8 +25,8 @@ public class SuppliesIssuanceServiceImpl implements SuppliesIssuanceService {
 	}
 
 	@Override
-	public void insertIssueSupply() throws SQLException {
-		this.suppliesIssuanceDAO.insertIssueSupply();
+	public void insertIssueSupply(IssuedSupply issuedSupply) throws SQLException {
+		this.suppliesIssuanceDAO.insertIssueSupply(issuedSupply);
 
 	}
 
@@ -36,8 +36,8 @@ public class SuppliesIssuanceServiceImpl implements SuppliesIssuanceService {
 	}
 
 	@Override
-	public void updateIssuedSupply() throws SQLException {
-		this.suppliesIssuanceDAO.updateIssueSupply();
+	public void updateIssuedSupply(IssuedSupply issuedSupply) throws SQLException {
+		this.suppliesIssuanceDAO.updateIssueSupply(issuedSupply);
 	}
 
 }

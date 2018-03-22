@@ -7,7 +7,8 @@ import com.sms.suppliesissuance.entity.IssuedSupply;
 
 public interface SuppliesIssuanceDAO {
 	List<IssuedSupply> getIssueSupplies() throws SQLException;
-	void insertIssueSupply() throws SQLException;
+	void insertIssueSupply(IssuedSupply issuedSupply) throws SQLException;
 	void delIssueSupply() throws SQLException;
-	void updateIssueSupply() throws SQLException;
+	void updateIssueSupply(IssuedSupply issuedSupply) throws SQLException;
+	
 }

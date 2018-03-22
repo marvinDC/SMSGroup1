@@ -7,7 +7,8 @@ import com.sms.suppliesissuance.entity.IssuedSupply;
 
 public interface SuppliesIssuanceService {
 	List<IssuedSupply> getIssuedSupplies() throws SQLException;
-	void insertIssueSupply() throws SQLException;
+	void insertIssueSupply(IssuedSupply issuedSupply) throws SQLException;
 	void delIssuedSupply() throws SQLException;
-	void updateIssuedSupply() throws SQLException;
+	void updateIssuedSupply(IssuedSupply issuedSupply) throws SQLException;
+	
 }

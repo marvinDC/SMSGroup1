@@ -13,7 +13,6 @@ function supplyIssuance() {
 }
 
 function issueRequest() {
-	console.log('issueRequest');
 	new Ajax.Request(contextPath + "/supply-issuance", {
 		method: "GET",
 		parameters: {
@@ -24,19 +23,6 @@ function issueRequest() {
 		}
 	});
 	
-}
-
-function cancelAddIssue() {
-	console.log('issueRequest');
-	new Ajax.Request(contextPath + "/supply-issuance", {
-		method: "GET",
-		parameters: {
-			action: "table"
-		},
-		onComplete: function(response){
-			$("mainContents").update(response.responseText);
-		}
-	});
 }
 
 function initRowFunctions(){
@@ -78,7 +64,6 @@ function reset() {
 }
 
 function saveIssuedSupply(action) {
-	console.log('save');
 	var obj = {
 		supplyId: $F("selectItem"),
 		quantity: $F("quantity"),
@@ -92,35 +77,18 @@ function saveIssuedSupply(action) {
 	}
 	var message = validateIssueFields(obj);
 		if (!message) {
-			//send to servlet
-			console.log(obj);
 			new Ajax.Request(contextPath + "/supply-issuance", {
 				method: "POST",
 				parameters: obj,
 				onComplete: function(response){
 					$("mainContents").update(response.responseText);
+					initRowFunctions();
 				}
 			});
 		}
 	else {
 		alert(message);
 	}
-}
-
-function cancelIssuedSupply() {
-	console.log('cancel');
-	//back to home page
-	new Ajax.Request(contextPath + "/supply-issuance", {
-		method: "GET",
-		parameters: {
-			action: "home"
-		},
-		onComplete: function(response){
-			$("mainContents").update(response.responseText);
-		}
-	});
-	
-	new Ajax.updater()
 }
 
 function searchIssuedSupply(){

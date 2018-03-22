@@ -12,10 +12,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.sms.homeandlogin.entity.User;
 import com.sms.suppliesissuance.entity.IssuedSupply;
 import com.sms.suppliesissuance.service.SuppliesIssuanceService;
 import com.sms.suppliesissuance.service.impl.SuppliesIssuanceServiceImpl;
@@ -47,7 +49,7 @@ public class SuppliesIssuance extends HttpServlet {
 				page = "pages/addIssueSupplies.jsp";
 				break;
 			default:
-				page = "index.jsp";
+				page = "home.jsp";
 				break;
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
@@ -55,7 +57,7 @@ public class SuppliesIssuance extends HttpServlet {
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
-		System.out.println("doPost");
+		HttpSession session = request.getSession();
 		String action = request.getParameter("action");
 		List<IssuedSupply> issuedSupplies = new ArrayList<>();
 		String page = "pages/listingAndIssuance.jsp";
@@ -64,13 +66,13 @@ public class SuppliesIssuance extends HttpServlet {
 					new ClassPathXmlApplicationContext("/com/sms/suppliesissuance/resource/applicationContext.xml");
 			SuppliesIssuanceService suppliesIssuanceService = 
 					(SuppliesIssuanceService) applicationContext.getBean("SuppliesIssuanceService");
-			
+			User currUser = (User) session.getAttribute("currentUser");
 			if("add".equals(action)) {
 				System.out.println("add");
-				suppliesIssuanceService.insertIssueSupply(request);
+				suppliesIssuanceService.insertIssueSupply(request, currUser);
 			}
 			else if("update".equals(action)) {
-				suppliesIssuanceService.updateIssuedSupply(request);
+				suppliesIssuanceService.updateIssuedSupply(request, currUser);
 				System.out.println("after update");
 			}
 			issuedSupplies = suppliesIssuanceService.getIssuedSupplies();

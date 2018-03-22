@@ -1,23 +1,38 @@
 @charset "ISO-8859-1";
 
 .formInput {
-	width: 200px;
+	margin-left: 10px;
+	margin-bottom: 5px;
 }
 
-select.formInput {
-	width: 204px;
-}
-
-.formBtn {
-	width: 100px;
+.formBtn.btn{
+	width: 130px;
+	margin-bottom: 5px;
 }
 
 table {
 	border-collapse: collapse;
 }
 
+.content {
+	width: 90%;
+    margin-left: 5%;
+}
+
 table tr {
 	height: 22px;
+}
+
+table th {
+	padding: 0px 20px;
+}
+
+table td {
+	padding-left: 5px;
+}
+
+tr.row:before {
+	content: none;
 }
 
 .tableHeader {
@@ -25,7 +40,8 @@ table tr {
 }
 
 .alignRight {
-	text-align:right
+	text-align:right;
+	padding-left:5px;
 }
 
 .hover {

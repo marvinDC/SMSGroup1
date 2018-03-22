@@ -7,14 +7,15 @@ public class Users {
 	private String passWord;
 	private String firstName;
 	private String lastName;
-	private char midInitial;
-	private char activeTag;
+	private String midInitial;
+	private String email;
+	private String activeTag;
 	private String accessLevel;
 	private Date entryDate;
 	private Date lastLogin;
 	private String lastUser;
 	
-	public Users(String userId, String passWord, String firstName, String lastName, char midInitial, char activeTag,
+	public Users(String userId, String passWord, String firstName, String lastName, String email, String midInitial, String activeTag,
 			String accessLevel, Date entryDate, Date lastLogin, String lastUser) {
 		super();
 		this.userId = userId;
@@ -22,6 +23,7 @@ public class Users {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.midInitial = midInitial;
+		this.email = email;
 		this.activeTag = activeTag;
 		this.accessLevel = accessLevel;
 		this.entryDate = entryDate;
@@ -53,16 +55,22 @@ public class Users {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public char getMidInitial() {
+	public String getMidInitial() {
 		return midInitial;
 	}
-	public void setMidInitial(char midInitial) {
+	public void setMidInitial(String midInitial) {
 		this.midInitial = midInitial;
 	}
-	public char getActiveTag() {
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getActiveTag() {
 		return activeTag;
 	}
-	public void setActiveTag(char activeTag) {
+	public void setActiveTag(String activeTag) {
 		this.activeTag = activeTag;
 	}
 	public String getAccessLevel() {

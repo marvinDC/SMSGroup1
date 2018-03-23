@@ -5,12 +5,12 @@
 <nav class="navbar navbar-default" style="background: #e5f4f9;">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">SMS</a>
+      <a class="navbar-brand" href="#" onclick="backToHome()">SMS</a>
     </div>
     <c:if test="${currentUser != null}">
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
-	        <li><a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
+	        <li><a href="#" onclick="backToHome()"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
 	        <c:if test="${currentUser.accessLevel == 'A'}">
 	        <li><a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Maintenance</a></li>
 	        </c:if>

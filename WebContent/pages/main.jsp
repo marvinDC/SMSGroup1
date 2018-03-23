@@ -7,6 +7,7 @@
 <div id="mainContents">
 	<c:choose>
 		<c:when test="${currentUser != null}">
+			<jsp:include page="home.jsp"></jsp:include>
 		</c:when>
 		<c:otherwise>
 			<jsp:include page="login.jsp"></jsp:include>

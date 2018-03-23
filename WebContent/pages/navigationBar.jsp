@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<nav class="navbar navbar-default" style="background: #e5f4f9;">
+<nav class="navbar navbar-default" style="background: #e5f4f9; margin-bottom: 5px">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#" onclick="backToHome()">SMS</a>

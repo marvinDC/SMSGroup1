@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<div style="margin-left: 10px;">You are Here || Issue Supplies</div>
 <div class="content">
 	<h3>Issue Supplies</h3>
 	<div class="row">
@@ -44,7 +45,7 @@
 				<button class="formBtn btn btn-primary" id="saveBtn" onclick="saveIssuedSupply('update')">Save</button>
 			</div>
 			<div>
-				<button class="formBtn btn btn-primary" id="cancelBtn" onclick="cancelIssuedSupply()">Cancel</button>
+				<button class="formBtn btn btn-primary" id="cancelBtn" onclick="backToHome()">Cancel</button>
 			</div>
 		</div>
 	</div>

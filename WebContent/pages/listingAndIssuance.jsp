@@ -26,9 +26,13 @@
 				<tr>
 					<td align="right">Department Name </td>
 					<td><select id="selectDept" class="formInput form-control">
-						<option value="1">Department 1</option>
-						<option value="2">Department 2</option>
-						<option value="3">Department 3</option>
+						<option value="AD">Administration</option>
+						<option value="HR">Human Resources</option>
+						<option value="PU">Purchasing</option>
+						<option value="MK">Marketing</option>
+						<option value="IT">IT</option>
+						<option value="FI">Finance</option>
+						<option value="AC">Accounting</option>
 					</select></td>
 				</tr>
 				<tr>
@@ -74,12 +78,12 @@
 				<c:forEach var="issuedSupply" items="${issuedSupplies}">
 					<tr class="row">
 						<td title="${issuedSupply.issueId}"><a href="#">${issuedSupply.issueId}</a></td>
-						<td>${issuedSupply.supplyId}</td>
+						<td>${issuedSupply.itemName}</td>
 						<td>${issuedSupply.quantity}</td>
 						<td>${issuedSupply.requestor}</td>
 						<td>${issuedSupply.deptId}</td>
 						<td><fmt:formatDate pattern="MM/dd/YYYY" value="${issuedSupply.issueDate}"/></td>
-						<td>${issuedSupply.lastUser}</td>
+						<td></td>
 						<td><fmt:formatDate pattern="MM/dd/YYYY" value="${issuedSupply.lastUpdate}"/> </td>
 					</tr>
 				</c:forEach>

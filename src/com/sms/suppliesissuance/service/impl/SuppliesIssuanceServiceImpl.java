@@ -34,7 +34,7 @@ public class SuppliesIssuanceServiceImpl implements SuppliesIssuanceService {
 		IssuedSupply newIssueSupply = new IssuedSupply();
 		newIssueSupply.setDeptId(request.getParameter("departmentId"));
 		newIssueSupply.setIssueDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("issueDate")));
-		newIssueSupply.setLastUser(currUser.getFirstName().substring(0, 1) + currUser.getLastName());
+		newIssueSupply.setLastUser(currUser.getUserId());
 		newIssueSupply.setQuantity(new Integer(request.getParameter("quantity")));
 		newIssueSupply.setRequestor(request.getParameter("requestedBy"));
 		newIssueSupply.setSupplyId( new Integer(request.getParameter("supplyId")));
@@ -52,7 +52,7 @@ public class SuppliesIssuanceServiceImpl implements SuppliesIssuanceService {
 		IssuedSupply newIssueSupply = new IssuedSupply();
 		newIssueSupply.setDeptId(request.getParameter("departmentId"));
 		newIssueSupply.setIssueDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("issueDate")));
-		newIssueSupply.setLastUser(currUser.getFirstName().substring(0, 1) + currUser.getLastName());
+		newIssueSupply.setLastUser(currUser.getUserId());
 		newIssueSupply.setQuantity(new Integer(request.getParameter("quantity")));
 		newIssueSupply.setRequestor(request.getParameter("requestedBy"));
 		newIssueSupply.setSupplyId( new Integer(request.getParameter("supplyId")));

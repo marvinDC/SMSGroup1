@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div style="margin-left: 10px;">You are Here || Issue Supplies || Add</div>
 <div class="content">
-	<h3>Issue Supplies</h3>
+	<h3 class="pageHeader">Issue Supplies</h3>
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-6">
@@ -10,9 +10,9 @@
 				<tr>
 					<td align="right">Item Name </td>
 					<td align="right"><select id="selectItem" class="formInput form-control">
-						<option value="1">item1</option>
-						<option value="2">item2</option>
-						<option value="3">item3</option>
+						<option value=1>item1</option>
+						<option value=2>item2</option>
+						<option value=3>item3</option>
 					</select></td>
 				</tr>
 				<tr>
@@ -26,9 +26,13 @@
 				<tr>
 					<td align="right">Department Name </td>
 					<td><select id="selectDept" class="formInput form-control">
-						<option value="1">Department 1</option>
-						<option value="2">Department 2</option>
-						<option value="3">Department 3</option>
+						<option value="AD">Administration</option>
+						<option value="HR">Human Resources</option>
+						<option value="PU">Purchasing</option>
+						<option value="MK">Marketing</option>
+						<option value="IT">IT</option>
+						<option value="FI">Finance</option>
+						<option value="AC">Accounting</option>
 					</select></td>
 				</tr>
 				<tr>

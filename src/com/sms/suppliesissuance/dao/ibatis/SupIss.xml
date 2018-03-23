@@ -13,12 +13,15 @@
 		<result column="dept_id" 			property="deptId"/>
 		<result column="last_user" 			property="lastUser"/>
 		<result column="last_update" 		property="lastUpdate"/>
+		<result column="item_name" 			property="itemName"/>
 	</resultMap>
 
 	<select id="getIssueSupplies" resultMap="getIssueSupplyMap">
-		SELECT * 
-		FROM ISSUED_SUPPLIES_GROUP1
-		ORDER BY issue_id
+		SELECT ISSUED_SUPPLIES_GROUP1.*,  SUPPLIES_GROUP1.ITEM_NAME
+		FROM ISSUED_SUPPLIES_GROUP1 
+		INNER JOIN SUPPLIES_GROUP1
+		ON ISSUED_SUPPLIES_GROUP1.SUPPLY_ID=SUPPLIES_GROUP1.SUPPLY_ID
+		ORDER BY ISSUED_SUPPLIES_GROUP1.ISSUE_ID
 	</select>
 	
 	<insert id="insertIssueSupply" parameterClass="IssuedSupplyClass">

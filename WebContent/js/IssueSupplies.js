@@ -73,7 +73,7 @@ function saveIssuedSupply(action) {
 		action: action
 	};
 	if (action == "update") {
-		obj.issueId = $$("#issuedListing .active")[0].down("td", 0).title;
+		($$("#issuedListing .active").length > 0) ? obj.issueId = $$("#issuedListing .active")[0].down("td", 0).title : message = "No row Selected";
 	}
 	var message = validateIssueFields(obj);
 		if (!message) {

@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Add New</title>
 <link rel="stylesheet" type="text/css" href="css/mycss.css">
-<script type="text/javascript" src="prototype/prototype.js"></script>
+<script type="text/javascript" src="js/prototype.js"></script>
 <script>
 	var contextPath = '${pageContext.request.contextPath}';
 </script>
@@ -24,7 +26,7 @@
 	<tr><td>Last Name </td><td><input type="text" id="lName" name="lastName"></td></tr>
 	<tr><td>Middle Initial</td><td> <input type="text" id="mInitial" name="midInitial" ></td></tr>
 	<tr><td>Email Address</td><td><input type="text" id="email" name="emailAdd" ></td></tr>
-	<tr><td>Active Tag 	</td><td><input type="radio" name="tag" value="Y">Yes<input type="radio" name="tag" value="N">No</td></tr>
+	<tr><td>Active Tag 	</td><td><input type="radio" id="yag" name="ID" value="Y">Yes<input type="radio" id="nag" name="ID" value="N">No</td></tr>
 	<tr><td>Access Level</td>
 		<td><select id="accessLevel">
 		<option value=""></option>        
@@ -37,10 +39,41 @@
 </div>
 </body>
 	<script>
-	
-	
-	
-	
-	
+
+$("save").observe("click", function(){
+	new Ajax.Request(contextPath + "/maintenance", {
+		method: "GET",
+		parameters: {
+			userid: $F("userId"),
+			password: $F("pWord"),
+			firstname: $F("fName"),
+			lastname:	$F("lName"),
+			midinitial: $F("mInitial"),
+			email: $F("email"),
+			acttag: $("yag").checked == true ? $("yag").value : $("nag").value,
+			acclevel: $F("accessLevel"),
+			action: "save"
+		},
+		onComplete: function(response){
+			//$("mainDiv").update(response.responseText);
+		}
+	});
+
+})
+
+
+$("cancel").observe("click", function(){
+	new Ajax.Request(contextPath + "/maintenance", {
+		method: "GET",
+		parameters: {
+			action: "cancel"
+		},
+		onComplete: function(response){
+			$("mainDiv").update(response.responseText);
+		}
+	});
+})
+
+		
 	</script>
 </html>

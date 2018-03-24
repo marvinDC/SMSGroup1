@@ -12,7 +12,7 @@
 	      <ul class="nav navbar-nav">
 	        <li><a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
 	        <c:if test="${currentUser.accessLevel == 'A'}">
-	        <li><a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Maintenance</a></li>
+	        <li><a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true" onclick="maintenance()"></span> Maintenance</a></li>
 	        </c:if>
 	        <li><a href="#"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> Issue Supplies</a></li>
 	        <li><a href="#"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> Add Stocks</a></li>

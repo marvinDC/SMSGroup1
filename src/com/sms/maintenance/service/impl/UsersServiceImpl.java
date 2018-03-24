@@ -3,6 +3,8 @@ package com.sms.maintenance.service.impl;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.sms.maintenance.dao.UsersDAO;
 import com.sms.maintenance.entity.Users;
 import com.sms.maintenance.service.UsersService;
@@ -21,25 +23,21 @@ public class UsersServiceImpl implements UsersService{
 	}
 
 	@Override
-	public List<Users> getUser() throws SQLException {
+	public List<Users> getUser(HttpServletRequest request) throws SQLException {
 		System.out.println("TEST!");
-		return userDAO.getUser();
+		return userDAO.getUser(request);
 	}
 
 	@Override
-	public void insertUser() throws SQLException {
+	public void insertUser(HttpServletRequest request) throws SQLException {
 		System.out.println("SERVICE");
-		this.userDAO.insertUser();		
+		this.userDAO.insertUser(request);		
 	}
 
-	@Override
-	public void delUser() throws SQLException {
-		this.userDAO.delUser();
-	}
 
 	@Override
-	public void updateUser() throws SQLException {
-		this.userDAO.updateUser();
+	public void updateUser(HttpServletRequest request) throws SQLException {
+		this.userDAO.updateUser(request);
 	}
 
 }

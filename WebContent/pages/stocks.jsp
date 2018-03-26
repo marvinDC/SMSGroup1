@@ -11,6 +11,7 @@
 <style>
 tr:hover {background-color:#f5f5f5;}
 </style>
+<link rel="stylesheet" type="text/css" href="css/common.css">
 </head>
 <body>
 <center>
@@ -21,48 +22,48 @@ tr:hover {background-color:#f5f5f5;}
 	<table>
 		<tr>
 			<td align="right"><label><b>Item Name: </b></label></td>
-			<td><select id="selItem" name="supplies"  style="width: 155px">
+			<td><select id="selItem" name="supplies"  style="width: 200px" class="formInput form-control">
 			<c:forEach var="itemss" items="${item1}">
-			<option value="${itemss.itemName}">
+			<option value="${itemss.supplyId}">
 			<c:out value="${itemss.itemName}"></c:out></option>
 			</c:forEach>
 			</select>
 			</td>
 			<td style="width: 200px"></td>
-			<td><input type="button" id="btnAddStocks" value="Add Stocks" style="width: 100px"></td>
+			<td><input type="button" id="btnAddStocks" value="Add Stocks" style="width: 100px" class="formBtn btn btn-primary"></td>
 		</tr>
 
 		<tr>
 			<td align="right"><label><b>Quantity: </b></label></td>
-			<td><input type="text" id="txtQuantity" style="width: 150px"></td>
+			<td><input type="text" id="txtQuantity" style="width: 200px" class="formInput form-control"></td>
 			<td></td>
-			<td><input type="button" id="btnSave" style="width: 100px" value="Save"></td>
+			<td><input type="button" id="btnSave" style="width: 100px" value="Save" class="formBtn btn btn-primary"></td>
 		</tr>
 		
 		<tr>
 			<td align="right"><label><b>Reference No: </b></label></td>
-			<td><input type="text" id="txtRefNo" style="width: 150px"></td>
+			<td><input type="text" id="txtRefNo" style="width: 200px" class="formInput form-control"></td>
 			<td></td>
-			<td><input type="button" id="btnCancel" value="Cancel" style="width: 100px"></td>
+			<td><input type="button" id="btnCancel" value="Cancel" style="width: 100px" class="formBtn btn btn-primary"></td>
 		</tr>
 		
 		<tr>
 			<td align="right"><label><b>Date Added: </b></label></td>
-			<td><input type="text" id="txtDateAdded" style="width: 150px"></td>
+			<td><input type="text" id="txtDateAdded" style="width: 200px" class="formInput form-control"></td>
 		</tr>
 		
 		<tr>
 			<td align="right"><label><b>Purchase Added: </b></label></td>
-			<td><input type="text" id="txtPurchaseAdded" style="width: 150px"></td>
+			<td><input type="text" id="txtPurchaseAdded" style="width: 200px" class="formInput form-control"></td>
 		</tr>
 		
 	<tr>
-	<td><input type="hidden" id="txtStockId" style="width: 150px"></td>
+	<td><input type="hidden" id="txtStockId" style="width: 200px" class="formInput form-control"></td>
 	</tr>
 	
 	<tr>
 	<td align="right"><label><b>Search:</b></label> </td> 
-	<td><input type="text" id="txtSearch" style="width: 150px"><br></td>
+	<td><input type="text" id="txtSearch" style="width: 200px" class="formInput form-control"><br></td>
 	<br>
 	</tr>
 	</table>
@@ -72,6 +73,7 @@ tr:hover {background-color:#f5f5f5;}
 	<table id="stockTable" border="1">
 	<tr>
 		<th>Stock ID</th>
+		<th></th>
 		<th>Item Name</th>
 		<th>Qty</th>
 		<th>Reference No</th>
@@ -84,6 +86,7 @@ tr:hover {background-color:#f5f5f5;}
 	<c:forEach var="stocks" items="${stockList}">
 	<tr>
 	<td><c:out value="${stocks.stockId}"></c:out></td>
+	<td><c:out value="${stocks.supplyId}"></c:out></td>
 	<td><c:out value="${stocks.itemName}"></c:out></td>
 	<td><c:out value="${stocks.quantity}"></c:out></td>
 	<td><c:out value="${stocks.refNo}"></c:out></td>
@@ -91,14 +94,20 @@ tr:hover {background-color:#f5f5f5;}
 	<td><c:out value="${stocks.purchaseDate}"></c:out></td>
 	<td><c:out value="${stocks.lastUser}"></c:out></td>
 	<td><c:out value="${stocks.lastUpdate}"></c:out></td>
-	<tr>
+	</tr>
 	</c:forEach>
 	
 	
 	
 	</table>
-	
-	
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	
 	
 </div>
@@ -114,7 +123,6 @@ tr:hover {background-color:#f5f5f5;}
 	})
 	
  		function search() {
-		alert($F("txtSearch"));
 		new Ajax.Request("${pageContext.request.contextPath}" + "/suppliesstocks", {
 			method : "GET",
 			parameters : {
@@ -137,10 +145,10 @@ tr:hover {background-color:#f5f5f5;}
 		table.rows[i].onclick = function()
 		{
 			$("selItem").value = this.cells[1].innerHTML;
-			$("txtQuantity").value = this.cells[2].innerHTML;
-			$("txtRefNo").value = this.cells[3].innerHTML;
-			$("txtDateAdded").value = this.cells[4].innerHTML;
-			$("txtPurchaseAdded").value = this.cells[5].innerHTML;
+			$("txtQuantity").value = this.cells[3].innerHTML;
+			$("txtRefNo").value = this.cells[4].innerHTML;
+			$("txtDateAdded").value = this.cells[5].innerHTML;
+			$("txtPurchaseAdded").value = this.cells[6].innerHTML;
 			$("txtStockId").value = this.cells[0].innerHTML;
 		};
 	} 
@@ -148,7 +156,6 @@ tr:hover {background-color:#f5f5f5;}
 	
 	
 	$("btnAddStocks").observe("click", function(){
-		alert("test");
 		new Ajax.Request("${pageContext.request.contextPath}" + "/suppliesstocks", {
 			method: "get",
 			parameters: {
@@ -162,8 +169,6 @@ tr:hover {background-color:#f5f5f5;}
 	
 	
 	$("btnSave").observe("click", function(){
-		alert("testsave");
-		alert($F("txtStockId"));
 		new Ajax.Request("${pageContext.request.contextPath}" + "/suppliesstocks", {
 			method: "get",
 			parameters: {
@@ -184,7 +189,7 @@ tr:hover {background-color:#f5f5f5;}
 	
 	
  	$("btnCancel").observe("click", function(){
-		new Ajax.Request("${pageContext.request.contextPath}" + "/suppliesstocks", {
+		new Ajax.Request("${pageContext.request.contextPath}" + "/", {
 			method: "get",
 			parameters: {
 				actionBack : "backToHome"

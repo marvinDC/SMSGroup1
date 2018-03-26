@@ -9,25 +9,29 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd"
 	default-init-method="init">
 
-	<bean class="org.springframework.orm.ibatis.SqlMapClientFactoryBean" id="sqlMapClient" >
+	<bean class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"
+		id="sqlMapClient">
 		<property name="configLocation">
 			<value>/com/sms/suppliesstocks/resource/SqlMapConfig.xml</value>
 		</property>
-		<property name="dataSource" ref="dataSource"/>
+		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@192.10.10.8:1521:TRNG" />
 		<property name="username" value="HR" />
 		<property name="password" value="HR" />
 	</bean>
-	
-	<bean class="com.sms.suppliesstocks.impl.StocksDAOImpl" id="stockDAO" depends-on="sqlMapClient">
+
+	<bean class="com.sms.suppliesstocks.impl.StocksDAOImpl" id="stockDAO"
+		depends-on="sqlMapClient">
 		<property name="sqlMapClient" ref="sqlMapClient"></property>
 	</bean>
-	
-	<bean class="com.sms.suppliesstocks.service.impl.StockServiceImpl" id="stockService" depends-on="stockDAO">
+
+	<bean class="com.sms.suppliesstocks.service.impl.StockServiceImpl"
+		id="stockService" depends-on="stockDAO">
 		<property name="stockDAO" ref="stockDAO"></property>
 	</bean>
 </beans>

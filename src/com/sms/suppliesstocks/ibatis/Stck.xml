@@ -2,88 +2,102 @@
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sqlmap-2.dtd">
 <sqlMap namespace="Emp">
 
-	<typeAlias alias="StockClass" type="com.sms.suppliesstocks.entity.Stocks"/>
-	
+	<typeAlias alias="StockClass" type="com.sms.suppliesstocks.entity.Stocks" />
+
 	<resultMap id="getStockMap" class="StockClass">
-		<result column="stock_id" 		property="stockId"/>
-		<result column="item_name" 		property="itemName"/>
-		<result column="date_added" 	property="dateAdded"/>
-		<result column="purchase_date" 	property="purchaseDate"/>
-		<result column="reference_no" 	property="refNo"/>
-		<result column="quantity" 		property="quantity"/>
-		<result column="last_user" 		property="lastUser"/>
-		<result column="last_update" 	property="lastUpdate"/>
-		<!-- <result column="supply_id" 		property="supplyId"/> -->
+		<result column="stock_id" property="stockId" />
+		<result column="item_name" property="itemName" />
+		<result column="date_added" property="dateAdded" />
+		<result column="purchase_date" property="purchaseDate" />
+		<result column="reference_no" property="refNo" />
+		<result column="quantity" property="quantity" />
+		<result column="last_user" property="lastUser" />
+		<result column="last_update" property="lastUpdate" />
+		<result column="supply_id" property="supplyId" />
 	</resultMap>
-	
+
+	<resultMap id="getSearchMap" class="StockClass">
+		<result column="stock_id" property="stockId" />
+		<result column="item_name" property="itemName" />
+		<result column="date_added" property="dateAdded" />
+		<result column="purchase_date" property="purchaseDate" />
+		<result column="reference_no" property="refNo" />
+		<result column="quantity" property="quantity" />
+		<result column="last_user" property="lastUser" />
+		<result column="last_update" property="lastUpdate" />
+	</resultMap>
+
 	<resultMap id="getItemMap" class="StockClass">
-	<result column="item_name" 		property="itemName"/>
+		<result column="item_name" property="itemName" />
+		<result column="supply_id" property="supplyId" />
 	</resultMap>
 
 	<select id="getStock" resultMap="getStockMap">
-		<!-- SELECT STOCK_ID, SUPPLY_ID, QUANTITY, REFERENCE_NO, TO_CHAR(DATE_ADDED, 'MM/DD/YYYY') AS DATE_ADDED, TO_CHAR(PURCHASE_DATE,'MM/DD/YYYY') AS PURCHASE_DATE,  LAST_USER, TO_CHAR(LAST_UPDATE, 'MM/DD/YYYY') AS LAST_UPDATE
-		FROM SUPPLIES_STOCKS_GROUP1 -->
-		SELECT 
-		STOCK.STOCK_ID AS stock_id, 
-		SUPPLY.ITEM_NAME AS item_name, 
-		STOCK.QUANTITY AS QUANTITY, 
-		STOCK.REFERENCE_NO AS REFERENCE_NO, 
-		TO_CHAR(STOCK.DATE_ADDED, 'MM/DD/YYYY') AS DATE_ADDED, 
-		TO_CHAR(STOCK.PURCHASE_DATE,'MM/DD/YYYY') AS PURCHASE_DATE, 
-		STOCK.LAST_USER AS LAST_USER, 
+		SELECT
+		STOCK.SUPPLY_ID AS SUPPLY_ID,
+		STOCK.STOCK_ID AS STOCK_ID,
+		SUPPLY.ITEM_NAME AS ITEM_NAME,
+		STOCK.QUANTITY AS QUANTITY,
+		STOCK.REFERENCE_NO AS REFERENCE_NO,
+		TO_CHAR(STOCK.DATE_ADDED, 'MM/DD/YYYY') AS DATE_ADDED,
+		TO_CHAR(STOCK.PURCHASE_DATE,'MM/DD/YYYY') AS PURCHASE_DATE,
+		STOCK.LAST_USER AS LAST_USER,
 		TO_CHAR(STOCK.LAST_UPDATE, 'MM/DD/YYYY') AS LAST_UPDATE
-		FROM SUPPLIES_STOCKS_GROUP1 STOCK, SUPPLIES_GROUP1 SUPPLY
+		FROM SUPPLIES_STOCKS_GROUP1 STOCK,
+		SUPPLIES_GROUP1 SUPPLY
+		WHERE STOCK.SUPPLY_ID = SUPPLY.SUPPLY_ID
 	</select>
-	
+
+
+
 	<select id="getItemName" resultMap="getItemMap">
-		<!-- SELECT STOCK_ID, SUPPLY_ID, QUANTITY, REFERENCE_NO, TO_CHAR(DATE_ADDED, 'MM/DD/YYYY') AS DATE_ADDED, TO_CHAR(PURCHASE_DATE,'MM/DD/YYYY') AS PURCHASE_DATE,  LAST_USER, TO_CHAR(LAST_UPDATE, 'MM/DD/YYYY') AS LAST_UPDATE
-		FROM SUPPLIES_STOCKS_GROUP1 -->
-		SELECT  
-		ITEM_NAME
+		SELECT
+		ITEM_NAME, SUPPLY_ID
 		FROM SUPPLIES_GROUP1
 	</select>
-	
 
-	
+
+
 	<insert id="insertStock" parameterClass="StockClass">
-<!-- 		INSERT into SUPPLIES_STOCKS_GRPONE (STOCK_ID, SUPPLY_ID, REFERENCE_NO, QUANTITY, LAST_USER)
-		VALUES(#stockId#, #supplyId#, #refNo#, #quantity#, #lastUser#) -->
-		INSERT into SUPPLIES_STOCKS_GROUP1 (STOCK_ID, SUPPLY_ID, DATE_ADDED, PURCHASE_DATE, QUANTITY, REFERENCE_NO, LAST_USER)
-		VALUES(#stockId#, #supplyId#, SYSDATE, SYSDATE, #quantity#, #refNo#, #lastUser#)
+		INSERT into
+		SUPPLIES_STOCKS_GROUP1 (STOCK_ID, SUPPLY_ID, DATE_ADDED,
+		PURCHASE_DATE, QUANTITY, REFERENCE_NO, LAST_USER)
+		VALUES(GROUP1_STOCK_ID_SEQ.NEXTVAL, #itemName#, #dateAdded#,
+		#purchaseDate#, #quantity#, #refNo#, #lastUser#)
 	</insert>
-	
+
 	<insert id="deleteStock" parameterClass="StockClass">
-		DELETE from SUPPLIES_STOCKS_GROUP1
+		DELETE from
+		SUPPLIES_STOCKS_GROUP1
 		WHERE STOCK_ID = #stockId#
 	</insert>
-	
+
 	<procedure id="updateStock" parameterClass="StockClass">
-		 BEGIN
-			UPDATE SUPPLIES_STOCKS_GROUP1
-			SET SUPPLY_ID = #supplyId#,
-			QUANTITY = #quantity#,
-			REFERENCE_NO = #refNo#,
-			DATE_ADDED = TO_DATE(#dateAdded#,'MM/DD/YYYY'),
-			PURCHASE_DATE = TO_DATE(#purchaseDate#, 'MM/DD/YYYY')
-			WHERE STOCK_ID = #stockId#;
-		END; 
+		BEGIN
+		UPDATE SUPPLIES_STOCKS_GROUP1
+		SET SUPPLY_ID = #supplyId#,
+		QUANTITY = #quantity#,
+		REFERENCE_NO = #refNo#,
+		DATE_ADDED = TO_DATE(#dateAdded#,'MM/DD/YYYY'),
+		PURCHASE_DATE = TO_DATE(#purchaseDate#, 'MM/DD/YYYY')
+		WHERE STOCK_ID = #stockId#;
+		END;
 	</procedure>
-	
-	<select id="searchStock" resultMap="getStockMap">	
-<!-- 		SELECT STOCK_ID, SUPPLY_ID, QUANTITY, REFERENCE_NO, DATE_ADDED, PURCHASE_DATE, LAST_USER, LAST_UPDATE 
-		FROM SUPPLIES_STOCKS_GROUP1
-		WHERE STOCK_ID = #stockId# -->
-		SELECT 
-		STOCK.STOCK_ID AS stock_id, 
-		SUPPLY.ITEM_NAME AS item_name, 
-		STOCK.QUANTITY AS QUANTITY, 
-		STOCK.REFERENCE_NO AS REFERENCE_NO, 
-		TO_CHAR(STOCK.DATE_ADDED, 'MM/DD/YYYY') AS DATE_ADDED, 
-		TO_CHAR(STOCK.PURCHASE_DATE,'MM/DD/YYYY') AS PURCHASE_DATE, 
-		STOCK.LAST_USER AS LAST_USER, 
+
+	<select id="searchStock" resultMap="getSearchMap">
+		SELECT
+		STOCK.STOCK_ID AS STOCK_ID,
+		SUPPLY.ITEM_NAME AS ITEM_NAME,
+		STOCK.QUANTITY AS QUANTITY,
+		STOCK.REFERENCE_NO AS REFERENCE_NO,
+		TO_CHAR(STOCK.DATE_ADDED, 'MM/DD/YYYY') AS DATE_ADDED,
+		TO_CHAR(STOCK.PURCHASE_DATE,'MM/DD/YYYY') AS PURCHASE_DATE,
+		STOCK.LAST_USER AS LAST_USER,
 		TO_CHAR(STOCK.LAST_UPDATE, 'MM/DD/YYYY') AS LAST_UPDATE
-		FROM SUPPLIES_STOCKS_GROUP1 STOCK, SUPPLIES_GROUP1 SUPPLY
-		WHERE STOCK_ID = #stockId#
+		FROM SUPPLIES_STOCKS_GROUP1 STOCK,
+		SUPPLIES_GROUP1 SUPPLY
+		WHERE STOCK.SUPPLY_ID = SUPPLY.SUPPLY_ID AND
+		STOCK.STOCK_ID = #stockId#
 	</select>
-	
+
 </sqlMap>

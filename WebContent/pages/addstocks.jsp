@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
 <script src="js/prototype.js"></script>
-
+<link rel="stylesheet" type="text/css" href="css/common.css">
 </head>
 <body>
 <center>
@@ -19,9 +19,9 @@
 	<table>
 		<tr>
 			<td align="right"><label><b>Item Name: </b></label></td>
-			<td><select id="selItem" name="supplies"  style="width: 155px">
+			<td><select id="selItem" name="supplies"  style="width: 200px" class="formInput form-control">
 			<c:forEach var="itemss" items="${item1}">
-			<option value="${itemss.itemName}">
+			<option value="${itemss.supplyId}">
 			<c:out value="${itemss.itemName}"></c:out></option>
 			</c:forEach>
 			</select>
@@ -32,41 +32,34 @@
 
 		<tr>
 			<td align="right"><label><b>Quantity: </b></label></td>
-			<td><input type="text" id="txtQuantity" style="width: 150px"></td>
+			<td><input type="text" id="txtQuantity" style="width: 200px" class="formInput form-control" ></td>
 			<td></td>
-			<td><input type="button" id="btnSave" value="Save" style="width: 100px"></td>
+			<td><input type="button" id="btnSave" value="Save" style="width: 100px" class="formBtn btn btn-primary"></td>
 		</tr>
 		
 		<tr>
 			<td align="right"><label><b>Reference No: </b></label></td>
-			<td><input type="text" id="txtRefNo" style="width: 150px"></td>
+			<td><input type="text" id="txtRefNo" style="width: 200px" class="formInput form-control"></td>
 			<td></td>
-			<td><input type="button" id="btnCancel" value="Cancel" style="width: 100px"></td>
+			<td><input type="button" id="btnCancel" value="Cancel" style="width: 100px" class="formBtn btn btn-primary"></td>
 		</tr>
 		
 		<tr>
 			<td align="right"><label><b>Date Added: </b></label></td>
-			<td><input type="text" id="txtDateAdded" style="width: 150px"></td>
+			<td><input type="text" id="txtDateAdded" style="width: 200px" class="formInput form-control"></td>
 		</tr>
 		
 		<tr>
 			<td align="right"><label><b>Purchase Added: </b></label></td>
-			<td><input type="text" id="txtPurchaseAdded" style="width: 150px"></td>
+			<td><input type="text" id="txtPurchaseAdded" style="width: 200px" class="formInput form-control"></td>
 		</tr>
 		
-	<tr>
-	<td> &nbsp;&nbsp;&nbsp;</td>
-	</tr>
-	
-	<tr>
-	<td align="right"><label><b>Search:</b></label> </td> 
-	<td><input type="text" id="txtSearch" style="width: 150px"> </td>
-	<br>
-	</tr>
+
 	</table>
 	<br>
-	
-
+	<br>
+	<br>
+	<br>
 		</div> 
 	
 
@@ -82,13 +75,14 @@
 	})
 	
  		function addStock() {
-		alert($F("txtItemName"));
 		new Ajax.Request("${pageContext.request.contextPath}" + "/suppliesstocks", {
 			method : "GET",
 			parameters : {
-				itemname : $F("txtItemName"),
+				itemname : $F("selItem"),
 				quantity : $F("txtQuantity"),
 				refno : $F("txtRefNo"),
+				dateadded: $F("txtDateAdded"),
+				datepurchase: $F("txtPurchaseAdded"),
 				actionSave : "save"
 			},
 			onComplete : function(response) {

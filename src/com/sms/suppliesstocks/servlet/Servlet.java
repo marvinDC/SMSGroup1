@@ -22,9 +22,6 @@ import com.sms.suppliesstocks.service.StockService;
 
 public class Servlet extends HttpServlet{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3254083445269926470L;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -46,6 +43,21 @@ public class Servlet extends HttpServlet{
 			StockService stockService = 
 					(StockService) applicationContext.getBean("stockService");
 			
+
+			
+			
+			String items="";
+			List<Stocks> item = new ArrayList<>();
+			item = stockService.getItemNames();
+
+			
+			request.setAttribute("item1", item);		
+			
+			List<Stocks> l = new ArrayList<>();
+			l = stockService.getStock();
+			request.setAttribute("stockList", l);
+			
+			
 			if (("search").equals(actionsearch)) {
 				List<Stocks> h = new ArrayList<>();
 				h =	stockService.searchStock(request);
@@ -58,45 +70,21 @@ public class Servlet extends HttpServlet{
 			}
 			
 			
-			String items="";
-			List<Stocks> item = new ArrayList<>();
-			item = stockService.getItemNames();
-			
-			for (Stocks stocks : item) {
-			System.out.println(stocks.getItemName());
-			}
-			request.setAttribute("item1", item);		
-			
-			List<Stocks> l = new ArrayList<>();
-			l = stockService.getStock();
-			request.setAttribute("stockList", l);
-			
-			
 			if (("save").equals(actionsave)) {
 				stockService.insertStock(request);
-				System.out.println("Here");
-				for (Stocks s:l){
-					System.out.println(s.getStockId()+ ", " + s.getSupplyId() + ", " + s.getRefNo() + ", " + s.getQuantity() + ", " + s.getLastUser() + ", " + s.getLastUpdate());
-				}
 			}
 			
 			if (("update").equals(actionupdate)) {
 				stockService.updateStock(request);
-				System.out.println("Here");
-				for (Stocks s:l){
-			//		System.out.println(s.getStockId()+ ", " + s.getSupplyId() + ", " + s.getRefNo() + ", " + s.getQuantity() + ", " + s.getLastUser() + ", " + s.getLastUpdate());
-				}
 			}
 			
 
 			
 		
 			if ((("backToStock").equals(actionback)) && (actionback != null)) {
-				page = "pages/stocks.jsp";
-				
+				page = "pages/stocks.jsp";				
 			} else if ((("goToAdd").equals(actionadd)) && (actionadd != null)) {
-				page = "pages/addstocks.jsp";
-				
+				page = "pages/addstocks.jsp";			
 			} else if ((("backToHome").equals(actionhome)) && (actionhome != null)) { 
 				page = "index.jsp";
 			} else if ((("stocks").equals(action)) && (action != null)) { 

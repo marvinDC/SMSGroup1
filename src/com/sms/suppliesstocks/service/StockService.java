@@ -1,7 +1,6 @@
 package com.sms.suppliesstocks.service;
 
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,5 +15,4 @@ public interface StockService {
 	List<Stocks> searchStock(HttpServletRequest request) throws SQLException;
 	List<Stocks> getItemNames() throws SQLException;
 	void updateStock(HttpServletRequest request) throws SQLException;
-	
 }

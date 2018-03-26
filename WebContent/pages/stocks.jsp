@@ -195,7 +195,7 @@ tr:hover {background-color:#f5f5f5;}
 				actionBack : "backToHome"
 			},
 			onComplete: function(response){
-				$("mainContents").update(response.responseText);
+				$("contents").update(response.responseText);
 			}
 		})
 	}); 

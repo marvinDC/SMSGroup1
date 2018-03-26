@@ -3,6 +3,7 @@
 <sqlMap namespace="SupIss">
 
 	<typeAlias alias="IssuedSupplyClass" type="com.sms.suppliesissuance.entity.IssuedSupply"/>
+	<typeAlias alias="DepartmentClass" type="com.sms.suppliesissuance.entity.Department"/>
 	
 	<resultMap id="getIssueSupplyMap" class="IssuedSupplyClass">
 		<result column="issue_id" 			property="issueId"/>
@@ -14,13 +15,42 @@
 		<result column="last_user" 			property="lastUser"/>
 		<result column="last_update" 		property="lastUpdate"/>
 		<result column="item_name" 			property="itemName"/>
+		<result column="department_name" 	property="deptName"/>
+		<result column="last_user_name" 	property="lastUserName"/>
 	</resultMap>
+	
+	<resultMap id="getDepartmentMap" class="DepartmentClass">
+		<result column="department_id" 		property="deptId"/>
+		<result column="department_name" 	property="deptName"/>
+	</resultMap>
+	
+	<select id="getDepartments" resultMap="getDepartmentMap">
+		SELECT *
+		FROM DEPARTMENTS
+	</select>
 
 	<select id="getIssueSupplies" resultMap="getIssueSupplyMap">
-		SELECT ISSUED_SUPPLIES_GROUP1.*,  SUPPLIES_GROUP1.ITEM_NAME
-		FROM ISSUED_SUPPLIES_GROUP1 
+		SELECT ISSUED_SUPPLIES_GROUP1.*,  SUPPLIES_GROUP1.ITEM_NAME, DEPARTMENTS.DEPARTMENT_NAME, CONCAT(SUBSTR(SMS_USERS_GROUP1.FIRST_NAME,0,1), SMS_USERS_GROUP1.FIRST_NAME) AS LAST_USER_NAME
+		FROM ISSUED_SUPPLIES_GROUP1
 		INNER JOIN SUPPLIES_GROUP1
 		ON ISSUED_SUPPLIES_GROUP1.SUPPLY_ID=SUPPLIES_GROUP1.SUPPLY_ID
+		INNER JOIN DEPARTMENTS
+		ON ISSUED_SUPPLIES_GROUP1.DEPT_ID=DEPARTMENTS.DEPARTMENT_ID
+		INNER JOIN SMS_USERS_GROUP1
+		ON ISSUED_SUPPLIES_GROUP1.LAST_USER=SMS_USERS_GROUP1.USER_ID
+		ORDER BY ISSUED_SUPPLIES_GROUP1.ISSUE_ID
+	</select>
+	
+	<select id="findIssueSupplies" resultMap="getIssueSupplyMap">
+		SELECT ISSUED_SUPPLIES_GROUP1.*,  SUPPLIES_GROUP1.ITEM_NAME, DEPARTMENTS.DEPARTMENT_NAME, CONCAT(SUBSTR(SMS_USERS_GROUP1.FIRST_NAME,0,1), SMS_USERS_GROUP1.FIRST_NAME) AS LAST_USER_NAME
+		FROM ISSUED_SUPPLIES_GROUP1
+		INNER JOIN SUPPLIES_GROUP1
+		ON ISSUED_SUPPLIES_GROUP1.SUPPLY_ID=SUPPLIES_GROUP1.SUPPLY_ID
+		INNER JOIN DEPARTMENTS
+		ON ISSUED_SUPPLIES_GROUP1.DEPT_ID=DEPARTMENTS.DEPARTMENT_ID
+		INNER JOIN SMS_USERS_GROUP1
+		ON ISSUED_SUPPLIES_GROUP1.LAST_USER=SMS_USERS_GROUP1.USER_ID
+		WHERE LOWER(SUPPLIES_GROUP1.ITEM_NAME) LIKE #itemName#
 		ORDER BY ISSUED_SUPPLIES_GROUP1.ISSUE_ID
 	</select>
 	
@@ -44,5 +74,11 @@
 			last_user = #lastUser#,
 			last_update = SYSDATE
 		WHERE issue_id = #issueId#
+	</insert>
+	
+	<insert id="updateSupply" parameterClass="IssuedSupplyClass">
+		UPDATE SUPPLIES_GROUP1
+		SET ACTUAL_COUNT = (ACTUAL_COUNT - #quantity#)
+		WHERE supply_id = #supplyId#
 	</insert>
 </sqlMap>

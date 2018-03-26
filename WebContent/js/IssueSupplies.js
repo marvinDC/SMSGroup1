@@ -6,7 +6,6 @@ function supplyIssuance() {
 		},
 		onComplete: function(response){
 			$("mainContents").update(response.responseText);
-			console.log(response);
 			initRowFunctions();
 		}
 	});
@@ -43,11 +42,11 @@ function initRowFunctions(){
 					elem.removeClassName("active");
 				})
 				elem.addClassName('active');
-				var date = new Date(elem.down('td',5).innerHTML);
+				var date = new Date(elem.down('td',7).innerHTML);
 				$("selectItem").value = elem.down('td',1).innerHTML;
-				$("quantity").value = elem.down('td',2).innerHTML;
-				$("requestedBy").value = elem.down('td',3).innerHTML;
-				$("selectDept").value = elem.down('td',4).innerHTML;
+				$("quantity").value = elem.down('td',3).innerHTML;
+				$("requestedBy").value = elem.down('td',4).innerHTML;
+				$("selectDept").value = elem.down('td',5).innerHTML;
 				$("issueDate").value = (date.getFullYear()) + "-" +
 					("00" + (date.getMonth() + 1)).slice(-2) + "-" + ("00" + date.getDate()).slice(-2);
 			}
@@ -59,11 +58,12 @@ function reset() {
 	$("selectItem").value = "1";
 	$("quantity").value = "";
 	$("requestedBy").value = "";
-	$("selectDept").value = "1";
+	$("selectDept").value = "10";
 	$("issueDate").value = "";
 }
 
 function saveIssuedSupply(action) {
+	$('issueAlert').addClassName('hidden');
 	var obj = {
 		supplyId: $F("selectItem"),
 		quantity: $F("quantity"),
@@ -72,29 +72,46 @@ function saveIssuedSupply(action) {
 		issueDate: $F("issueDate"),
 		action: action
 	};
-	if (action == "update") {
-		($$("#issuedListing .active").length > 0) ? obj.issueId = $$("#issuedListing .active")[0].down("td", 0).title : message = "No row Selected";
-	}
 	var message = validateIssueFields(obj);
-		if (!message) {
-			new Ajax.Request(contextPath + "/supply-issuance", {
-				method: "POST",
-				parameters: obj,
-				onComplete: function(response){
-					$("mainContents").update(response.responseText);
-					initRowFunctions();
-				}
-			});
-		}
+	if (action == "update" && $$("#issuedListing .active").length > 0) {
+		obj.issueId = $$("#issuedListing .active")[0].down("td", 0).title;
+		obj.currentQuantity = $$("#issuedListing .active")[0].down("td", 3).innerHTML;
+	}
+	else if ($$("#issuedListing .active").length == 0){
+		message = "No row Selected"
+	}
+	
+	if (!message) {
+		new Ajax.Request(contextPath + "/supply-issuance", {
+			method: "POST",
+			parameters: obj,
+			onComplete: function(response){
+				$("mainContents").update(response.responseText);
+				initRowFunctions();
+			}
+		});
+	}
 	else {
-		alert(message);
+		$('issueAlert').innerHTML = message;
+		$('issueAlert').removeClassName('hidden');
 	}
 }
 
-function searchIssuedSupply(){
-	var searchItem = $F("search")
-	console.log('search', searchItem);
-	
+function searchIssuedSupply(e){
+	if(e.keyCode == 13){
+		new Ajax.Request(contextPath + "/supply-issuance", {
+			method: "GET",
+			parameters: {
+				action: "search",
+				itemName: e.target.value
+			},
+			onComplete: function(response){
+				$("mainContents").update(response.responseText);
+				initRowFunctions();
+				$('search').value = response.request.parameters.itemName;
+			}
+		});
+	}
 }
 
 function validateIssueFields(obj){

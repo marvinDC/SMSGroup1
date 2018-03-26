@@ -12,6 +12,9 @@ public class IssuedSupply {
 	private String lastUser;
 	private Date lastUpdate;
 	private String ItemName;
+	private Integer quantityDifference;
+	private String deptName;
+	private String lastUserName;
 
 	public Integer getIssueId() {
 		return issueId;
@@ -67,5 +70,22 @@ public class IssuedSupply {
 	public void setItemName(String itemName) {
 		ItemName = itemName;
 	}
-	
+	public Integer getQuantityDifference() {
+		return quantityDifference;
+	}
+	public void setQuantityDifference(Integer quantityDifference) {
+		this.quantityDifference = quantityDifference;
+	}
+	public String getDeptName() {
+		return deptName;
+	}
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+	public String getLastUserName() {
+		return lastUserName;
+	}
+	public void setLastUserName(String lastUserName) {
+		this.lastUserName = lastUserName;
+	}
 }

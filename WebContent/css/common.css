@@ -61,5 +61,10 @@ tr.row:before {
 }
 
 .pageHeader {
-	margin-left: 10px;
+	margin-left: 20px;
+}
+
+#issueAlert {
+	width:70%;
+	text-align: center;
 }

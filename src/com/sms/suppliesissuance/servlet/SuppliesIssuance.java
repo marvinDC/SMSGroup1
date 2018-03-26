@@ -32,11 +32,11 @@ public class SuppliesIssuance extends HttpServlet {
 		String page = "";
 		ApplicationContext applicationContext = 
 				new ClassPathXmlApplicationContext("/com/sms/suppliesissuance/resource/applicationContext.xml");
+		ApplicationContext supplyApplicationContext = new ClassPathXmlApplicationContext(
+				"/com/sms/suppliesmaintenance/resource/applicationContext.xml");
 		SuppliesIssuanceService suppliesIssuanceService = 
 				(SuppliesIssuanceService) applicationContext.getBean("SuppliesIssuanceService");
 		DepartmentService departmentService = (DepartmentService) applicationContext.getBean("DepartmentService");
-		ApplicationContext supplyApplicationContext = new ClassPathXmlApplicationContext(
-				"/com/sms/suppliesmaintenance/resource/applicationContext.xml");
 		SuppliesService suppliesService = (SuppliesService) supplyApplicationContext.getBean("suppliesService");
 		
 		List<Supplies> supplies = new ArrayList<>();
@@ -85,10 +85,10 @@ public class SuppliesIssuance extends HttpServlet {
 		
 		ApplicationContext applicationContext = 
 				new ClassPathXmlApplicationContext("/com/sms/suppliesissuance/resource/applicationContext.xml");
-		SuppliesIssuanceService suppliesIssuanceService = 
-				(SuppliesIssuanceService) applicationContext.getBean("SuppliesIssuanceService");
 		ApplicationContext supplyApplicationContext = new ClassPathXmlApplicationContext(
 				"/com/sms/suppliesmaintenance/resource/applicationContext.xml");
+		SuppliesIssuanceService suppliesIssuanceService = 
+				(SuppliesIssuanceService) applicationContext.getBean("SuppliesIssuanceService");
 		SuppliesService suppliesService = (SuppliesService) supplyApplicationContext.getBean("suppliesService");
 		DepartmentService departmentService = (DepartmentService) applicationContext.getBean("DepartmentService");
 		

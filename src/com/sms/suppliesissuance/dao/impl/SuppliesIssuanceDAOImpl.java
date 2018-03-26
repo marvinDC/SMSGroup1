@@ -55,13 +55,14 @@ public class SuppliesIssuanceDAOImpl implements SuppliesIssuanceDAO {
 		this.sqlMapClient.startBatch();
 		
 		try {
+			System.out.println("before update");
 			this.getSqlMapClient().update("updateIssueSupply", issuedSupply);
-			issuedSupply.setQuantity(issuedSupply.getQuantityDifference());
-			this.getSqlMapClient().update("updateSupply", issuedSupply);
 			this.sqlMapClient.executeBatch();
 		} catch (Exception e) {
+			System.out.println("fail");
 			this.sqlMapClient.getCurrentConnection().rollback();
 		} finally {
+			System.out.println("success");
 			this.sqlMapClient.getCurrentConnection().commit();
 		}
 	}

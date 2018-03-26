@@ -76,7 +76,7 @@ function saveIssuedSupply(action) {
 	if (action == "update" && $$("#issuedListing .active").length > 0) {
 		obj.issueId = $$("#issuedListing .active")[0].down("td", 0).title;
 		obj.currentQuantity = $$("#issuedListing .active")[0].down("td", 3).innerHTML;
-		obj.currentSupply = $$("#issuedListing .active")[0].down("td", 1).innerHTML
+		obj.currentSupplyId = $$("#issuedListing .active")[0].down("td", 1).innerHTML
 	}
 	else if (action == "update" && $$("#issuedListing .active").length == 0){
 		message = "No row Selected"

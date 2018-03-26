@@ -12,7 +12,8 @@ public class IssuedSupply {
 	private String lastUser;
 	private Date lastUpdate;
 	private String ItemName;
-	private Integer quantityDifference;
+	private Integer currQuantity;
+	private Integer currSupplyId;
 	private String deptName;
 	private String lastUserName;
 
@@ -70,12 +71,6 @@ public class IssuedSupply {
 	public void setItemName(String itemName) {
 		ItemName = itemName;
 	}
-	public Integer getQuantityDifference() {
-		return quantityDifference;
-	}
-	public void setQuantityDifference(Integer quantityDifference) {
-		this.quantityDifference = quantityDifference;
-	}
 	public String getDeptName() {
 		return deptName;
 	}
@@ -87,5 +82,17 @@ public class IssuedSupply {
 	}
 	public void setLastUserName(String lastUserName) {
 		this.lastUserName = lastUserName;
+	}
+	public Integer getCurrQuantity() {
+		return currQuantity;
+	}
+	public void setCurrQuantity(Integer currQuantity) {
+		this.currQuantity = currQuantity;
+	}
+	public Integer getCurrSupplyId() {
+		return currSupplyId;
+	}
+	public void setCurrSupplyId(Integer currSupplyId) {
+		this.currSupplyId = currSupplyId;
 	}
 }

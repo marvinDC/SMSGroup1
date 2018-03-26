@@ -58,7 +58,8 @@ public class SuppliesIssuanceServiceImpl implements SuppliesIssuanceService {
 		newIssueSupply.setRequestor(request.getParameter("requestedBy"));
 		newIssueSupply.setSupplyId( new Integer(request.getParameter("supplyId")));
 		newIssueSupply.setIssueId(new Integer(request.getParameter("issueId")));
-		newIssueSupply.setQuantityDifference((quantity - new Integer(request.getParameter("currentQuantity"))));
+		newIssueSupply.setCurrQuantity(new Integer(request.getParameter("currentQuantity")));
+		newIssueSupply.setCurrSupplyId(new Integer(request.getParameter("currentSupplyId")));
 		this.suppliesIssuanceDAO.updateIssueSupply(newIssueSupply);
 	}
 

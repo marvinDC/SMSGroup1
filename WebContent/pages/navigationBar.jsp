@@ -15,7 +15,7 @@
 	        <li><a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Maintenance</a></li>
 	        </c:if>
 	        <li><a href="#"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> Issue Supplies</a></li>
-	        <li><a href="#"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> Add Stocks</a></li>
+	        <li><a href="#" onclick="linkSuppliesStocks()"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> Add Stocks</a></li>
 	        <c:if test="${currentUser.accessLevel == 'A'}">
 	        	<li><a href="#"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Reports</a></li>
 	        </c:if>

@@ -5,14 +5,22 @@ import java.util.Date;
 public class Stocks {
 	private Integer stockId;
 	private Integer supplyId;
-	private Date dateAdded;
-	private Date purchaseDate;
+	private String itemName;
+	private String dateAdded;
+	private String purchaseDate;
 	private String refNo;
 	private Integer quantity;
 	private String lastUser;
-	private Date lastUpdate;
+	private String lastUpdate;
+
 	
 	
+	public String getItemName() {
+		return itemName;
+	}
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
 	public Integer getStockId() {
 		return stockId;
 	}
@@ -25,18 +33,7 @@ public class Stocks {
 	public void setSupplyId(Integer supplyId) {
 		this.supplyId = supplyId;
 	}
-	public Date getDateAdded() {
-		return dateAdded;
-	}
-	public void setDateAdded(Date dateAdded) {
-		this.dateAdded = dateAdded;
-	}
-	public Date getPurchaseDate() {
-		return purchaseDate;
-	}
-	public void setPurchaseDate(Date purchaseDate) {
-		this.purchaseDate = purchaseDate;
-	}
+
 	public String getRefNo() {
 		return refNo;
 	}
@@ -55,12 +52,25 @@ public class Stocks {
 	public void setLastUser(String lastUser) {
 		this.lastUser = lastUser;
 	}
-	public Date getLastUpdate() {
+	public String getDateAdded() {
+		return dateAdded;
+	}
+	public void setDateAdded(String dateAdded) {
+		this.dateAdded = dateAdded;
+	}
+	public String getPurchaseDate() {
+		return purchaseDate;
+	}
+	public void setPurchaseDate(String purchaseDate) {
+		this.purchaseDate = purchaseDate;
+	}
+	public String getLastUpdate() {
 		return lastUpdate;
 	}
-	public void setLastUpdate(Date lastUpdate) {
+	public void setLastUpdate(String lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
+
 	
 	
 	

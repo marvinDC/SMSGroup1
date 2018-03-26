@@ -2,5 +2,5 @@
 <!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
 
 <sqlMapConfig>
-	<sqlMap resource="com/cpi/supplies/stocks/ibatis/Stck.xml"/>
+	<sqlMap resource="com/sms/suppliesstocks/ibatis/Stck.xml"/>
 </sqlMapConfig>

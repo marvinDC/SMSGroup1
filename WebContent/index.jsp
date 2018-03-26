@@ -12,6 +12,7 @@
 <script>
 	var contextPath = '${pageContext.request.contextPath}';
 </script>
+<script type="text/javascript" src="js/IssueSupplies.js"></script>
 <script type="text/javascript" src="js/homeAndLogin.js"></script>
 <script type="text/javascript" src="js/suppliesstocks.js"></script>
 
@@ -24,4 +25,5 @@
 		<jsp:include page="pages/main.jsp"></jsp:include>
 	</div>
 </body>
+
 </html>

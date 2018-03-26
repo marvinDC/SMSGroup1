@@ -1,1 +1,70 @@
 @charset "ISO-8859-1";
+
+.formInput {
+	margin-left: 10px;
+	margin-bottom: 5px;
+}
+
+.formBtn.btn{
+	width: 130px;
+	margin-bottom: 5px;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+.content {
+	width: 90%;
+    margin-left: 5%;
+}
+
+table tr {
+	height: 22px;
+}
+
+table th {
+	padding: 0px 20px;
+}
+
+table td {
+	padding-left: 5px;
+}
+
+tr.row:before {
+	content: none;
+}
+
+.tableHeader {
+	background: #d4edf7;
+}
+
+.alignRight {
+	text-align:right;
+	padding-left:5px;
+}
+
+.hover {
+	background: lightyellow;
+}
+
+.active {
+	background: yellow;
+}
+
+#mainContents {
+	background: #f6fbff;
+}
+
+.content {
+	background: white;
+}
+
+.pageHeader {
+	margin-left: 20px;
+}
+
+#issueAlert {
+	width:70%;
+	text-align: center;
+}

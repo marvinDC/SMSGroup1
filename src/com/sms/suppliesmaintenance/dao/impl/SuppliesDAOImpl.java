@@ -44,29 +44,28 @@ public class SuppliesDAOImpl implements SuppliesDAO{
 		this.getSqlMapClient().insert("insertSupplies", addSupplies);
 		
 		this.sqlMapClient.executeBatch();
-		this.sqlMapClient.getCurrentConnection().commit();
-		
 		} catch (SQLException e) {
-			System.out.println(e.toString());
+			this.sqlMapClient.getCurrentConnection().rollback();
+		}finally{
+			this.sqlMapClient.getCurrentConnection().commit();
 		}
-		System.out.println("Finish SupplyDAOImpl");
+		
 	}
 
 	@Override
 	public void updateSupply(Supplies updateSupplies) throws SQLException, ParseException {
-		System.out.println("Start SupplyDAOImpl");
 		this.sqlMapClient.startTransaction();
 		this.sqlMapClient.getCurrentConnection().setAutoCommit(false);
 		this.sqlMapClient.startBatch();
 		try {
 			this.getSqlMapClient().update("updateSupplies", updateSupplies);
-		
 			this.sqlMapClient.executeBatch(); 
-			this.sqlMapClient.getCurrentConnection().commit();
 		} catch (SQLException e) {
 			System.out.println(e.toString());
+			this.sqlMapClient.getCurrentConnection().rollback();
+		}finally{
+			this.sqlMapClient.getCurrentConnection().commit();
 		}
-		System.out.println("Finish SupplyDAOImpl");
 		
 	}
 	

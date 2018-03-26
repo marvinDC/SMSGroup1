@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.sms.suppliesissuance.dao.DepartmentDAO;
-import com.sms.suppliesissuance.entity.IssuedSupply;
+import com.sms.suppliesissuance.entity.Department;
 import com.sms.suppliesissuance.service.DepartmentService;
 
 public class DepartmentServiceImpl implements DepartmentService {
@@ -19,7 +19,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 	
 	@Override
-	public List<IssuedSupply> getDepartments() throws SQLException {
+	public List<Department> getDepartments() throws SQLException {
 		return departmentDAO.getDepartments();
 	}
 }

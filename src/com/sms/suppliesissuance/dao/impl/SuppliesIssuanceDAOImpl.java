@@ -2,7 +2,6 @@ package com.sms.suppliesissuance.dao.impl;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.sms.suppliesissuance.dao.SuppliesIssuanceDAO;

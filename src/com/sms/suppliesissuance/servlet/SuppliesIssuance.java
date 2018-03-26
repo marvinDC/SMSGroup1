@@ -1,7 +1,6 @@
 package com.sms.suppliesissuance.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +15,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.sms.homeandlogin.entity.User;
+import com.sms.suppliesissuance.entity.Department;
 import com.sms.suppliesissuance.entity.IssuedSupply;
 import com.sms.suppliesissuance.exception.InsufficientAmountException;
 import com.sms.suppliesissuance.service.DepartmentService;
 import com.sms.suppliesissuance.service.SuppliesIssuanceService;
+import com.sms.suppliesmaintenance.entity.Supplies;
+import com.sms.suppliesmaintenance.service.SuppliesService;
 
 public class SuppliesIssuance extends HttpServlet {
 
@@ -33,28 +35,32 @@ public class SuppliesIssuance extends HttpServlet {
 		SuppliesIssuanceService suppliesIssuanceService = 
 				(SuppliesIssuanceService) applicationContext.getBean("SuppliesIssuanceService");
 		DepartmentService departmentService = (DepartmentService) applicationContext.getBean("DepartmentService");
+		ApplicationContext supplyApplicationContext = new ClassPathXmlApplicationContext(
+				"/com/sms/suppliesmaintenance/resource/applicationContext.xml");
+		SuppliesService suppliesService = (SuppliesService) supplyApplicationContext.getBean("suppliesService");
+		
+		List<Supplies> supplies = new ArrayList<>();
 		List<IssuedSupply> issuedSupplies = new ArrayList<>(); 
-		List<IssuedSupply> departments = new ArrayList<>(); 
+		List<Department> departments = new ArrayList<>(); 
 		try {
+			departments = departmentService.getDepartments();
+			supplies = suppliesService.getSupplies();
+			request.setAttribute("departments", departments);
+			request.setAttribute("supplies", supplies);
+			
 			switch ((String) request.getParameter("action")) {
 				case "table":
 					page = "pages/listingAndIssuance.jsp";
 					issuedSupplies = suppliesIssuanceService.getIssuedSupplies();
-					departments = departmentService.getDepartments();
 					request.setAttribute("issuedSupplies", issuedSupplies);
-					request.setAttribute("departments", departments);
 					break;
 				case "add":
 					page = "pages/addIssueSupplies.jsp";
-					departments = departmentService.getDepartments();
-					request.setAttribute("departments", departments);
 					break;
 				case "search":
 					page = "pages/listingAndIssuance.jsp";
 					issuedSupplies = suppliesIssuanceService.findItem(request);
 					request.setAttribute("issuedSupplies", issuedSupplies);
-					request.setAttribute("issuedSupplies", issuedSupplies);
-					request.setAttribute("departments", departments);
 					break;
 				default:
 					page = "home.jsp";
@@ -73,13 +79,17 @@ public class SuppliesIssuance extends HttpServlet {
 		HttpSession session = request.getSession();
 		String action = request.getParameter("action");
 		List<IssuedSupply> issuedSupplies = new ArrayList<>();
-		List<IssuedSupply> departments = new ArrayList<>(); 
+		List<Department> departments = new ArrayList<>(); 
+		List<Supplies> supplies = new ArrayList<>();
 		String page = "pages/listingAndIssuance.jsp";
 		
 		ApplicationContext applicationContext = 
 				new ClassPathXmlApplicationContext("/com/sms/suppliesissuance/resource/applicationContext.xml");
 		SuppliesIssuanceService suppliesIssuanceService = 
 				(SuppliesIssuanceService) applicationContext.getBean("SuppliesIssuanceService");
+		ApplicationContext supplyApplicationContext = new ClassPathXmlApplicationContext(
+				"/com/sms/suppliesmaintenance/resource/applicationContext.xml");
+		SuppliesService suppliesService = (SuppliesService) supplyApplicationContext.getBean("suppliesService");
 		DepartmentService departmentService = (DepartmentService) applicationContext.getBean("DepartmentService");
 		
 		try {
@@ -92,14 +102,18 @@ public class SuppliesIssuance extends HttpServlet {
 			}
 			departments = departmentService.getDepartments();
 			issuedSupplies = suppliesIssuanceService.getIssuedSupplies();
+			supplies = suppliesService.getSupplies();
 			request.setAttribute("issuedSupplies", issuedSupplies);
 			request.setAttribute("departments", departments);
+			request.setAttribute("supplies", supplies);
 		} catch (InsufficientAmountException e) {
 			try {
 				departments = departmentService.getDepartments();
 				issuedSupplies = suppliesIssuanceService.getIssuedSupplies();
+				supplies = suppliesService.getSupplies();
 				request.setAttribute("issuedSupplies", issuedSupplies);
 				request.setAttribute("departments", departments);
+				request.setAttribute("supplies", supplies);
 				request.setAttribute("message", e.getMessage());
 			} catch (Exception e1) {
 				e.printStackTrace();

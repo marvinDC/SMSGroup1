@@ -1,6 +1,7 @@
 package com.sms.suppliesstocks.service.impl;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +27,10 @@ public class StockServiceImpl implements StockService{
 	public List<Stocks> getStock() throws SQLException {
 		return stockDAO.getStock();
 	}
+	
 
+/*	public void setStockDAO(StocksDAO stockDAO){
+		this.stockDAO = stockDAO;*/
 	@Override
 	public void insertStock(HttpServletRequest request) throws SQLException {
 		this.stockDAO.insertStock(request);
@@ -39,8 +43,27 @@ public class StockServiceImpl implements StockService{
 	}
 
 	@Override
-	public void updateStock() throws SQLException {
-		this.stockDAO.updateStock();
+	public void updateStock(HttpServletRequest request) throws SQLException {
+		this.stockDAO.updateStock(request);
 	}
+
+	@Override
+	public List<Stocks> searchStock(HttpServletRequest request) throws SQLException {
+		
+		return stockDAO.searchStock(request);
+	}
+	
+	public StocksDAO searchStockDAO(){
+		return stockDAO;
+	}
+
+	@Override
+	public List<Stocks> getItemNames() throws SQLException {
+		// TODO Auto-generated method stub
+		return stockDAO.getItemNames();
+	}
+
+
+	
 
 }

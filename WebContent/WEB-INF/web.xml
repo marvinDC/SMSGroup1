@@ -19,6 +19,16 @@
   <servlet-mapping>
   	<servlet-name>home</servlet-name>
   	<url-pattern></url-pattern>
+  </servlet-mapping> 
+  
+   <servlet>
+  	<servlet-name>stocks</servlet-name>
+  	<servlet-class>com.sms.suppliesstocks.servlet.Servlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>stocks</servlet-name>
+  	<url-pattern>/suppliesstocks</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -30,4 +40,5 @@
   	<servlet-name>suppliesmaintenance</servlet-name>
   	<url-pattern>/supplies</url-pattern>
   </servlet-mapping>    
+
 </web-app>

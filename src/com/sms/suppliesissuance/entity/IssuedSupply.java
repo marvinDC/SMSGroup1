@@ -11,6 +11,10 @@ public class IssuedSupply {
 	private String deptId;
 	private String lastUser;
 	private Date lastUpdate;
+	private String ItemName;
+	private Integer quantityDifference;
+	private String deptName;
+	private String lastUserName;
 
 	public Integer getIssueId() {
 		return issueId;
@@ -60,10 +64,28 @@ public class IssuedSupply {
 	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
-	@Override
-	public String toString() {
-		return "IssuedSupply [issueId=" + issueId + ", supplyId=" + supplyId + ", issueDate=" + issueDate
-				+ ", requestor=" + requestor + ", quantity=" + quantity + ", deptId=" + deptId + ", lastUser="
-				+ lastUser + ", lastUpdate=" + lastUpdate + "]";
+	public String getItemName() {
+		return ItemName;
+	}
+	public void setItemName(String itemName) {
+		ItemName = itemName;
+	}
+	public Integer getQuantityDifference() {
+		return quantityDifference;
+	}
+	public void setQuantityDifference(Integer quantityDifference) {
+		this.quantityDifference = quantityDifference;
+	}
+	public String getDeptName() {
+		return deptName;
+	}
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+	public String getLastUserName() {
+		return lastUserName;
+	}
+	public void setLastUserName(String lastUserName) {
+		this.lastUserName = lastUserName;
 	}
 }

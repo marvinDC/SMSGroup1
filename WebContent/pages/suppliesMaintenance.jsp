@@ -20,7 +20,7 @@
 				style="width: 100px; height: 300px; position: absolute; top: 16%; left: 5%;">
 				<table style="color: black;">
 					<tr>
-						<td><a style="color: black;" href="#" onclick="">Users</a></td>
+						<td><a style="color: black;" href="#" onclick="toUserPage()">Users</a></td>
 					</tr>
 					<tr>
 						<td><a style="color: black;" href="#" onclick="">Supply
@@ -72,7 +72,7 @@
 				</tr>
 				<tr>
 					<td align="right"><label>Obsolete Tag</label></td>
-					<td><input style="margin-left: 10px;" type="radio" 
+					<td><input style="margin-left: 10px;" type="radio"
 						name="obsoleteRadioGroup" id="radioObsoleteTagYes" value="Y">Yes
 						<input style="margin-left: 10px;" type="radio" checked
 						name="obsoleteRadioGroup" id="radioObsoleteTagNo" value="N">No
@@ -150,9 +150,11 @@
 							<td class="digits"><c:out value="${rec.getReorderLevel()}" /></td>
 							<td class="digits"><c:out value="${rec.getActualCount()}" /></td>
 							<td class="varchar"><c:out value="${rec.getRemarks()}" /></td>
-							<td class="numeral"><fmt:formatDate pattern="MM/dd/YYYY" value="${rec.getDateAdded()}" /></td>
+							<td class="numeral"><fmt:formatDate pattern="MM/dd/YYYY"
+									value="${rec.getDateAdded()}" /></td>
 							<td class="varchar"><c:out value="${rec.getLastUser()}" /></td>
-							<td class="numeral"><fmt:formatDate pattern="MM/dd/YYYY" value="${rec.getLastUpdate()}" /></td>
+							<td class="numeral"><fmt:formatDate pattern="MM/dd/YYYY"
+									value="${rec.getLastUpdate()}" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>

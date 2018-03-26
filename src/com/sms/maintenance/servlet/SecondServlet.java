@@ -24,6 +24,8 @@ public class SecondServlet extends HttpServlet{
  			page = "pages/adding.jsp";
  		}else if(action != null && action.equals("changepass")){
  			page = "pages/changePass.jsp";
+ 		}else if(action != null && action.equals("cancel")){
+ 			page = "pages/listing.jsp";
  		}
  		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(page);

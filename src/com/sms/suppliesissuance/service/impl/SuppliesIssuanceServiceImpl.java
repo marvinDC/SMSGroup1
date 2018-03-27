@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.sms.homeandlogin.entity.User;
 import com.sms.suppliesissuance.dao.SuppliesIssuanceDAO;
 import com.sms.suppliesissuance.entity.IssuedSupply;
+import com.sms.suppliesissuance.exception.InsufficientAmountException;
 import com.sms.suppliesissuance.service.SuppliesIssuanceService;
 
 public class SuppliesIssuanceServiceImpl implements SuppliesIssuanceService {
@@ -30,15 +31,14 @@ public class SuppliesIssuanceServiceImpl implements SuppliesIssuanceService {
 	}
 
 	@Override
-	public void insertIssueSupply(HttpServletRequest request, User currUser) throws SQLException, ParseException {
+	public void insertIssueSupply(HttpServletRequest request, User currUser) throws SQLException, ParseException, InsufficientAmountException {
 		IssuedSupply newIssueSupply = new IssuedSupply();
 		newIssueSupply.setDeptId(request.getParameter("departmentId"));
 		newIssueSupply.setIssueDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("issueDate")));
-		newIssueSupply.setLastUser(currUser.getFirstName().substring(0, 1) + currUser.getLastName());
+		newIssueSupply.setLastUser(currUser.getUserId());
 		newIssueSupply.setQuantity(new Integer(request.getParameter("quantity")));
 		newIssueSupply.setRequestor(request.getParameter("requestedBy"));
 		newIssueSupply.setSupplyId( new Integer(request.getParameter("supplyId")));
-		System.out.println(newIssueSupply);
 		this.suppliesIssuanceDAO.insertIssueSupply(newIssueSupply);
 	}
 
@@ -48,17 +48,26 @@ public class SuppliesIssuanceServiceImpl implements SuppliesIssuanceService {
 	}
 
 	@Override
-	public void updateIssuedSupply(HttpServletRequest request, User currUser) throws SQLException, ParseException {
+	public void updateIssuedSupply(HttpServletRequest request, User currUser) throws SQLException, ParseException, InsufficientAmountException {
 		IssuedSupply newIssueSupply = new IssuedSupply();
+		Integer quantity = new Integer(request.getParameter("quantity"));
 		newIssueSupply.setDeptId(request.getParameter("departmentId"));
 		newIssueSupply.setIssueDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("issueDate")));
-		newIssueSupply.setLastUser(currUser.getFirstName().substring(0, 1) + currUser.getLastName());
-		newIssueSupply.setQuantity(new Integer(request.getParameter("quantity")));
+		newIssueSupply.setLastUser(currUser.getUserId());
+		newIssueSupply.setQuantity(quantity);
 		newIssueSupply.setRequestor(request.getParameter("requestedBy"));
 		newIssueSupply.setSupplyId( new Integer(request.getParameter("supplyId")));
 		newIssueSupply.setIssueId(new Integer(request.getParameter("issueId")));
-		System.out.println(newIssueSupply);
+		newIssueSupply.setQuantityDifference((quantity - new Integer(request.getParameter("currentQuantity"))));
 		this.suppliesIssuanceDAO.updateIssueSupply(newIssueSupply);
+	}
+
+	@Override
+	public List<IssuedSupply> findItem(HttpServletRequest request) throws SQLException {
+		IssuedSupply issueSupply = new IssuedSupply();
+		issueSupply.setItemName("%" + request.getParameter("itemName").toLowerCase() + "%");
+//		searchParam.put("itemName", );
+		return this.suppliesIssuanceDAO.findItem(issueSupply);
 	}
 
 }

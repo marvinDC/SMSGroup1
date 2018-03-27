@@ -51,3 +51,20 @@ tr.row:before {
 .active {
 	background: yellow;
 }
+
+#mainContents {
+	background: #f6fbff;
+}
+
+.content {
+	background: white;
+}
+
+.pageHeader {
+	margin-left: 20px;
+}
+
+#issueAlert {
+	width:70%;
+	text-align: center;
+}

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sqlmap-2.dtd">
+
+<sqlMap namespace="supplies">
+
+	<typeAlias alias="SuppliesClass" type = "com.sms.suppliesmaintenance.entity.Supplies"/>
+	
+	<resultMap id = "getSuppliesMap" class ="SuppliesClass">
+		<result column="supply_id" 		property="supplyId"/>
+		<result column="supply_type_id" property="supplyTypeId"/>		
+		<result column="type_name" 		property="supplyType"/>
+ 		<result column="item_name" 		property="itemName"/>
+		<result column="item_unit" 		property="itemUnit"/> 
+		<result column="obsolete_tag" 	property="obsoleteTag"/>
+		<result column="location" 		property="location"/> 
+		<result column="reorder_level" 	property="reorderLevel"/> 
+		<result column="actual_count" 	property="actualCount"/> 
+		<result column="remarks" 		property="remarks"/> 								 
+		<result column="date_added" 	property="dateAdded"/> 		
+		<result column="last_user" 		property="lastUser"/>
+		<result column="last_update" 	property="lastUpdate"/>		
+	</resultMap> 
+	
+	<select id="getSupplies" resultMap="getSuppliesMap"> 
+            SELECT A.supply_id
+            	 , A.supply_type_id
+                 , B.type_name
+                 , A.item_name
+                 , A.item_unit
+                 , A.obsolete_tag 
+                 , A.location
+                 , A.reorder_level
+                 , A.actual_count
+			     , A.remarks
+			     , TRUNC(A.date_added) date_added
+			     , A.last_user
+			     , TRUNC(A.last_update) last_update
+			FROM   SUPPLIES_GROUP1 A
+			     , SUPPLY_TYPES_GROUP1 B
+			WHERE  A.supply_type_id 		= B.supply_type_id
+			AND	   NVL(A.obsolete_tag, 'N') = 'N'
+			ORDER BY 1
+	</select>
+	
+	
+	<select id="searchSupplies" resultMap="getSuppliesMap"> 
+            SELECT A.supply_id
+            	 , A.supply_type_id
+                 , B.type_name
+                 , A.item_name
+                 , A.item_unit
+                 , A.obsolete_tag 
+                 , A.location
+                 , A.reorder_level
+                 , A.actual_count
+			     , A.remarks
+			     , TRUNC(A.date_added) date_added
+			     , A.last_user
+			     , TRUNC(A.last_update) last_update
+			FROM   SUPPLIES_GROUP1 A
+			     , SUPPLY_TYPES_GROUP1 B
+			WHERE  a.supply_type_id 		= b.supply_type_id
+			AND	   NVL(A.obsolete_tag, 'N') = 'N'
+			AND   TO_CHAR(a.supply_id)		LIKE '%' || DECODE(#supplyId#, -1, TO_CHAR(a.supply_id),#supplyId#)  || '%'  
+			ORDER BY 1
+	</select>	
+
+	<resultMap id = "getSupplyTypesMap" class ="SuppliesClass">
+		<result column="supply_type_id" property="supplyTypeId"/>	
+		<result column="type_name" 		property="supplyType"/>						 
+		<result column="entry_date" 		property="dateAdded"/> 		
+		<result column="last_user" 		property="lastUser"/>
+		<result column="last_update" 	property="lastUpdate"/>		 
+	</resultMap> 
+	
+	
+	
+	<select id="getSupplyTypes" resultMap="getSupplyTypesMap"> 
+            SELECT supply_type_id
+                 , type_name
+                 , entry_date
+                 , last_user
+                 , last_update
+            FROM   SUPPLY_TYPES_GROUP1
+	</select>	
+	
+	<insert id="insertSupplies" parameterClass="SuppliesClass">
+		INSERT 
+		INTO    SUPPLIES_GROUP1
+				(supply_id
+		       , supply_type_id
+		       , item_name
+		       , item_unit
+		       , obsolete_tag
+		       , location
+		       , reorder_level
+		       , actual_count
+		       , remarks
+		       , date_added
+		       , last_user
+		       , last_update)
+		VALUES  (GROUP1_SUPPLY_ID_SEQ.NEXTVAL
+			   , #supplyTypeId#
+			   , #itemName#
+			   , #itemUnit#
+			   , #obsoleteTag#
+			   , #location#
+			   , #reorderLevel#
+			   , #actualCount#
+			   , #remarks#
+			   , #dateAdded#
+			   , #lastUser#
+			   , TRUNC(SYSDATE))
+	</insert>	
+	
+	<insert id="updateSupplies" parameterClass="SuppliesClass">
+		UPDATE  SUPPLIES_GROUP1
+		SET		item_name 			= #itemName#
+		       , item_unit 			= #itemUnit#
+		       , obsolete_tag 		= #obsoleteTag#
+		       , location 			= #location#
+		       , reorder_level 		= #reorderLevel#
+		       , remarks 			= #remarks#
+	       	   , date_added 		= #dateAdded#
+		       , last_user 			=  #lastUser#
+		       , last_update 		= TRUNC(SYSDATE)
+		WHERE    supply_id 			= #supplyId#
+	</insert>
+</sqlMap> 

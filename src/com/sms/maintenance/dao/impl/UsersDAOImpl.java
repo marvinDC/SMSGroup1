@@ -58,8 +58,9 @@ public class UsersDAOImpl implements UsersDAO{
 			records.setLastLogin(date);
 			records.setLastUser(currentUser.getUserId());
 		
-			System.out.println(records.toString().length());
-			
+			System.out.println(records.toString().split(",").length);
+		
+		request.setAttribute("Error", "Account successfully added!");
 		this.getSqlMapClient().insert("insertUser", records);
 		
 		this.sqlMapClient.executeBatch();

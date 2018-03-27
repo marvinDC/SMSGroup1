@@ -24,13 +24,11 @@ public class UsersServiceImpl implements UsersService{
 
 	@Override
 	public List<Users> getUser(HttpServletRequest request) throws SQLException {
-		System.out.println("TEST!");
 		return userDAO.getUser(request);
 	}
 
 	@Override
 	public void insertUser(HttpServletRequest request) throws SQLException {
-		System.out.println("SERVICE");
 		this.userDAO.insertUser(request);		
 	}
 

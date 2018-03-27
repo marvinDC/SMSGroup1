@@ -16,41 +16,57 @@
 		<result column="entry_date" 	property="entryDate"/>
 		<result column="last_login" 	property="lastLogin"/>
 		<result column="last_user" 	property="lastUser"/>
+		<result column="last_update" 	property="lastUpdate"/>
+		
 	</resultMap>
 
 	<select id="getSearch" resultMap="getUserMap">
-		SELECT user_id, password, first_name, last_name, middle_initial, email, active_tag, access_level, entry_date, last_login, last_user
-		FROM sms_users_lau
+		SELECT user_id, password, first_name, last_name, middle_initial, email, 
+			active_tag, access_level, entry_date, last_login, last_user, last_update
+		FROM sms_users_group1
 		WHERE user_id = #searchKeyWord#
 	</select>
 	
 	<select id="getUser" resultMap="getUserMap">
-		SELECT user_id, password, first_name, last_name, middle_initial, email, active_tag, access_level, entry_date, last_login, last_user
-		FROM sms_users_lau
+		SELECT user_id, password, first_name, last_name, middle_initial, 
+				email, active_tag, access_level, entry_date, last_login, last_user, last_update
+		FROM sms_users_group1
 	</select>
 	
  	<insert id="insertUser" parameterClass="UserClass">
-		INSERT INTO sms_users_lau
+		INSERT INTO sms_users_group1 (user_id, password, first_name, last_name, middle_initial, 
+										email, active_tag, access_level, entry_date, last_login, last_user)
 		VALUES(#userId#, #passWord#, #firstName#, #lastName#, #midInitial#, #email#,
 				#activeTag#, #accessLevel#, #entryDate#, #lastLogin#, #lastUser#)
 	</insert>
 	
 	<insert id="updatePassword" parameterClass="UserClass">
-		UPDATE sms_users_lau
+		UPDATE sms_users_group1
 		SET password = #newPassword#
-		WHERE password = #passWord#
+		WHERE user_id = #userId#
 	</insert>
  		
 	<insert id="updateUser" parameterClass="UserClass">
-		UPDATE sms_users_lau
+		UPDATE sms_users_group1
 		SET first_name	= #firstName#,
 			last_name = #lastName#,
 			middle_initial = #midInitial#,
 			email = #email#,
 			active_tag = #activeTag#,
 			access_level = #accessLevel#,
-			last_login = #lastLogin#,
-			last_user = #lastUser#
+			last_user = #lastUser#,
+			last_update = #lastUpdate#
+		WHERE user_id = #userId#
+	</insert>
+	
+	<insert id="updateUserChanges" parameterClass="UserClass">
+		UPDATE sms_users_group1
+		SET first_name	= #firstName#,
+			last_name = #lastName#,
+			middle_initial = #midInitial#,
+			email = #email#,
+			last_user = #lastUser#,
+			last_update = #lastUpdate#
 		WHERE user_id = #userId#
 	</insert>
 </sqlMap>

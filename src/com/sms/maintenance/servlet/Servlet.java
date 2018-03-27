@@ -10,7 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -28,51 +27,53 @@ public class Servlet extends HttpServlet{
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		try{
-			String page = "pages/listing.jsp";
+			String page = "pages/maintenancePage.jsp";
 	 		String action = request.getParameter("action");
 	 		List<Users> l = new ArrayList<>();
-	 		HttpSession session = request.getSession();
 	 		
+	 	
 	 		ApplicationContext applicationContext = 
 					new ClassPathXmlApplicationContext("/com/sms/maintenance/resource/applicationContext.xml");
 			UsersService useService = 
 					(UsersService) applicationContext.getBean("userService");
 			
-	 		if(action != null && action.equals("save")){
+	 		if(action != null && action.equals("saveAdded")){
 	 			useService.insertUser(request);
-			
-	 		}else if(action != null && action.equals("save1")){
+	 		
+	 		}else if(action != null && action.equals("saveUpdate")){
 	 			useService.updateUser(request);
 	 			l = useService.getUser(request);
 	 			request.setAttribute("queryList", l);
+	 		
+	 			//this is for the update of users//
+	 		}else if(action != null && action.equals("saveUserChanges")){
+	 			useService.updateUser(request);
+	 			
+	 			page = "pages/userPage.jsp";
 	 			
 	 		}else if(action != null && action.equals("adding")){
-	 			page = "pages/adding.jsp";
+	 			page = "pages/addingPage.jsp";
 	 			
 	 		}else if(action != null && action.equals("changepass")){
-	 			String password = request.getParameter("currentPass");
-	 			System.out.println(password);
-	 			session.setAttribute("password", password);
-	 			
 	 			page = "pages/changePass.jsp";
 	 			
 	 		}else if(action == null || action.equals("cancel")){
 	 			l = useService.getUser(request);
 	 			request.setAttribute("queryList", l);
-	 			page = "pages/listing.jsp";
+	 			page = "pages/maintenancePage.jsp";
 	 			
 	 		}else if(action.equals("search")){
 	 			l = useService.getUser(request);
 	 			
 	 			request.setAttribute("querySearch", l);
-	 			page = "pages/listing.jsp";
-	 		}else if(action.equals("savePW")){
+	 			page = "pages/maintenancePage.jsp";
 	 			
-	 			System.out.println("if savePW");
+	 		}else if(action.equals("savePW")){
 	 			useService.updateUser(request);
-	 			l = useService.getUser(request);
-	 			request.setAttribute("queryList", l);
-	 			page = "pages/listing.jsp";
+	 			page = "pages/changePass.jsp";
+	 			
+	 		}else if(action.equals("userPage")){
+	 			page = "pages/userPage.jsp";
 	 		}
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher(page);

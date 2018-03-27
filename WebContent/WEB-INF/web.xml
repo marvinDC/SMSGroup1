@@ -21,16 +21,6 @@
   	<url-pattern></url-pattern>
   </servlet-mapping>
   
-	 <!-- maitenance servlet -->
-	 
-  <!-- <servlet>
-  	<servlet-name>users</servlet-name>
-  	<servlet-class>com.sms.maintenance.servlet.SecondServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>users</servlet-name>
-  	<url-pattern>/secservlet</url-pattern>
-  </servlet-mapping> -->
   
   <servlet>
   	<servlet-name>maintenance</servlet-name>

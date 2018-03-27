@@ -18,22 +18,21 @@
 <center>
 	<h3>User Maintenance</h3>
 <table>
-	<tr><td>User ID </td><td><input type="text" id="userId" name="UserId"></tr>
-	<tr><td>Password </td><td><input type="password" id="pWord" name="password"></td>
-		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><input type="button" id="save" value="Save"></td></tr>
-	<tr><td>First Name</td><td><input type="text" id="fName" name="firstName"></td>
-		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><input type="button" id="cancel" value="Cancel"></td></tr>
-	<tr><td>Last Name </td><td><input type="text" id="lName" name="lastName"></td></tr>
-	<tr><td>Middle Initial</td><td> <input type="text" id="mInitial" name="midInitial" ></td></tr>
-	<tr><td>Email Address</td><td><input type="text" id="email" name="emailAdd" ></td></tr>
+	<tr><td>User ID </td><td><input type="text" id="userId" class="formInput form-control" name="UserId"></tr>
+	<tr><td>Password </td><td><input type="password" id="pWord" class="formInput form-control" name="password"></td>
+		<td style="width: 150px;"></td><td><input type="button" id="save" class="formBtn btn btn-primary" value="Save" style="width: 100px;"></td></tr>
+	<tr><td>First Name</td><td><input type="text" id="fName" class="formInput form-control" name="firstName"></td>
+		<td></td><td><input type="button" id="cancel" class="formBtn btn btn-primary" value="Cancel" style="width: 100px;"></td></tr>
+	<tr><td>Last Name </td><td><input type="text" id="lName" class="formInput form-control" name="lastName"></td></tr>
+	<tr><td>Middle Initial</td><td> <input type="text" id="mInitial" class="formInput form-control" name="midInitial" ></td></tr>
+	<tr><td>Email Address</td><td><input type="text" id="email" class="formInput form-control" name="emailAdd" ></td></tr>
 	<tr><td>Active Tag 	</td><td><input type="radio" id="yag" name="ID" value="Y">Yes<input type="radio" id="nag" name="ID" value="N">No</td></tr>
 	<tr><td>Access Level</td>
-		<td><select id="accessLevel">
+		<td><select id="accessLevel" class="formInput form-control">
 		<option value=""></option>        
 		<option value="A">Admin</option>
 		<option value="U">User</option>
 	</select></td></tr>
-	<tr><td>Search</td><td><input type="text" id="search" name="Search"></td></tr>
 </table>
 </center>
 </div>
@@ -52,7 +51,7 @@ $("save").observe("click", function(){
 			email: $F("email"),
 			acttag: $("yag").checked == true ? $("yag").value : $("nag").value,
 			acclevel: $F("accessLevel"),
-			action: "save"
+			action: "saveAdded"
 		},
 		onComplete: function(response){
 			//$("mainDiv").update(response.responseText);

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
+import com.sms.homeandlogin.entity.User;
 import com.sms.maintenance.dao.UsersDAO;
 import com.sms.maintenance.entity.Users;
 
@@ -25,7 +26,6 @@ public class UsersDAOImpl implements UsersDAO{
 	@SuppressWarnings("unchecked")
 	public List<Users> getUser(HttpServletRequest request) throws SQLException {
 		Users emp = new Users();
-		System.out.println("this is in getting searched");
 		String action = request.getParameter("action");
 		
 		if(action != null && action.equals("search")){
@@ -38,14 +38,12 @@ public class UsersDAOImpl implements UsersDAO{
 
 	@Override
 	public void insertUser(HttpServletRequest request) throws SQLException {
-		System.out.println("insert user");
+		HttpSession session = request.getSession();
 		this.sqlMapClient.startTransaction();
 		this.sqlMapClient.getCurrentConnection().setAutoCommit(false);
 		this.sqlMapClient.startBatch();
-		
-		System.out.println(request.getParameter("userid"));
-		
 		Date date = new Date();
+		User currentUser = (User)session.getAttribute("currentUser");
 		
 		Users emp = new Users();	
 			emp.setUserId(request.getParameter("userid"));
@@ -58,7 +56,7 @@ public class UsersDAOImpl implements UsersDAO{
 			emp.setAccessLevel(request.getParameter("acclevel"));
 			emp.setEntryDate(date);
 			emp.setLastLogin(date);
-			emp.setLastUser("lau");
+			emp.setLastUser(currentUser.getUserId());
 		
 		this.getSqlMapClient().insert("insertUser", emp);
 		
@@ -70,28 +68,58 @@ public class UsersDAOImpl implements UsersDAO{
 
 	@Override
 	public void updateUser(HttpServletRequest request) throws SQLException {
-		this.sqlMapClient.startTransaction();
-		this.sqlMapClient.getCurrentConnection().setAutoCommit(false);
-		this.sqlMapClient.startBatch();
 		HttpSession session = request.getSession();
+		Date date = new Date();	
+		User currentUser = (User)session.getAttribute("currentUser");
 		Users emp = new Users();
 		String action = request.getParameter("action");
 		
-		
+		this.sqlMapClient.startTransaction();
+		this.sqlMapClient.getCurrentConnection().setAutoCommit(false);
+		this.sqlMapClient.startBatch();
 		
 		if(action != null && action.equals("savePW")){
-			
-			System.out.println(session.getAttribute("password"));
-			emp.setPassWord((String)session.getAttribute("password"));
+			String oldPassword = currentUser.getPassword();
+			String newPassword = request.getParameter("newPassword");
+			String currPassword = request.getParameter("currPassword");
+			emp.setUserId(currentUser.getUserId());
 			emp.setNewPassword(request.getParameter("retypePassword"));
-			System.out.println(request.getParameter("newPassword"));
-			System.out.println(request.getParameter("retypePassword"));
 
-			System.out.println("getting password" + emp.getPassWord());
+			//password validation
+			if(!oldPassword.equals(currPassword)){
+				request.setAttribute("Error", "Sorry!, Password dont match with the Old!");
+			}else if(!emp.getNewPassword().equals(newPassword)){
+				request.setAttribute("Error", "Sorry!, Retype password dont match with the new password!");
+			}else if(emp.getNewPassword().contains(" ")){
+				request.setAttribute("Error", "no white space");
+			}else if(emp.getNewPassword().length() < 8){
+				request.setAttribute("Error", "Password should be atleast 8 characters");
+			}else if(emp.getNewPassword().length() > 20){
+				request.setAttribute("Error", "Password should be exceed 20 characters");
+			}else{
+				System.out.println("luma parehas sa bagong password");
+				this.getSqlMapClient().update("updatePassword", emp);
+				
+			}
+				
+		}else if(action != null && action.equals("saveUserChanges")){
+			emp.setUserId(currentUser.getUserId());
+			emp.setFirstName(request.getParameter("firstnameUser"));
+			emp.setLastName(request.getParameter("lastnameUser"));
+			emp.setMidInitial(request.getParameter("midinitialUser"));
+			emp.setEmail(request.getParameter("emailUser"));
+			emp.setLastUser(currentUser.getUserId());
+			emp.setLastUpdate(date);
 			
-			this.getSqlMapClient().update("updatePassword", emp);
+			if(emp.getFirstName() == "" || emp.getLastName() == "" || emp.getMidInitial() == "" || emp.getEmail() == ""){
+				request.setAttribute("Error", "Missing Text Field!");
+				
+			}else if(emp.getMidInitial().length() > 1){
+				request.setAttribute("Error", "Put middle initial! Initial only");
+			}else{
+			this.getSqlMapClient().update("updateUserChanges", emp);
+			}
 		}else{
-			Date date = new Date();	
 			emp.setUserId(request.getParameter("userid"));
 			emp.setFirstName(request.getParameter("firstnameUpd"));
 			emp.setLastName(request.getParameter("lastnameUpd"));
@@ -99,14 +127,19 @@ public class UsersDAOImpl implements UsersDAO{
 			emp.setEmail(request.getParameter("emailUpd"));
 			emp.setActiveTag(request.getParameter("acttagUpd"));
 			emp.setAccessLevel(request.getParameter("acclevelUpd"));
-			emp.setLastLogin(date);
-			emp.setLastUser("lau");
-		
-		this.getSqlMapClient().update("updateUser", emp);
-		}
-		
+			emp.setLastUser(currentUser.getUserId());
+			emp.setLastUpdate(date);
+			
+			if(emp.getLastName() == "" || emp.getFirstName() == "" || emp.getMidInitial() == "" || 
+			   emp.getEmail() == "" || emp.getActiveTag() == "" || emp.getAccessLevel() == ""){
+				request.setAttribute("Error", "Missing Text Field!");
+			}else if(emp.getMidInitial().length() > 1){
+				request.setAttribute("Error", "Put middle initial! Initial only");
+			}else{
+				this.getSqlMapClient().update("updateUser", emp);
+			}
+		}	
 		this.sqlMapClient.executeBatch();
-		this.sqlMapClient.getCurrentConnection().commit();		
+		this.sqlMapClient.getCurrentConnection().commit();
 	}
-
 }

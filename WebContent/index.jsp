@@ -12,6 +12,7 @@
 <script>
 	var contextPath = '${pageContext.request.contextPath}';
 </script>
+
 <script type="text/javascript" src="js/IssueSupplies.js"></script>
 <script type="text/javascript" src="js/homeAndLogin.js"></script>
 <script type="text/javascript" src="js/maintenance.js"></script>

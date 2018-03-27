@@ -16,8 +16,17 @@ public class Users {
 	private String lastUser;
 	private String searchKeyWord;
 	private String newPassword;
+	private	Date lastUpdate;
 	
 	
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
 	public String getNewPassword() {
 		return newPassword;
 	}

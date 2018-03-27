@@ -20,6 +20,11 @@
 	<c:if test="${Error != null}">
 		<div id="errorPopup">${Error}</div>
  	</c:if>
+ 	<div align="right" style="font-family: courier; font-size: 14pt; position: absolute; top: 16%; left: 20%;">
+ 	<a href="#" onclick="toUserPage()">User</a><br>
+ 	<a href="#" onclick="">Supply Types</a><br>
+ 	<a href="#" onclick="suppliesMaintenance()">Supplies</a><br>
+ 	</div>
 	<table>
 		<tr align="left"><td>Current Password</td><td><input type="password" id="cPassword" class="formInput form-control" name="currentPassword"></td></tr>
 		<tr><td>New Password</td><td><input type="password" id="nPassword" class="formInput form-control" name="newPassword"></td>

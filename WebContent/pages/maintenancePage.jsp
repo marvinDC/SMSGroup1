@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="css/mycss.css">
 <script type="text/javascript" src="js/prototype.js"></script>
 <script type="text/javascript" src="js/maintenance.js"></script>
+<script type="text/javascript" src="js/suppliesMaintenance.js"></script>
 <script>
 	var contextPath = '${pageContext.request.contextPath}';
 </script>
@@ -22,10 +23,10 @@
 	<c:if test="${Error != null}">
 		<div id="errorPopup">${Error}</div>
  	</c:if>
- 	<div align="right" style="font-family: courier;  position: absolute; top: 15%; left: 20%;">
+ 	<div align="right" style="font-family: courier; font-size: 14pt; position: absolute; top: 16%; left: 20%;">
  	<a href="#" onclick="toUserPage()">User</a><br>
- 	<a href="#" onclick="toUserPage()">Supply Types</a><br>
- 	<a href="#" onclick="toUserPage()">Supplies</a><br>
+ 	<a href="#" onclick="">Supply Types</a><br>
+ 	<a href="#" onclick="suppliesMaintenance()">Supplies</a><br>
  	</div>
  	
 <table>

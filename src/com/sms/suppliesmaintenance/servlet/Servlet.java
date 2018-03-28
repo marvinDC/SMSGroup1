@@ -29,36 +29,48 @@ public class Servlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String errorMsg;
+			String errorMsg =  null;
 			String page;
 			ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
 					"/com/sms/suppliesmaintenance/resource/applicationContext.xml");
 
 			SuppliesService suppliesService = (SuppliesService) applicationContext.getBean("suppliesService");
 			List<Supplies> l = new ArrayList<>();
-
-			if ("searchSupplies".equalsIgnoreCase(request.getParameter("action"))) {
+			List<Supplies> childRecord = new ArrayList<>();
+			System.out.println(request.getParameter("action"));
+			if ("searchSupplies".equalsIgnoreCase(request.getParameter("action"))||"checkChildRecord".equalsIgnoreCase(request.getParameter("action"))) {
 				if (request.getParameter("supplyId").equals("")){
 					System.out.println("NULL");
 					request.setAttribute("supplyId",-1);
 				}else{
 				request.setAttribute("supplyId", request.getParameter("supplyId"));};
-				System.out.println("HEREHERE");
-				l = suppliesService.searchSupplies(request);
-
+				if ("searchSupplies".equalsIgnoreCase(request.getParameter("action"))) {
+					l = suppliesService.searchSupplies(request);
+				}else{
+					System.out.println(childRecord.size() + " " + request.getAttribute("supplyId") );
+					childRecord = suppliesService.checkChildRecord(request);
+					System.out.println(childRecord.size() + " " + request.getAttribute("supplyId") );
+					if (childRecord.size() > 0){
+					errorMsg = "Supply Type cannot be update due to Child Record";}
+					l = suppliesService.getSupplies();
+				}
 			} else {
 				
 				l = suppliesService.getSupplies();
 			}
-
+			request.setAttribute("exists", childRecord);
+			request.setAttribute("errorMessage", errorMsg);
 			List<Supplies> suppTypes = new ArrayList<>();
 			suppTypes = suppliesService.getSupplyTypes();
 			request.setAttribute("supplies", l);
 			request.setAttribute("supplyTypes", suppTypes);
+			
 
 			if ("populate".equalsIgnoreCase(request.getParameter("action"))) {
 				page = "pages/suppliesMaintenance.jsp";
 			} else if ("searchSupplies".equalsIgnoreCase(request.getParameter("action"))) {
+				page = "pages/suppliesMaintenance.jsp";
+			} else if ("checkChildRecord".equalsIgnoreCase(request.getParameter("action"))) {
 				page = "pages/suppliesMaintenance.jsp";
 			} else {
 				page = "pages/addSupplies.jsp";

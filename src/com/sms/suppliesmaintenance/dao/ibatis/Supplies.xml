@@ -73,7 +73,28 @@
 		<result column="last_update" 	property="lastUpdate"/>		 
 	</resultMap> 
 	
+	<resultMap id = "checkChildMap" class ="SuppliesClass">
+		<result column="supply_type_id" property="supplyTypeId"/>	
+		<result column="type_name" 		property="supplyType"/>
+							 
+	</resultMap> 
+		
 	
+
+	<select id="checkChildRecord" parameterClass="SuppliesClass" resultMap="checkChildMap" > 
+		SELECT a.supply_type_id, b.type_name
+		  FROM supplies_group1 a, supply_types_group1 b
+		 WHERE a.supply_type_id = b.supply_type_id
+		   AND a.supply_id = #supplyId#
+		   AND (SELECT SUM (cnt)
+		          FROM (SELECT COUNT (1) cnt
+		                  FROM supplies_stocks_group1 b
+		                 WHERE b.supply_id = #supplyId#
+		                UNION
+		                SELECT COUNT (1) cnt
+		                  FROM issued_supplies_group1 c
+		                 WHERE c.supply_id = #supplyId#)) > 0
+	</select>	
 	
 	<select id="getSupplyTypes" resultMap="getSupplyTypesMap"> 
             SELECT supply_type_id

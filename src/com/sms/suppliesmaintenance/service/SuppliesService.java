@@ -13,6 +13,7 @@ public interface SuppliesService {
 	List<Supplies> getSupplies() throws SQLException;
 	List<Supplies> searchSupplies(HttpServletRequest request) throws SQLException;
 	List<Supplies> getSupplyTypes() throws SQLException;
+	List<Supplies> checkChildRecord(HttpServletRequest request) throws SQLException;
 	void insertSupply(HttpServletRequest request, User currUser) throws SQLException, ParseException;
 	void delSupply() throws SQLException;
 	void updateSupply(HttpServletRequest request, User currUser) throws SQLException, ParseException;

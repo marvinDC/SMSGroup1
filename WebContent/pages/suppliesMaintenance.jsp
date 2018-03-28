@@ -20,7 +20,7 @@
 				style="width: 100px; height: 300px; position: absolute; top: 16%; left: 5%;">
 				<table style="color: black;">
 					<tr>
-						<td><a style="color: black;" href="#" onclick="toUserPage()">Users</a></td>
+						<td><a style="color: black;" href="#" onclick="maintenance()">Users</a></td>
 					</tr>
 					<tr>
 						<td><a style="color: black;" href="#" onclick="">Supply
@@ -34,10 +34,12 @@
 			</div>
 			<div id="errorMsg" style="width: 800px; align: center;"
 				class="alert alert-danger hidden"></div>
+			<div id="divSuppTypeError" style="width: 800px; align: center;"
+				class="alert alert-danger ${errorMessage != null ? '':'hidden'}">${errorMessage}</div>				
 			<table class="supplyForms" style="width: 800px; align: center">
 				<tr>
 					<td align="right"><label>Supply Type</label></td>
-					<td><select class="formInput form-control" id="txtSupplyTye">
+					<td><select onchange="checkChildRecord()" class="formInput form-control" id="txtSupplyTye">
 							<c:forEach var="rec" items="${supplyTypes}">
 								<option value=<c:out value="${rec.getSupplyType()}"/>><c:out
 										value="${rec.getSupplyType()}" /></option>
@@ -107,34 +109,32 @@
 
 		<div id="suppliesTabDiv" align="center">
 			<table style="width: 100px;" border=1>
-				<thead id="suppliesTabHeader" class="tableHeader">
+				<thead id="suppliesTabHeader" style="text-align:center;" class="tableHeader">
 					<tr>
 						<th
-							style="text-align: center; padding-left: 0px; padding-right: 0px;">Supply
+							>Supply
 							ID</th>
 						<th
-							style="text-align: center; width: 121px; padding-left: 0px; padding-right: 0px;">Supply
+							 nowrap >Supply
 							Type</th>
 						<th
-							style="text-align: center; width: 121px; padding-left: 0px; padding-right: 0px;">Item
+							 nowrap>Item
 							Name</th>
 						<th>Item Unit</th>
 						<th
-							style="text-align: center; padding-left: 0px; padding-right: 0px;">Obsolete
+							 wrap>Obsolete
 							Tag</th>
 						<th>Location</th>
 						<th
-							style="text-align: center; padding-left: 0px; padding-right: 5px;">Reorder
+							 wrap>Reorder
 							Level</th>
 						<th
-							style="text-align: center; padding-left: 5px; padding-right: 5px;">Actual
+							 wrap>Actual
 							Count</th>
 						<th
-							style="text-align: center; width: 121px; padding-left: 0px; padding-right: 0px;">Remarks</th>
+							>Remarks</th>
 						<th>Entry Date</th>
-						<th
-							style="width: 121px; padding-left: 0px; padding-right: 0px; text-align: center;">Last
-							Update By</th>
+						<th	 wrap>Last Update By</th>
 						<th>Last Update</th>
 					</tr>
 				</thead>
@@ -142,14 +142,14 @@
 					<c:forEach var="rec" items="${supplies}">
 						<tr>
 							<td class="varchar"><a href="#">${rec.getSupplyId()}</a></td>
-							<td class="varchar"><c:out value="${rec.getSupplyType()}" /></td>
-							<td class="varchar"><c:out value="${rec.getItemName()}" /></td>
+							<td class="varchar nowrap"><c:out value="${rec.getSupplyType()}" /></td>
+							<td class="varchar nowrap"><c:out value="${rec.getItemName()}" /></td>
 							<td class="varchar"><c:out value="${rec.getItemUnit()}" /></td>
 							<td class="digits"><c:out value="${rec.getObsoleteTag()}" /></td>
-							<td class="varchar"><c:out value="${rec.getLocation()}" /></td>
+							<td class="varchar nowrap"><c:out value="${rec.getLocation()}" /></td>
 							<td class="digits"><c:out value="${rec.getReorderLevel()}" /></td>
 							<td class="digits"><c:out value="${rec.getActualCount()}" /></td>
-							<td class="varchar"><c:out value="${rec.getRemarks()}" /></td>
+							<td class="varchar "><c:out value="${rec.getRemarks()}" /></td>
 							<td class="numeral"><fmt:formatDate pattern="MM/dd/YYYY"
 									value="${rec.getDateAdded()}" /></td>
 							<td class="varchar"><c:out value="${rec.getLastUser()}" /></td>

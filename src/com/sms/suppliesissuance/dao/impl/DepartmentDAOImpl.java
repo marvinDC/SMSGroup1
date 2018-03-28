@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.sms.suppliesissuance.dao.DepartmentDAO;
-import com.sms.suppliesissuance.entity.IssuedSupply;
+import com.sms.suppliesissuance.entity.Department;
 
 public class DepartmentDAOImpl implements DepartmentDAO {
 	private SqlMapClient sqlMapClient;
@@ -20,7 +20,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<IssuedSupply> getDepartments() throws SQLException {
+	public List<Department> getDepartments() throws SQLException {
 		return this.getSqlMapClient().queryForList("getDepartments");
 	}
 

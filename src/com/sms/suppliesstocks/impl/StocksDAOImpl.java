@@ -47,15 +47,11 @@ public class StocksDAOImpl implements StocksDAO {
 			} else {
 			Stocks stck = new Stocks();
 			stck.setItemName(request.getParameter("itemname"));
-			System.out.println(request.getParameter("itemname"));
 			stck.setQuantity(Integer.parseInt(request.getParameter("quantity")));
 			stck.setRefNo(request.getParameter("refno"));
 			stck.setLastUser(currentUser.getUserId());
 			stck.setDateAdded(request.getParameter("dateadded"));
-	//		stck.setDateAdded(new SimpleDateFormat("MM/DD/YYYY").parse(request.getAttribute("dateAdded").toString()));
-			
-	//		Date dateadd = formatter.parse(dateAdded);
-	//		stck.setDateAdded(formatter.format(dateadd));
+
 			
 			
 			stck.setPurchaseDate(request.getParameter("datepurchase"));
@@ -68,8 +64,6 @@ public class StocksDAOImpl implements StocksDAO {
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getLocalizedMessage());
-	//	} catch (ParseException e) {
-	//		e.printStackTrace();
 		}
 	}
 
@@ -102,9 +96,7 @@ public class StocksDAOImpl implements StocksDAO {
 			
 		
 		Stocks stck = new Stocks();
-		System.out.println("TEST");
 		stck.setSupplyId(Integer.parseInt(request.getParameter("itemname")));
-		System.out.println(stck.getSupplyId());
 		stck.setQuantity(Integer.parseInt(request.getParameter("quantity")));
 		stck.setRefNo(request.getParameter("refno"));
 		stck.setDateAdded(request.getParameter("dateadded"));

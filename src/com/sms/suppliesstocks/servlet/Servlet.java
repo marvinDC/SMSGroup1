@@ -63,9 +63,9 @@ public class Servlet extends HttpServlet{
 				h =	stockService.searchStock(request);
 				request.setAttribute("SearchedstockList", h);
 				page = "pages/searchedStocks.jsp";
-				System.out.println(h);
+		//		System.out.println(h);
 				for (Stocks s:h){
-					System.out.println(s.getStockId()+ ", " + s.getSupplyId() + ", " + s.getQuantity() + ", " + s.getRefNo() +  ", " + s.getDateAdded() + ", " + s.getPurchaseDate() + ", " + s.getLastUser() + ", " + s.getLastUpdate());
+		//			System.out.println(s.getStockId()+ ", " + s.getSupplyId() + ", " + s.getQuantity() + ", " + s.getRefNo() +  ", " + s.getDateAdded() + ", " + s.getPurchaseDate() + ", " + s.getLastUser() + ", " + s.getLastUpdate());
 				}
 			}
 			

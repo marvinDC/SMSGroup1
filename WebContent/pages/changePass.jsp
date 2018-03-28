@@ -57,7 +57,7 @@
 	})
 	
 	$("cancel").observe("click", function(){
-		new Ajax.Request(contextPath + "/maintenance", {
+		/* new Ajax.Request(contextPath + "/maintenance", {
 			method: "GET",
 			parameters: {
 				action: "cancel"
@@ -65,7 +65,9 @@
 			onComplete: function(response){
 				$("mainDiv").update(response.responseText);
 			}
-		});
+		}); */
+		
+		location.reload();
 	})
 	</script>
 </body>

@@ -14,8 +14,7 @@
 <link rel="stylesheet" type="text/css" href="css/common.css">
 </head>
 <body>
-<center>
-<div id = "mainContents">
+<center><div class="content" style="margin-top:20px">
 <h3>Stocks</h3>
 	
 	<c:if test="${message != null}">
@@ -203,7 +202,7 @@
 				actionBack : "backToHome"
 			},
 			onComplete: function(response){
-				$("contents").update(response.responseText);
+				$("mainContents").update(response.responseText);
 			}
 		})
 	}); 

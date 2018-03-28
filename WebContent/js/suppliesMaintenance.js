@@ -60,6 +60,26 @@ function AddSupplies() {
 	}else if(isNaN($F("txtReorderLevel")) || isNaN($F("txtActualCount"))){
 		isCompleteFields = false;
 		errorMsg = "Input Number only for Re-Order Level or Actual Count";
+	}else if(!isNaN($F("txtReorderLevel")) || !isNaN($F("txtActualCount"))){
+		if($F("txtReorderLevel") <= 0 || $F("txtActualCount") <= 0){
+			isCompleteFields = false;
+			errorMsg = "Value for Re-Order Level/Actual Count";
+		}else{
+			isCompleteFields = true;
+			if(!isNaN(timestamp)){
+				  var date = new Date($F("txtEnteredDate"));
+				  var day = date.getDate();
+				  var month = date.getMonth() + 1;
+				  var year = date.getFullYear();
+				  var newDate = month+"/"+day+"/"+year;
+				  alert(newDate);
+				isCompleteFields = true;
+			}else{
+				isCompleteFields = false;
+				errorMsg= "Invalid Date for Entered Date";
+			}
+			
+		}
 	}else{
 		if(!isNaN(timestamp)){
 			  var date = new Date($F("txtEnteredDate"));
@@ -94,9 +114,7 @@ function AddSupplies() {
 			location : $F("txtLocation")
 		},
 		onComplete : function(response) {
-			alert("complete");
 			$("mainContents").update(response.responseText);
-			alert(response.responseText); 
 			RowsBehavior();
 		}
 	}); 
@@ -123,7 +141,6 @@ function checkChildRecord(){
 				supplyId 		: $$("#suppliesTabBody .active")[0].down("td", 0).down("a", 0).innerHTML
 			},
 			onComplete : function(response) {
-				alert("complete");
 				$("mainContents").update(response.responseText);
 				console.log(response);
 				RowsBehavior();

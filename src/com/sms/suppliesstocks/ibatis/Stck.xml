@@ -58,13 +58,18 @@
 
 
 
-	<insert id="insertStock" parameterClass="StockClass">
-		INSERT into
-		SUPPLIES_STOCKS_GROUP1 (STOCK_ID, SUPPLY_ID, DATE_ADDED,
-		PURCHASE_DATE, QUANTITY, REFERENCE_NO, LAST_USER)
-		VALUES(GROUP1_STOCK_ID_SEQ.NEXTVAL, #itemName#, #dateAdded#,
-		#purchaseDate#, #quantity#, #refNo#, #lastUser#)
-	</insert>
+	<procedure id="insertStock" parameterClass="StockClass">
+		BEGIN
+			INSERT into
+			SUPPLIES_STOCKS_GROUP1 (STOCK_ID, SUPPLY_ID, DATE_ADDED,
+			PURCHASE_DATE, QUANTITY, REFERENCE_NO, LAST_USER)
+			VALUES(GROUP1_STOCK_ID_SEQ.NEXTVAL, #itemName#, #dateAdded#,
+			#purchaseDate#, #quantity#, #refNo#, #lastUser#);
+			UPDATE SUPPLIES_GROUP1
+			SET ACTUAL_COUNT = ACTUAL_COUNT + #quantity# 
+			WHERE SUPPLY_ID = #itemName# ;
+		END;
+	</procedure>
 
 	<insert id="deleteStock" parameterClass="StockClass">
 		DELETE from

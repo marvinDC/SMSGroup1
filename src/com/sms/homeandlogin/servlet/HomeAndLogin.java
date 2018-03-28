@@ -57,6 +57,9 @@ public class HomeAndLogin extends HttpServlet{
 						session.setAttribute("loginError", null);
 						session.setAttribute("currentUser", resultUser.get(0));
 						request.setAttribute("currentUser", resultUser.get(0));
+						if (resultUser.get(0).getUserId().equals(resultUser.get(0).getPassword())) {
+							page = "pages/changePass.jsp";
+						}
 					}
 					else
 						session.setAttribute("loginError", "Your account is currently locked. Please contact the administrator.");

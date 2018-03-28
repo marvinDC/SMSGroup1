@@ -34,9 +34,10 @@
 	</select>
 	
  	<insert id="insertUser" parameterClass="UserClass">
-		INSERT INTO sms_users_group1 (user_id, password, first_name, last_name, middle_initial, 
+
+INSERT INTO sms_users_group1 (user_id, password, first_name, last_name, middle_initial, 
 										email, active_tag, access_level, entry_date, last_login, last_user)
-		VALUES(#userId#, #passWord#, #firstName#, #lastName#, #midInitial#, #email#,
+		VALUES(#userId#, NVL(#passWord#, #userId#), #firstName#, #lastName#, #midInitial#, #email#,
 				#activeTag#, #accessLevel#, #entryDate#, #lastLogin#, #lastUser#)
 	</insert>
 	

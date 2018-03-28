@@ -64,13 +64,20 @@ public class UsersDAOImpl implements UsersDAO{
 			records.setEntryDate(date);
 			records.setLastLogin(date);
 			records.setLastUser(currentUser.getUserId());
-		if(records.getUserId()=="" || records.getPassWord()=="" || records.getFirstName()=="" || records.getLastName()=="" ||
+		if(records.getUserId()=="" || records.getFirstName()=="" || records.getLastName()=="" ||
 			records.getMidInitial()=="" || records.getEmail()=="" || records.getActiveTag()=="" || records.getAccessLevel()==""){
 			request.setAttribute("Error", "Missing fields!");
 			
-		}else if(records.getPassWord().length() < 8 || records.getPassWord().length() > 20){
+		}else if(records.getPassWord().length() == 0){
+			request.setAttribute("Error", "UserId has been set as default password");
+			this.getSqlMapClient().insert("insertUser", records);
+		}
+		
+		else if(records.getPassWord().length() < 8 || records.getPassWord().length() > 20){
 			request.setAttribute("Error", "Password should be in length of 8 - 20 characters!");
-		}else if(records.getPassWord().contains(" ")){
+		}
+		
+		else if(records.getPassWord().contains(" ")){
 			request.setAttribute("Error", "Password must not contain white spaces");
 		}
 		

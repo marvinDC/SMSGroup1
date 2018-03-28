@@ -21,9 +21,9 @@
 <div id="mainDiv">	
 	<h3>User Maintenance</h3>
 	<c:if test="${Error != null}">
-		<div id="errorPopup">${Error}</div>
+		<div class="alert alert-danger">${Error}</div>
  	</c:if>
- 	<div align="right" style="font-family: courier; font-size: 14pt; position: absolute; top: 16%; left: 20%;">
+ 	<div align="right" style="font-family: courier; font-size: 14pt; position: absolute; top: 16%; left: 5%; color:black;">
  	<a href="#" onclick="toUserPage()">User</a><br>
  	<a href="#" onclick="">Supply Types</a><br>
  	<a href="#" onclick="suppliesMaintenance()">Supplies</a><br>
@@ -149,7 +149,7 @@ $('addNewBtn').observe("click", function(){
 	new Ajax.Request(contextPath + "/maintenance", {
 		method: "GET",
 		parameters: {
-			action: "adding"
+			action: "addingPage"
 		},
 		onComplete: function(response){
 			$("mainDiv").update(response.responseText);

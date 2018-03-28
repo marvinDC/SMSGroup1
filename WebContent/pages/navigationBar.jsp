@@ -21,7 +21,7 @@
 	        </c:if>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
-	        <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> ${currentUser.firstName} ${currentUser.lastName}</a></li>
+	        <li><a href="#" onclick="toUserPage()"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> ${currentUser.firstName} ${currentUser.lastName}</a></li>
 	        <li><a href="#" id="btnLogout" onclick="logout()"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a></li>
 	      </ul>
 	    </div>

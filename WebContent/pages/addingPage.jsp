@@ -17,10 +17,18 @@
 <div id="mainDiv">
 <center>
 	<h3>User Maintenance</h3>
+	<c:if test="${Error != null}">
+		<div id="errorPopup">${Error}</div>
+ 	</c:if>
+ 	<div align="right" style="font-family: courier; font-size: 14pt; position: absolute; top: 16%; left: 5%;">
+ 	<a href="#" onclick="toUserPage()">User</a><br>
+ 	<a href="#" onclick="">Supply Types</a><br>
+ 	<a href="#" onclick="suppliesMaintenance()">Supplies</a><br>
+ 	</div>
 <table>
 	<tr><td>User ID </td><td><input type="text" id="userId" class="formInput form-control" name="UserId"></tr>
 	<tr><td>Password </td><td><input type="password" id="pWord" class="formInput form-control" name="password"></td>
-		<td style="width: 150px;"></td><td><input type="button" id="save" class="formBtn btn btn-primary" value="Save" style="width: 100px;"></td></tr>
+		<td style="width: 150px;"></td><td><input type="button" id="saveAdded" class="formBtn btn btn-primary" value="Save" style="width: 100px;"></td></tr>
 	<tr><td>First Name</td><td><input type="text" id="fName" class="formInput form-control" name="firstName"></td>
 		<td></td><td><input type="button" id="cancel" class="formBtn btn btn-primary" value="Cancel" style="width: 100px;"></td></tr>
 	<tr><td>Last Name </td><td><input type="text" id="lName" class="formInput form-control" name="lastName"></td></tr>
@@ -39,7 +47,7 @@
 </body>
 	<script>
 
-$("save").observe("click", function(){
+$("saveAdded").observe("click", function(){
 	new Ajax.Request(contextPath + "/maintenance", {
 		method: "GET",
 		parameters: {
@@ -54,7 +62,7 @@ $("save").observe("click", function(){
 			action: "saveAdded"
 		},
 		onComplete: function(response){
-			//$("mainDiv").update(response.responseText);
+			$("mainDiv").update(response.responseText);
 		}
 	});
 

@@ -20,7 +20,7 @@
 	<c:if test="${Error != null}">
 		<div id="errorPopup">${Error}</div>
  	</c:if>
- 	<div align="right" style="font-family: courier; font-size: 14pt; position: absolute; top: 16%; left: 20%;">
+ 	<div align="right" style="font-family: courier; font-size: 14pt; position: absolute; top: 16%; left: 5%;">
  	<a href="#" onclick="toUserPage()">User</a><br>
  	<a href="#" onclick="">Supply Types</a><br>
  	<a href="#" onclick="suppliesMaintenance()">Supplies</a><br>

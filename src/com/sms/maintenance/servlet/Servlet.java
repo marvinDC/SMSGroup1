@@ -39,6 +39,7 @@ public class Servlet extends HttpServlet{
 			
 	 		if(action != null && action.equals("saveAdded")){
 	 			useService.insertUser(request);
+	 			page = "pages/addingPage.jsp";
 	 		
 	 		}else if(action != null && action.equals("saveUpdate")){
 	 			useService.updateUser(request);
@@ -51,7 +52,7 @@ public class Servlet extends HttpServlet{
 	 			
 	 			page = "pages/userPage.jsp";
 	 			
-	 		}else if(action != null && action.equals("adding")){
+	 		}else if(action != null && action.equals("addingPage")){
 	 			page = "pages/addingPage.jsp";
 	 			
 	 		}else if(action != null && action.equals("changepass")){

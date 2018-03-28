@@ -24,11 +24,10 @@ th{
 /* Modal */
 #errorPopup{
 	background-color: aqua;
-	padding-top: 0pt;
-	padding-bottom: 0pt; 
+	border-color: #0099cc;
 	 width: 30%;
 	 border-radius: 10px;
-	 color: #003300;
+	 color: maroon;
 	 font-family: palatino linotype;
-	 font-size: 12pt;
+	 font-size: 15pt;
 }

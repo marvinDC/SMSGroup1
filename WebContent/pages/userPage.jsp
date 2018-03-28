@@ -19,11 +19,6 @@
 	<c:if test="${Error != null}">
 		<div id="errorPopup">${Error}</div>
  		</c:if>
- 		<div align="right" style="font-family: courier; font-size: 14pt; position: absolute; top: 16%; left: 20%;">
- 	<a href="#" onclick="toUserPage()">User</a><br>
- 	<a href="#" onclick="">Supply Types</a><br>
- 	<a href="#" onclick="suppliesMaintenance()">Supplies</a><br>
- 	</div>
 <table>
 	<tr><td>User ID </td><td><input type="text" id="userId" class="formInput form-control" name="UserId" value="${currentUser.userId}" disabled></td><td></td></tr>
 	<tr><td>Password </td><td><input type="password" id="pWord" class="formInput form-control" name="password" value="${currentUser.password}" disabled></td>

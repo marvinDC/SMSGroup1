@@ -47,8 +47,8 @@ function initRowFunctions(){
 				$("quantity").value = elem.down('td',3).innerHTML;
 				$("requestedBy").value = elem.down('td',4).innerHTML;
 				$("selectDept").value = elem.down('td',5).innerHTML;
-				$("issueDate").value = (date.getFullYear()) + "-" +
-					("00" + (date.getMonth() + 1)).slice(-2) + "-" + ("00" + date.getDate()).slice(-2);
+				$("issueDate").value = (("00" + (date.getMonth() + 1)).slice(-2) +
+						"/" + ("00" + date.getDate()).slice(-2) + "/" + date.getFullYear());
 			}
 		})
 	})
@@ -64,12 +64,18 @@ function reset() {
 
 function saveIssuedSupply(action) {
 	$('issueAlert').addClassName('hidden');
+	var date = new Date($F("issueDate"))
+	if (Date.parse($F("issueDate"))){
+		message = "Invalid Date";
+	}
+	var issueDate = (date.getFullYear()) + "-" +
+		("00" + (date.getMonth() + 1)).slice(-2) + "-" + ("00" + date.getDate()).slice(-2)
 	var obj = {
 		supplyId: $F("selectItem"),
 		quantity: $F("quantity"),
 		requestedBy: $F("requestedBy"),
 		departmentId: $F("selectDept"),
-		issueDate: $F("issueDate"),
+		issueDate: issueDate,
 		action: action
 	};
 	var message = validateIssueFields(obj);
@@ -116,6 +122,7 @@ function searchIssuedSupply(e){
 }
 
 function validateIssueFields(obj){
+	console.log(obj)
 	for ( var key in obj) {
 		if(!obj[key]){
 			return "Error: Missing field value";

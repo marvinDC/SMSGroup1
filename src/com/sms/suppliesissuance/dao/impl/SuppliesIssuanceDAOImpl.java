@@ -2,7 +2,6 @@ package com.sms.suppliesissuance.dao.impl;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.sms.suppliesissuance.dao.SuppliesIssuanceDAO;
@@ -56,13 +55,14 @@ public class SuppliesIssuanceDAOImpl implements SuppliesIssuanceDAO {
 		this.sqlMapClient.startBatch();
 		
 		try {
+			System.out.println(issuedSupply.toString());
 			this.getSqlMapClient().update("updateIssueSupply", issuedSupply);
-			issuedSupply.setQuantity(issuedSupply.getQuantityDifference());
-			this.getSqlMapClient().update("updateSupply", issuedSupply);
 			this.sqlMapClient.executeBatch();
 		} catch (Exception e) {
+			System.out.println("update Rollback");
 			this.sqlMapClient.getCurrentConnection().rollback();
 		} finally {
+			System.out.println("update Commit");
 			this.sqlMapClient.getCurrentConnection().commit();
 		}
 	}

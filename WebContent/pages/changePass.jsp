@@ -18,19 +18,19 @@
 <center>
 	<h3>CHANGE PASSWORD</h3>
 	<c:if test="${Error != null}">
-		<div id="errorPopup">${Error}</div>
+		<div class="alertDiv alert alert-danger" style="width: 50%">${Error}</div>
  	</c:if>
- 	<div align="right" style="font-family: courier; font-size: 14pt; position: absolute; top: 16%; left: 20%;">
+ 	<div align="right" style="font-family: courier; font-size: 14pt; position: absolute; top: 16%; left: 5%;">
  	<a href="#" onclick="toUserPage()">User</a><br>
  	<a href="#" onclick="">Supply Types</a><br>
  	<a href="#" onclick="suppliesMaintenance()">Supplies</a><br>
  	</div>
 	<table>
-		<tr align="left"><td>Current Password</td><td><input type="password" id="cPassword" class="formInput form-control" name="currentPassword"></td></tr>
-		<tr><td>New Password</td><td><input type="password" id="nPassword" class="formInput form-control" name="newPassword"></td>
+		<tr><td class="fieldLabel">Current Password</td><td><input type="password" id="cPassword" class="formInput form-control" name="currentPassword"></td></tr>
+		<tr><td class="fieldLabel">New Password</td><td><input type="password" id="nPassword" class="formInput form-control" name="newPassword"></td>
 		<td style="width: 100px;"></td>
 		<td><input type="button" id="savePW" class="formBtn btn btn-primary" value="Save" style="width: 100px;"></tr>
-		<tr><td>Retype Password</td><td><input type="password" id="rPassword" class="formInput form-control" name="retypePassword"></td>
+		<tr><td class="fieldLabel">Retype Password</td><td><input type="password" id="rPassword" class="formInput form-control" name="retypePassword"></td>
 		<td></td><td><input type="button" id="cancel" class="formBtn btn btn-primary" value="Cancel" style="width: 100px;"></td></tr>
 	</table>
 </center>

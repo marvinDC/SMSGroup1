@@ -13,6 +13,8 @@ public interface SuppliesDAO {
 	List<Supplies> getSupplies() throws SQLException;
 	List<Supplies> searchSupplies(Supplies addSupplies) throws SQLException;
 	List<Supplies> getSupplyTypes() throws SQLException;
+	List<Supplies> checkChildRecord(Supplies updateSupplies) throws SQLException;
 	void insertSupply(Supplies addSupplies) throws SQLException, ParseException;
 	void updateSupply(Supplies updateSupplies) throws SQLException, ParseException;
+	
 }

@@ -29,8 +29,15 @@ public class UsersDAOImpl implements UsersDAO{
 		String action = request.getParameter("action");
 		
 		if(action != null && action.equals("search")){
-		records.setSearchKeyWord(request.getParameter("searchKeyWord"));
-		return this.getSqlMapClient().queryForList("getSearch", records);
+			String searchKey = request.getParameter("searchKeyWord");
+			if(searchKey == ""){
+				request.setAttribute("Error", "Nothing to search!");
+				return this.getSqlMapClient().queryForList("getUser");
+				
+			}else{
+				records.setSearchKeyWord(searchKey);
+				return this.getSqlMapClient().queryForList("getSearch", records);
+			}
 		}else{
 		return this.getSqlMapClient().queryForList("getUser");
 		}
@@ -57,11 +64,24 @@ public class UsersDAOImpl implements UsersDAO{
 			records.setEntryDate(date);
 			records.setLastLogin(date);
 			records.setLastUser(currentUser.getUserId());
+		if(records.getUserId()=="" || records.getPassWord()=="" || records.getFirstName()=="" || records.getLastName()=="" ||
+			records.getMidInitial()=="" || records.getEmail()=="" || records.getActiveTag()=="" || records.getAccessLevel()==""){
+			request.setAttribute("Error", "Missing fields!");
+			
+		}else if(records.getPassWord().length() < 8 || records.getPassWord().length() > 20){
+			request.setAttribute("Error", "Password should be in length of 8 - 20 characters!");
+		}else if(records.getPassWord().contains(" ")){
+			request.setAttribute("Error", "Password must not contain white spaces");
+		}
 		
-			System.out.println(records.toString().split(",").length);
+		else if(records.getMidInitial().length() > 1){
+			request.setAttribute("Error", "Put only middle initial!");
+		}
 		
-		request.setAttribute("Error", "Account successfully added!");
-		this.getSqlMapClient().insert("insertUser", records);
+		else{
+			request.setAttribute("Error", "Account successfully added!");
+			this.getSqlMapClient().insert("insertUser", records);
+		}
 		
 		this.sqlMapClient.executeBatch();
 		this.sqlMapClient.getCurrentConnection().commit();

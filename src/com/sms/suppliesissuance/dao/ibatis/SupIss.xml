@@ -64,17 +64,11 @@
 		WHERE issue_id = #issueId#
 	</insert>
 	
-	<insert id="updateIssueSupply" parameterClass="IssuedSupplyClass">
-		UPDATE ISSUED_SUPPLIES_GROUP1
-		SET supply_id = #supplyId#,
-			issue_date = #issueDate#,
-			requestor = #requestor#,
-			quantity = #quantity#,
-			dept_id = #deptId#,
-			last_user = #lastUser#,
-			last_update = SYSDATE
-		WHERE issue_id = #issueId#
-	</insert>
+	<procedure id="updateIssueSupply" parameterClass="IssuedSupplyClass">
+		BEGIN
+			updateIssue(#issueId#, #supplyId#, #issueDate#, #requestor#, #quantity#, #deptId#, #lastUser#, #currSupplyId#, #currQuantity#); 
+		END;
+	</procedure>
 	
 	<insert id="updateSupply" parameterClass="IssuedSupplyClass">
 		UPDATE SUPPLIES_GROUP1

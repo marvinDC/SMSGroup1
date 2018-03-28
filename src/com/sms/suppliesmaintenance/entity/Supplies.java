@@ -95,6 +95,13 @@ public class Supplies {
 	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
+	@Override
+	public String toString() {
+		return "Supplies [supplyId=" + supplyId + ", supplyTypeId=" + supplyTypeId + ", supplyType=" + supplyType
+				+ ", itemName=" + itemName + ", itemUnit=" + itemUnit + ", obsoleteTag=" + obsoleteTag + ", location="
+				+ location + ", reorderLevel=" + reorderLevel + ", actualCount=" + actualCount + ", remarks=" + remarks
+				+ ", dateAdded=" + dateAdded + ", lastUser=" + lastUser + ", lastUpdate=" + lastUpdate + "]";
+	}
 	
 	
 

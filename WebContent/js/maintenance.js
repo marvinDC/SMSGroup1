@@ -1,5 +1,4 @@
 function maintenance() {
-	console.log("maintenance")
 	new Ajax.Request(contextPath + "/maintenance", {
 		method: "GET",
 		parameters: {
@@ -18,7 +17,7 @@ function toUserPage(){
 			action: "userPage"
 		},
 		onComplete: function(response){
-			$("mainDiv").update(response.responseText);
+			$("mainContents").update(response.responseText);
 		}
 	});
 }

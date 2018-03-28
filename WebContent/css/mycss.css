@@ -7,6 +7,7 @@ th{
 	font-size: 12pt;
 }
 
+
 #listTableRow:HOVER {
 		color: maroon;
 		background-color: pink;
@@ -17,17 +18,12 @@ th{
 #listTableRow{
 	border: "1";
 	border-color: black;
-	font-family: courier;
+	font-family: times new roman;
+	
 }
 
-
-/* Modal */
-#errorPopup{
-	background-color: aqua;
-	border-color: #0099cc;
-	 width: 30%;
-	 border-radius: 10px;
-	 color: maroon;
-	 font-family: palatino linotype;
-	 font-size: 15pt;
+.fieldLabel{
+	text-align: right;
+	font-family: palatino linotype;
+	font-size: 12pt;
 }

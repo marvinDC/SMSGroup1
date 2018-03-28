@@ -78,6 +78,6 @@ tr.row:before {
 .suppliesTabBody td.digits{
 	text-align:left;
 }
-.suppliesTabBody td.{
-	
+.suppliesTabBody td.nowrap{
+	 white-space: nowrap;
 }

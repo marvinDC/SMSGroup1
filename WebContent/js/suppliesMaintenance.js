@@ -106,6 +106,33 @@ function AddSupplies() {
 	}
 }
 
+function checkChildRecord(){
+	
+	var isCompleteFields = false;
+	var errorMsg = ""
+
+	if(!$F("txtItemName") || !$F("txtItemUnit") || !$F("txtReorderLevel")){
+		isCompleteFields = false;
+	}else{
+		isCompleteFields = true;}
+	if(isCompleteFields){
+		new Ajax.Request(contextPath + "/supplies", {
+			method : "GET",
+			parameters : {
+				action 			: "checkChildRecord",
+				supplyId 		: $$("#suppliesTabBody .active")[0].down("td", 0).down("a", 0).innerHTML
+			},
+			onComplete : function(response) {
+				alert("complete");
+				$("mainContents").update(response.responseText);
+				console.log(response);
+				RowsBehavior();
+				
+			}
+		});
+	}
+}
+
 function UpdateSupplies() {
 	var isCompleteFields = false;
 	var errorMsg = ""

@@ -107,4 +107,12 @@ public class SuppliesServiceImpl implements SuppliesService {
 
 	}
 
+	@Override
+	public List<Supplies> checkChildRecord(HttpServletRequest request) throws SQLException {
+		Supplies updateSupplies = new Supplies();
+		System.out.println("May Laman" + request.getAttribute("supplyId").toString());
+		updateSupplies.setSupplyId(Integer.valueOf(request.getAttribute("supplyId").toString()));
+		return suppliesDAO.checkChildRecord(updateSupplies);
+	}
+
 }

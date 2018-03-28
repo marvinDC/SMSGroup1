@@ -11,6 +11,8 @@
 <link rel="stylesheet" type="text/css" href="css/common.css">
 </head>
 <body>
+<div style="margin-left: 10px;">You are Here || Stocks >>
+		Add Stocks</div>
 	<center>
 
 		<div class="content">

@@ -68,6 +68,8 @@
 			UPDATE SUPPLIES_GROUP1
 			SET ACTUAL_COUNT = ACTUAL_COUNT + #quantity# 
 			WHERE SUPPLY_ID = #itemName# ;
+			
+			
 		END;
 	</procedure>
 

@@ -15,16 +15,30 @@
 </head>
 <body>
 <div id="mainDiv">
+<div style="margin-left: 10px;">You are Here || Maintenance >>
+		Users >> Change Password</div>
+<div class="content">
 <center>
 	<h3>CHANGE PASSWORD</h3>
 	<c:if test="${Error != null}">
 		<div class="alertDiv alert alert-danger" style="width: 50%">${Error}</div>
  	</c:if>
- 	<div align="right" style="font-family: courier; font-size: 14pt; position: absolute; top: 16%; left: 5%;">
- 	<a href="#" onclick="toUserPage()">User</a><br>
- 	<a href="#" onclick="">Supply Types</a><br>
- 	<a href="#" onclick="suppliesMaintenance()">Supplies</a><br>
- 	</div>
+ 	<div class="maintenanceLinks"
+				style="width: 100px; height: 300px; position: absolute; top: 16%; left: 5%;">
+				<table style="color: black;">
+					<tr>
+						<td><a style="color: black;" href="#" onclick="maintenance()">Users</a></td>
+					</tr>
+					<tr>
+						<td><a style="color: black;" href="#" onclick="">Supply
+								Types</a></td>
+					</tr>
+					<tr>
+						<td><a style="color: black;" href="#"
+							onclick="suppliesMaintenance()">Supplies</a></td>
+					</tr>
+				</table>
+			</div>
 	<table>
 		<tr><td class="fieldLabel">Current Password</td><td><input type="password" id="cPassword" class="formInput form-control" name="currentPassword"></td></tr>
 		<tr><td class="fieldLabel">New Password</td><td><input type="password" id="nPassword" class="formInput form-control" name="newPassword"></td>
@@ -35,7 +49,7 @@
 	</table>
 </center>
 </div>
-
+</div>
 	<script>
 
 	$("savePW").observe("click", function(){

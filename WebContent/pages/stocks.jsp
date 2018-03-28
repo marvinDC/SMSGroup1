@@ -14,6 +14,7 @@
 <link rel="stylesheet" type="text/css" href="css/common.css">
 </head>
 <body>
+<div style="margin-left: 10px;">You are Here || Stocks</div>
 <center><div class="content" style="margin-top:20px">
 <h3>Stocks</h3>
 	

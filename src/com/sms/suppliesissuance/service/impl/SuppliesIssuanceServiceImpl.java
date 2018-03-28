@@ -107,10 +107,10 @@ public class SuppliesIssuanceServiceImpl implements SuppliesIssuanceService {
 	
 	public boolean checkStock(HttpServletRequest request, Supplies supply) {
 		if (request.getParameter("currentQuantity") != null && supply.getActualCount().compareTo(
-				new Integer(request.getParameter("quantity")) - new Integer(request.getParameter("currentQuantity"))) > 0) {
+				new Integer(request.getParameter("quantity")) - new Integer(request.getParameter("currentQuantity"))) == 1) {
 			return true;
 		}
-		else if(request.getParameter("currentQuantity") == null && supply.getActualCount().compareTo(new Integer(request.getParameter("quantity"))) > 0) {
+		else if(request.getParameter("currentQuantity") == null && supply.getActualCount().compareTo(new Integer(request.getParameter("quantity"))) == 1) {
 			return true;
 		}
 		return false;

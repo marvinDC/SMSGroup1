@@ -24,7 +24,7 @@
 		SELECT user_id, password, first_name, last_name, middle_initial, email, 
 			active_tag, access_level, entry_date, last_login, last_user, last_update
 		FROM sms_users_group1
-		WHERE user_id = #searchKeyWord#
+		WHERE LOWER(user_id) = LOWER(#searchKeyWord#)
 	</select>
 	
 	<select id="getUser" resultMap="getUserMap">

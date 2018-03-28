@@ -54,6 +54,7 @@ tr.row:before {
 
 #mainContents {
 	background: #f6fbff;
+	height: -webkit-fill-available;
 }
 
 .content {
@@ -64,7 +65,7 @@ tr.row:before {
 	margin-left: 20px;
 }
 
-#issueAlert {
+.alertDiv {
 	width:70%;
 	text-align: center;
 }
@@ -77,6 +78,6 @@ tr.row:before {
 .suppliesTabBody td.digits{
 	text-align:left;
 }
-.suppliesTabBody td.{
-	
+.suppliesTabBody td.nowrap{
+	 white-space: nowrap;
 }

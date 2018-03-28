@@ -1,5 +1,13 @@
 @charset "ISO-8859-1";
 
+html {
+  height: 105%
+}
+
+body {
+  min-height: 105%;
+}
+
 .formInput {
 	margin-left: 10px;
 	margin-bottom: 5px;
@@ -54,6 +62,7 @@ tr.row:before {
 
 #mainContents {
 	background: #f6fbff;
+	height: -webkit-fill-available;
 }
 
 .content {
@@ -64,7 +73,7 @@ tr.row:before {
 	margin-left: 20px;
 }
 
-#issueAlert {
+.alertDiv {
 	width:70%;
 	text-align: center;
 }

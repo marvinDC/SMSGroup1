@@ -6,7 +6,8 @@
 <div class="content">
 	<h3 class="pageHeader">Issue Supplies</h3>
 	<div align="center">
-		<div id="issueAlert" class="alert alert-danger ${message ? '':'hidden'}">"${message}"</div>
+		<div id="issueAlert" class="alertDiv alert alert-danger ${message != null ? '':'hidden'}">${message}</div>
+		<div id="issueWarning" class="alertDiv alert alert-warning ${warning != null ? '':'hidden'}">${warning}</div>
 	</div>
 	<div class="row">
 		<div class="col-md-2"></div>
@@ -15,9 +16,11 @@
 				<tr>
 					<td align="right">Item Name </td>
 					<td align="right"><select id="selectItem" class="formInput form-control">
-						<option value=1> </option>
-						<option value=2>STERLING</option>
-						<option value=3>CPI NOTEBOOK</option>
+						<c:forEach var="supply" items="${supplies}">
+							<c:if test="${supply.obsoleteTag != 'Y'}">
+								<option value="${supply.supplyId}">${supply.itemName}</option>
+							</c:if>
+						</c:forEach>
 					</select></td>
 				</tr>
 				<tr>

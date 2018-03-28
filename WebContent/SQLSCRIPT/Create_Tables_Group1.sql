@@ -164,3 +164,32 @@ VALUES ('admin'
    
    select * from SMS_USERS_GROUP1;
    
+CREATE OR REPLACE
+PROCEDURE updateIssue(issueId IN NUMBER, supplyId IN NUMBER, issueDate IN DATE, requestor IN VARCHAR2, amount IN NUMBER, deptId IN NUMBER, lastUser IN VARCHAR2, currSupplyId IN NUMBER, currQuantity IN NUMBER) IS 
+
+BEGIN
+	UPDATE ISSUED_SUPPLIES_GROUP1
+	SET supply_id = supplyId,
+		issue_date = issueDate,
+		requestor = requestor,
+		quantity = amount,
+		dept_id = deptId,
+		last_user = lastUser,
+		last_update = SYSDATE
+	WHERE issue_id = issueId;
+
+	IF supplyId = currSupplyId THEN
+		UPDATE SUPPLIES_GROUP1
+		SET ACTUAL_COUNT = (ACTUAL_COUNT - (amount - currQuantity))
+		WHERE supply_id = supplyId;
+	ELSE
+		UPDATE SUPPLIES_GROUP1
+		SET ACTUAL_COUNT = (ACTUAL_COUNT + currQuantity)
+		WHERE supply_id = currSupplyId;
+		
+		UPDATE SUPPLIES_GROUP1
+		SET ACTUAL_COUNT = (ACTUAL_COUNT - amount)
+		WHERE supply_id = supplyId;
+	END IF;
+	COMMIT;
+END updateIssue;

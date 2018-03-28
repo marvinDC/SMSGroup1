@@ -49,12 +49,42 @@ function gotoAddSupplies() {
 
 function AddSupplies() {
 
+	var isCompleteFields = false;
+	var errorMsg = "";
+	var timestamp=Date.parse($F("txtEnteredDate"));
+
+	if(!$F("txtItemName") || !$F("txtItemUnit") || !$F("txtReorderLevel") ||
+	   !$F("txtActualCount") || !$F("txtRemarks") || !$F("txtLocation") || !$F("txtEnteredDate")){
+		isCompleteFields = false;
+		errorMsg = "Please fill out form completely";
+	}else if(isNaN($F("txtReorderLevel")) || isNaN($F("txtActualCount"))){
+		isCompleteFields = false;
+		errorMsg = "Input Number only for Re-Order Level or Actual Count";
+	}else{
+		if(!isNaN(timestamp)){
+			  var date = new Date($F("txtEnteredDate"));
+			  var day = date.getDate();
+			  var month = date.getMonth() + 1;
+			  var year = date.getFullYear();
+			  var newDate = month+"/"+day+"/"+year;
+			  alert(newDate);
+			isCompleteFields = true;
+		}else{
+			isCompleteFields = false;
+			alert("Error");
+			errorMsg= "InValid Date for Entered Date";
+		}
+		
+		
+	}  	
+	
+	if(isCompleteFields){
 	new Ajax.Request(contextPath + "/supplies", {
 		method : "POST",
 		parameters : {
 			action : "addSupplies",
 			supplyTypeId : $F("txtSupplyTye"),
-			dateAdded : $F("txtEnteredDate"),
+			dateAdded : newDate,
 			itemName : $F("txtItemName"),
 			reorderLevel : $F("txtReorderLevel"),
 			actualCount : $F("txtActualCount"),
@@ -70,33 +100,49 @@ function AddSupplies() {
 			RowsBehavior();
 		}
 	}); 
+	}else{
+		$("errorMsg").removeClassName("hidden");
+		$("errorMsg").innerHTML = errorMsg;
+	}
 }
 
 function UpdateSupplies() {
+	var isCompleteFields = false;
+	var errorMsg = ""
 
-	alert($$("#suppliesTabBody .active")[0].down("td", 0).down("a", 0).innerHTML);
-	new Ajax.Request(contextPath + "/supplies", {
-		method : "POST",
-		parameters : {
-			action 			: "updateSupplies",
-			supplyTypeId 	: $F("txtSupplyTye"),
-			dateAdded 		: $F("txtEnteredDate"),
-			itemName 		: $F("txtItemName"),
-			reorderLevel 	: $F("txtReorderLevel"),
-			actualCount		: $F("txtActualCount"),
-			itemUnit 		: $F("txtItemUnit"),
-			remarks 		: $F("txtRemarks"),
-			obsolete 		: ($("radioObsoleteTagYes").checked) ? "Y" : "N",
-			location 		: $F("txtLocation"),
-			supplyId 		: $$("#suppliesTabBody .active")[0].down("td", 0).down("a", 0).innerHTML
-		},
-		onComplete : function(response) {
-			alert("complete");
-			$("mainContents").update(response.responseText);
-			alert(response.responseText); 
-			RowsBehavior();
-		}
-	});
+	if(!$F("txtItemName") || !$F("txtItemUnit") || !$F("txtReorderLevel")){
+		isCompleteFields = false;
+	}else{
+		isCompleteFields = true;
+	}  
+	if(isCompleteFields){
+		new Ajax.Request(contextPath + "/supplies", {
+			method : "POST",
+			parameters : {
+				action 			: "updateSupplies",
+				supplyTypeId 	: $F("txtSupplyTye"),
+				dateAdded 		: $F("txtEnteredDate"),
+				itemName 		: $F("txtItemName"),
+				reorderLevel 	: $F("txtReorderLevel"),
+				actualCount		: $F("txtActualCount"),
+				itemUnit 		: $F("txtItemUnit"),
+				remarks 		: $F("txtRemarks"),
+				obsolete 		: ($("radioObsoleteTagYes").checked) ? "Y" : "N",
+				location 		: $F("txtLocation"),
+				supplyId 		: $$("#suppliesTabBody .active")[0].down("td", 0).down("a", 0).innerHTML
+			},
+			onComplete : function(response) {
+				alert("complete");
+				$("mainContents").update(response.responseText);
+				alert(response.responseText); 
+				RowsBehavior();
+			}
+		});
+	}else{
+		$("errorMsg").removeClassName("hidden");
+		$("errorMsg").innerHTML = "Please fill out form completely";
+
+	}
 }
 
 function RowsBehavior() {
@@ -110,7 +156,11 @@ function RowsBehavior() {
 		});
 
 		$(r).observe("click", function() {
-			$(r).addClassName('active');
+			$$("tbody#suppliesTabBody tr").each(function(row) {
+				row.removeClassName("active");				
+			});
+			$(r).addClassName("active");
+
 
 			$("txtSupplyTye").value = $(r).down("td", 1).innerHTML;
 			$("txtEnteredDate").value = $(r).down("td", 9).innerHTML;

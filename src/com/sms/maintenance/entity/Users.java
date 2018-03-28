@@ -1,5 +1,7 @@
 package com.sms.maintenance.entity;
 
+import java.util.Date;
+
 public class Users {
 	private String userId;
 	private String passWord;
@@ -9,14 +11,41 @@ public class Users {
 	private String email;
 	private String activeTag;
 	private String accessLevel;
-	private String entryDate;
-	private String lastLogin;
+	private Date entryDate;
+	private Date lastLogin;
 	private String lastUser;
+	private String searchKeyWord;
+	private String newPassword;
+	private	Date lastUpdate;
 	
 	
-	public Users(String userId, String passWord, String firstName, String lastName, String email, String midInitial, String activeTag,
-			String accessLevel, String entryDate, String lastLogin, String lastUser) {
-		super();
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+
+	public String getSearchKeyWord() {
+		return searchKeyWord;
+	}
+
+	public void setSearchKeyWord(String searchKeyWord) {
+		this.searchKeyWord = searchKeyWord;
+	}
+
+	
+	public void setUser(String userId, String passWord, String firstName, String lastName, String email, String midInitial, String activeTag,
+			String accessLevel, Date entryDate, Date lastLogin, String lastUser) {
 		this.userId = userId;
 		this.passWord = passWord;
 		this.firstName = firstName;
@@ -78,16 +107,16 @@ public class Users {
 	public void setAccessLevel(String accessLevel) {
 		this.accessLevel = accessLevel;
 	}
-	public String getEntryDate() {
+	public Date getEntryDate() {
 		return entryDate;
 	}
-	public void setEntryDate(String entryDate) {
+	public void setEntryDate(Date entryDate) {
 		this.entryDate = entryDate;
 	}
-	public String getLastLogin() {
+	public Date getLastLogin() {
 		return lastLogin;
 	}
-	public void setLastLogin(String lastLogin) {
+	public void setLastLogin(Date lastLogin) {
 		this.lastLogin = lastLogin;
 	}
 	public String getLastUser() {

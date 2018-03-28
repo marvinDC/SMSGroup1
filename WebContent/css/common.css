@@ -77,3 +77,15 @@ tr.row:before {
 	width:70%;
 	text-align: center;
 }
+.suppliesTabBody td.numeral{
+	text-align:right;
+}
+.suppliesTabBody td.varchar{
+	text-align:left;
+}
+.suppliesTabBody td.digits{
+	text-align:left;
+}
+.suppliesTabBody td.{
+	
+}

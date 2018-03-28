@@ -22,7 +22,7 @@
 				</tr>
 				<tr>
 					<td align="right">Quantity </td>
-					<td><input id="quantity" type="number" class="formInput form-control"></td>
+					<td><input id="quantity" type="text" class="formInput form-control"></td>
 				</tr>
 				<tr>
 					<td align="right">Requested by </td>
@@ -38,7 +38,7 @@
 				</tr>
 				<tr>
 					<td align="right">Issue Date </td>
-					<td><input id="issueDate" type="date" class="formInput form-control"></td>
+					<td><input id="issueDate" type="text" class="formInput form-control" placeholder="MM/DD/YYYY"></td>
 				</tr>
 			</table>
 		</div>

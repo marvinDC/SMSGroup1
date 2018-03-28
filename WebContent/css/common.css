@@ -1,13 +1,5 @@
 @charset "ISO-8859-1";
 
-html {
-  height: 105%
-}
-
-body {
-  min-height: 105%;
-}
-
 .formInput {
 	margin-left: 10px;
 	margin-bottom: 5px;
@@ -86,6 +78,6 @@ tr.row:before {
 .suppliesTabBody td.digits{
 	text-align:left;
 }
-.suppliesTabBody td.{
-	
+.suppliesTabBody td.nowrap{
+	 white-space: nowrap;
 }

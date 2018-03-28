@@ -18,7 +18,7 @@
 			style="width: 100px; height: 300px; position: absolute; top: 16%; left: 5%;">
 			<table style="color: black;">
 				<tr>
-					<td><a style="color: black;" href="#" onclick="toUserPage()">Users</a></td>
+					<td><a style="color: black;" href="#" onclick="maintenance()">Users</a></td>
 				</tr>
 				<tr>
 					<td><a style="color: black;" href="#" onclick="">Supply

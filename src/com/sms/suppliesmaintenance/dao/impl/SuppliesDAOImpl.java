@@ -76,4 +76,12 @@ public class SuppliesDAOImpl implements SuppliesDAO{
 		return this.getSqlMapClient().queryForList("searchSupplies", searchSupplies);
 		
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<Supplies> checkChildRecord(Supplies updateSupplies) throws SQLException {
+		System.out.println("Start SupplyDAOImpl");
+		System.out.println(updateSupplies.getSupplyId());
+		return this.getSqlMapClient().queryForList("checkChildRecord", updateSupplies);
+		
+	}
 }

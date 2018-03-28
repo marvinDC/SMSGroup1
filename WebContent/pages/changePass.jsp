@@ -18,7 +18,7 @@
 <center>
 	<h3>CHANGE PASSWORD</h3>
 	<c:if test="${Error != null}">
-		<div class="alertDiv alert alert-danger">${Error}</div>
+		<div class="alertDiv alert alert-danger" style="width: 50%">${Error}</div>
  	</c:if>
  	<div align="right" style="font-family: courier; font-size: 14pt; position: absolute; top: 16%; left: 5%;">
  	<a href="#" onclick="toUserPage()">User</a><br>

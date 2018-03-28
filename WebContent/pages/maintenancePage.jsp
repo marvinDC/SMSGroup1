@@ -11,12 +11,12 @@
 <link rel="stylesheet" type="text/css" href="css/mycss.css">
 
 </head>
-<body>
-<center>	
+<body>	
 <div id="mainDiv">	
+<center>
 	<h3>User Maintenance</h3>
 	<c:if test="${Error != null}">
-		<div class="alertDiv alert alert-danger">${Error}</div>
+		<div class="alertDiv alert alert-danger" style="width: 50%">${Error}</div>
  	</c:if>
  	<div align="right" style="color: black; font-family: courier; font-size: 14pt; position: absolute; top: 16%; left: 5%;">
  	<a href="#" onclick="toUserPage()">User</a><br>
@@ -157,7 +157,7 @@ $("cancel").observe("click", function(){
 	new Ajax.Request(contextPath + "/maintenance", {
 		method: "GET",
 		parameters: {
-			action: "cancel"
+			action: "cancelMaintenance"
 		},
 		onComplete: function(response){
 			$("mainDiv").update(response.responseText);

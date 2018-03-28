@@ -15,12 +15,13 @@
 </head>
 <body>
 
-<div class="content">
+
 <div id="mainDiv">	
+<div class="content">
 <center>
 		<h3>User Maintenance</h3>
 	<c:if test="${Error != null}">
-		<div class="alertDiv alert alert-danger">${Error}</div>
+		<div class="alertDiv alert alert-danger" style="width: 50%">${Error}</div>
  		</c:if>
 <table>
 	<tr><td class="fieldLabel">User ID</td>

@@ -63,14 +63,17 @@ public class Servlet extends HttpServlet{
 	 		}else if(action == null || action.equals("cancel") || action.equals("cancelUserPage")){
 	 			User currentUser = (User)session.getAttribute("currentUser");
 	 			if(currentUser.getAccessLevel().equals("U")){
-	 				System.out.println("this is user only");
 	 				page = "pages/home.jsp";
+	 				
 	 			}else{
-	 				System.out.println("this is admin");
+	 				
 	 				l = useService.getUser(request);
 		 			request.setAttribute("queryList", l);
 		 			page = "pages/maintenancePage.jsp";
 	 			}
+	 			
+	 		}else if(action.equals("cancelMaintenance")){
+	 			page = "pages/home.jsp";
 	 			
 	 		}else if(action.equals("search")){
 	 			l = useService.getUser(request);

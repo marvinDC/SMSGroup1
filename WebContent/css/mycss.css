@@ -15,12 +15,6 @@ th{
 #listTableRow:ACTIVE {
 		background-color: cyan;
 }
-#listTableRow{
-	border: "1";
-	border-color: black;
-	font-family: times new roman;
-	
-}
 
 .fieldLabel{
 	text-align: right;

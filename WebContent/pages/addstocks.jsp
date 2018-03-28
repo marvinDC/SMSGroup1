@@ -13,9 +13,13 @@
 <body>
 <center>
 
-<h3>Stocks</h3>
-
 <div id = "mainContents">
+
+<h3>Stocks</h3>
+	<c:if test="${message != null}">
+	<div class="alertDiv alert alert-danger">${message}</div>
+	</c:if>
+	<br>
 	<table>
 		<tr>
 			<td align="right"><label><b>Item Name: </b></label></td>
@@ -74,23 +78,58 @@
 		addStock();
 	})
 	
- 		function addStock() {
-		new Ajax.Request("${pageContext.request.contextPath}" + "/suppliesstocks", {
+	function dateFormat1(d){
+		var monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+		                 	  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+		  var t = new Date(d);
+		  alert(t.getDate()+' '+monthShortNames[t.getMonth()]+', '+t.getFullYear());
+		  return monthShortNames[t.getMonth()];
+	}
+		
+	
+	
+ 	function addStock() {
+ 		var isCompleteFields = false;
+ 		var message = "";
+  	//	alert(dateFormat1($F("txtDateAdded")));
+		var timestamp = Date.parse($F("txtDateAdded"));
+		var timestampupdate = Date.parse($F("txtPurchaseAdded"));
+		
+		if(!isNaN(timestamp)){
+			  var date = new Date($F("txtDateAdded"));
+			  var day = date.getDate();
+			 var month = dateFormat1($F("txtDateAdded"));
+			  var year = date.getFullYear();
+			  var newDate = day+"-"+month+"-"+year;
+			 isCompleteFields = true;
+	}else{
+		isCompleteFields = false;
+		alert("Error");
+		message="InValid Date for Entered Date";	
+	}
+		
+		
+		
+	if(isCompleteFields){
+		 new Ajax.Request("${pageContext.request.contextPath}" + "/suppliesstocks", {
 			method : "GET",
 			parameters : {
 				itemname : $F("selItem"),
 				quantity : $F("txtQuantity"),
 				refno : $F("txtRefNo"),
-				dateadded: $F("txtDateAdded"),
+				dateadded: newDate.toString(),
 				datepurchase: $F("txtPurchaseAdded"),
 				actionSave : "save"
 			},
 			onComplete : function(response) {
-				alert("success");
 				$("mainContents").update(response.responseText);
 			}
-		});
+		});  
+	} else{
+		$("message").innerHTML = message;
 	}
+ 	}
+ 	
 	
 	$("btnCancel").observe("click", function(){
 		new Ajax.Request("${pageContext.request.contextPath}" + "/suppliesstocks", {

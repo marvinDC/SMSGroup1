@@ -11,16 +11,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.RequestWrapper;
 
-import org.springframework.util.AlternativeJdkIdGenerator;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.sms.homeandlogin.entity.User;
 import com.sms.suppliesstocks.StocksDAO;
 import com.sms.suppliesstocks.entity.Stocks;
-
-import oracle.sql.DATE;
 
 public class StocksDAOImpl implements StocksDAO {
 
@@ -42,7 +38,13 @@ public class StocksDAOImpl implements StocksDAO {
 			this.sqlMapClient.startBatch();
 			HttpSession session = request.getSession();
 			User currentUser = (User) session.getAttribute("currentUser");
-
+			
+	 //       SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yy");
+	//        String dateAdded = request.getParameter("dateadded");
+			
+			if ((request.getParameter("quantity")) == null || request.getParameter("quantity").equals("") || request.getParameter("dateadded") == null || request.getParameter("dateadded").equals("")) {
+				request.setAttribute("message", "Missing field!");
+			} else {
 			Stocks stck = new Stocks();
 			stck.setItemName(request.getParameter("itemname"));
 			System.out.println(request.getParameter("itemname"));
@@ -50,14 +52,24 @@ public class StocksDAOImpl implements StocksDAO {
 			stck.setRefNo(request.getParameter("refno"));
 			stck.setLastUser(currentUser.getUserId());
 			stck.setDateAdded(request.getParameter("dateadded"));
+	//		stck.setDateAdded(new SimpleDateFormat("MM/DD/YYYY").parse(request.getAttribute("dateAdded").toString()));
+			
+	//		Date dateadd = formatter.parse(dateAdded);
+	//		stck.setDateAdded(formatter.format(dateadd));
+			
+			
 			stck.setPurchaseDate(request.getParameter("datepurchase"));
 
 			this.getSqlMapClient().insert("insertStock", stck);
 
 			this.sqlMapClient.executeBatch();
 			this.sqlMapClient.getCurrentConnection().commit();
+			request.setAttribute("message", "Successfully Saved!");
+			}
 		} catch (SQLException e) {
 			System.out.println(e.getLocalizedMessage());
+	//	} catch (ParseException e) {
+	//		e.printStackTrace();
 		}
 	}
 
@@ -84,6 +96,11 @@ public class StocksDAOImpl implements StocksDAO {
 		this.sqlMapClient.getCurrentConnection().setAutoCommit(false);
 		this.sqlMapClient.startBatch();
 
+		if ((request.getParameter("quantity")) == null || request.getParameter("quantity").equals("") || request.getParameter("dateadded") == null || request.getParameter("dateadded").equals("")) {
+			request.setAttribute("message", "Missing field!");
+		} else {
+			
+		
 		Stocks stck = new Stocks();
 		System.out.println("TEST");
 		stck.setSupplyId(Integer.parseInt(request.getParameter("itemname")));
@@ -101,7 +118,8 @@ public class StocksDAOImpl implements StocksDAO {
 			System.out.println(e.getLocalizedMessage());
 		} finally {
 			this.sqlMapClient.getCurrentConnection().commit();
-			System.out.println("finally");
+			request.setAttribute("message", "Successfully Saved!");
+		}
 		}
 
 	}
@@ -115,6 +133,11 @@ public class StocksDAOImpl implements StocksDAO {
 			this.sqlMapClient.getCurrentConnection().setAutoCommit(false);
 			this.sqlMapClient.startBatch();
 
+			
+			if ((request.getParameter("search")) == null || request.getParameter("search").equals("")) {
+				request.setAttribute("message", "Please input Stock id!");
+			} else {
+			
 			Map<String, Object> params = new HashMap<>();
 
 			params.put("stockId", Integer.parseInt(request.getParameter("search")));
@@ -122,7 +145,7 @@ public class StocksDAOImpl implements StocksDAO {
 
 			this.sqlMapClient.executeBatch();
 			this.sqlMapClient.getCurrentConnection().commit();
-
+			}
 		} catch (SQLException e) {
 			System.out.println(e.getLocalizedMessage());
 		}

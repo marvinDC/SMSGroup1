@@ -2,6 +2,7 @@ package com.sms.suppliesstocks.service.impl;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +29,7 @@ public class StockServiceImpl implements StockService {
 
 	@Override
 	public void insertStock(HttpServletRequest request) throws SQLException {
+		
 		this.stockDAO.insertStock(request);
 	}
 

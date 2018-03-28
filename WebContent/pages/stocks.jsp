@@ -9,7 +9,7 @@
 <title></title>
 <script src="js/prototype.js"></script>
 <style>
-tr:hover {background-color:#f5f5f5;}
+#listTableRow:hover {background-color: powderblue;}
 </style>
 <link rel="stylesheet" type="text/css" href="css/common.css">
 </head>
@@ -17,7 +17,10 @@ tr:hover {background-color:#f5f5f5;}
 <center>
 <div id = "mainContents">
 <h3>Stocks</h3>
-
+	
+	<c:if test="${message != null}">
+	<div class="alertDiv alert alert-danger">${message}</div>
+	</c:if>
 			
 	<table>
 		<tr>
@@ -57,23 +60,27 @@ tr:hover {background-color:#f5f5f5;}
 			<td><input type="text" id="txtPurchaseAdded" style="width: 200px" class="formInput form-control"></td>
 		</tr>
 		
-	<tr>
-	<td><input type="hidden" id="txtStockId" style="width: 200px" class="formInput form-control"></td>
-	</tr>
-	
-	<tr>
-	<td align="right"><label><b>Search:</b></label> </td> 
-	<td><input type="text" id="txtSearch" style="width: 200px" class="formInput form-control"><br></td>
-	<br>
-	</tr>
+		<tr>
+		<td><input type="hidden" id="txtStockId" style="width: 200px"></td>
+		</tr>
+		
+		<tr>
+		<td align="right"><label><b>Search:</b></label> </td> 
+		<td><input type="text" id="txtSearch" style="width: 200px" class="formInput form-control"><br></td>
+		<br>
+		</tr>
 	</table>
+	
+	
+
+		
 	<br>
 	
-	
+	<div id="stock">
 	<table id="stockTable" border="1">
 	<tr>
 		<th>Stock ID</th>
-		<th></th>
+		<td style="display:none;">Supply ID</td>
 		<th>Item Name</th>
 		<th>Qty</th>
 		<th>Reference No</th>
@@ -84,9 +91,9 @@ tr:hover {background-color:#f5f5f5;}
 	</tr>	
 	
 	<c:forEach var="stocks" items="${stockList}">
-	<tr>
+	<tr id=listTableRow>
 	<td><c:out value="${stocks.stockId}"></c:out></td>
-	<td><c:out value="${stocks.supplyId}"></c:out></td>
+	<td style="display:none;"><c:out value="${stocks.supplyId}"></c:out></td>
 	<td><c:out value="${stocks.itemName}"></c:out></td>
 	<td><c:out value="${stocks.quantity}"></c:out></td>
 	<td><c:out value="${stocks.refNo}"></c:out></td>
@@ -100,6 +107,7 @@ tr:hover {background-color:#f5f5f5;}
 	
 	
 	</table>
+	</div>
 	<br>
 	<br>
 	<br>
@@ -130,7 +138,7 @@ tr:hover {background-color:#f5f5f5;}
 				actionSearch : "search"
 			},
 			onComplete : function(response) {
-				$("stockTable").update(response.responseText);
+				$("stock").update(response.responseText);
 			}
 		});
 	}
@@ -181,7 +189,7 @@ tr:hover {background-color:#f5f5f5;}
 				actionUpdate : "update"
 			},
 			onComplete: function(response){
-	//			$("mainContents").update(response.responseText);
+				$("mainContents").update(response.responseText);
 			}
 		})
 	});

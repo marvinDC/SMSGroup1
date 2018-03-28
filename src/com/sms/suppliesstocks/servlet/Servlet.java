@@ -69,19 +69,16 @@ public class Servlet extends HttpServlet{
 				}
 			}
 			
-			
-			if (("save").equals(actionsave)) {
+			else if (("save").equals(actionsave)) {
 				stockService.insertStock(request);
+				page= "pages/addstocks.jsp";
 			}
 			
-			if (("update").equals(actionupdate)) {
+			else if (("update").equals(actionupdate)) {
 				stockService.updateStock(request);
+				page = "pages/stocks.jsp";
 			}
-			
-
-			
-		
-			if ((("backToStock").equals(actionback)) && (actionback != null)) {
+			else if ((("backToStock").equals(actionback)) && (actionback != null)) {
 				page = "pages/stocks.jsp";				
 			} else if ((("goToAdd").equals(actionadd)) && (actionadd != null)) {
 				page = "pages/addstocks.jsp";			

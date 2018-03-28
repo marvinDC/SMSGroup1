@@ -1,5 +1,6 @@
 package com.sms.suppliesstocks.entity;
 
+import java.util.Date;
 
 public class Stocks {
 	private Integer stockId;

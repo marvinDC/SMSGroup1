@@ -67,7 +67,7 @@
 				</tr>
 			</table><br>
 		</div>
-		<div>
+		<div style="padding-bottom:20px">
 			<table border="1" id="issuedListing">
 				<tr class="tableHeader">
 					<th>Issue ID</th>

@@ -45,6 +45,7 @@ public class SuppliesIssuanceServiceImpl implements SuppliesIssuanceService {
 	public String insertIssueSupply(HttpServletRequest request, User currUser, List<Supplies> supplies) throws SQLException, ParseException, InsufficientAmountException {
 		IssuedSupply newIssueSupply = new IssuedSupply();
 		Supplies supply = findSupply(new Integer(request.getParameter("supplyId")), supplies);
+		System.out.println(supply.toString());
 		String message = checkReorderLevel(request, supply);
 		if(supply != null && checkStock(request, supply)) {
 			newIssueSupply.setDeptId(request.getParameter("departmentId"));
@@ -70,6 +71,7 @@ public class SuppliesIssuanceServiceImpl implements SuppliesIssuanceService {
 	public String updateIssuedSupply(HttpServletRequest request, User currUser, List<Supplies> supplies) throws SQLException, ParseException, InsufficientAmountException {
 		IssuedSupply newIssueSupply = new IssuedSupply();
 		Supplies supply = findSupply(new Integer(request.getParameter("supplyId")), supplies);
+		System.out.println(supply.toString());
 		String message = checkReorderLevel(request, supply);
 		if(supply != null && checkStock(request, supply)) {
 			Integer quantity = new Integer(request.getParameter("quantity"));
@@ -106,28 +108,33 @@ public class SuppliesIssuanceServiceImpl implements SuppliesIssuanceService {
 	}
 	
 	public boolean checkStock(HttpServletRequest request, Supplies supply) {
-		if (request.getParameter("currentQuantity") != null && supply.getActualCount().compareTo(
-				new Integer(request.getParameter("quantity")) - new Integer(request.getParameter("currentQuantity"))) == 1) {
-			return true;
-		}
-		else if(request.getParameter("currentQuantity") == null && supply.getActualCount().compareTo(new Integer(request.getParameter("quantity"))) == 1) {
+		if ((request.getParameter("currentQuantity") != null && supply.getActualCount().compareTo(
+				new Integer(request.getParameter("quantity")) - new Integer(request.getParameter("currentQuantity"))) == 1) || 
+				(request.getParameter("currentQuantity") == null && supply.getActualCount().compareTo(new Integer(request.getParameter("quantity"))) == 1)){
 			return true;
 		}
 		return false;
 	}
 	
 	public String checkReorderLevel(HttpServletRequest request, Supplies supply) {
-		if ((request.getParameter("currentQuantity") != null && supply.getReorderLevel().compareTo(
-				new Integer(request.getParameter("quantity")) - new Integer(request.getParameter("currentQuantity"))) < 0) ||
-				(request.getParameter("currentQuantity") == null && supply.getReorderLevel().compareTo(
-						new Integer(request.getParameter("quantity"))) < 0)) {
+		if (compareToReorder(request, supply) > 0) {
 			return "The actual count of the item " + supply.getItemName() + " is below the reorder level.";
 		}
-		else if((request.getParameter("currentQuantity") != null && supply.getReorderLevel().compareTo(
-				new Integer(request.getParameter("quantity")) - new Integer(request.getParameter("currentQuantity"))) == 0) ||
-				(request.getParameter("currentQuantity") == null && supply.getReorderLevel().compareTo(
-						new Integer(request.getParameter("quantity"))) == 0)) {
+		else if(compareToReorder(request, supply) == 0) {
 			return "The actual count of the item " + supply.getItemName() + " is equal the reorder level.";
+		}
+		return null;
+	}
+	
+	public Integer compareToReorder(HttpServletRequest request, Supplies supply) {
+		if (request.getParameter("currentQuantity") != null) {
+			return supply.getReorderLevel().compareTo(
+				supply.getActualCount() - (new Integer(
+						request.getParameter("quantity")) - new Integer(request.getParameter("currentQuantity"))));
+		}
+		else if (request.getParameter("currentQuantity") == null) {
+			return supply.getReorderLevel().compareTo(
+					supply.getActualCount() - new Integer(request.getParameter("quantity")));
 		}
 		return null;
 	}

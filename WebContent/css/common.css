@@ -1,13 +1,5 @@
 @charset "ISO-8859-1";
 
-html {
-  height: 105%
-}
-
-body {
-  min-height: 105%;
-}
-
 .formInput {
 	margin-left: 10px;
 	margin-bottom: 5px;

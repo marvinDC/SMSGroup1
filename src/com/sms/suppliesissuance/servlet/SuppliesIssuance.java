@@ -82,7 +82,7 @@ public class SuppliesIssuance extends HttpServlet {
 		List<Department> departments = new ArrayList<>(); 
 		List<Supplies> supplies = new ArrayList<>();
 		String page = "pages/listingAndIssuance.jsp";
-		
+		String message = null;
 		ApplicationContext applicationContext = 
 				new ClassPathXmlApplicationContext("/com/sms/suppliesissuance/resource/applicationContext.xml");
 		ApplicationContext supplyApplicationContext = new ClassPathXmlApplicationContext(
@@ -100,13 +100,14 @@ public class SuppliesIssuance extends HttpServlet {
 			request.setAttribute("departments", departments);
 			request.setAttribute("supplies", supplies);
 			if("add".equals(action)) {
-				suppliesIssuanceService.insertIssueSupply(request, currUser, supplies);
+				message = suppliesIssuanceService.insertIssueSupply(request, currUser, supplies);
 			}
 			else if("update".equals(action)) {
-				suppliesIssuanceService.updateIssuedSupply(request, currUser, supplies);
+				message = suppliesIssuanceService.updateIssuedSupply(request, currUser, supplies);
 			}
 			issuedSupplies = suppliesIssuanceService.getIssuedSupplies();
 			request.setAttribute("issuedSupplies", issuedSupplies);
+			request.setAttribute("warning", message);
 		} catch (Exception e) {
 			try {
 				departments = departmentService.getDepartments();

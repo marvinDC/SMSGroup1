@@ -42,11 +42,11 @@ public class SuppliesIssuanceServiceImpl implements SuppliesIssuanceService {
 	}
 
 	@Override
-	public void insertIssueSupply(HttpServletRequest request, User currUser, List<Supplies> supplies) throws SQLException, ParseException, InsufficientAmountException {
+	public String insertIssueSupply(HttpServletRequest request, User currUser, List<Supplies> supplies) throws SQLException, ParseException, InsufficientAmountException {
+		IssuedSupply newIssueSupply = new IssuedSupply();
 		Supplies supply = findSupply(new Integer(request.getParameter("supplyId")), supplies);
-
+		String message = checkReorderLevel(request, supply);
 		if(supply != null && checkStock(request, supply)) {
-			IssuedSupply newIssueSupply = new IssuedSupply();
 			newIssueSupply.setDeptId(request.getParameter("departmentId"));
 			newIssueSupply.setIssueDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("issueDate")));
 			newIssueSupply.setLastUser(currUser.getUserId());
@@ -58,7 +58,7 @@ public class SuppliesIssuanceServiceImpl implements SuppliesIssuanceService {
 		else {
 			throw new InsufficientAmountException("Insufficient Stock: " + supply.getItemName() + " only has " + supply.getActualCount() + ".");
 		}
-		
+		return message;
 	}
 
 	@Override
@@ -67,9 +67,10 @@ public class SuppliesIssuanceServiceImpl implements SuppliesIssuanceService {
 	}
 
 	@Override
-	public void updateIssuedSupply(HttpServletRequest request, User currUser, List<Supplies> supplies) throws SQLException, ParseException, InsufficientAmountException {
+	public String updateIssuedSupply(HttpServletRequest request, User currUser, List<Supplies> supplies) throws SQLException, ParseException, InsufficientAmountException {
 		IssuedSupply newIssueSupply = new IssuedSupply();
 		Supplies supply = findSupply(new Integer(request.getParameter("supplyId")), supplies);
+		String message = checkReorderLevel(request, supply);
 		if(supply != null && checkStock(request, supply)) {
 			Integer quantity = new Integer(request.getParameter("quantity"));
 			newIssueSupply.setDeptId(request.getParameter("departmentId"));
@@ -85,6 +86,7 @@ public class SuppliesIssuanceServiceImpl implements SuppliesIssuanceService {
 		} else {
 			throw new InsufficientAmountException("Insufficient Stock: " + supplies.get(0).getItemName() + " only has " + supplies.get(0).getActualCount() + ".");
 		}
+		return message;
 	}
 
 	@Override
@@ -112,5 +114,21 @@ public class SuppliesIssuanceServiceImpl implements SuppliesIssuanceService {
 			return true;
 		}
 		return false;
+	}
+	
+	public String checkReorderLevel(HttpServletRequest request, Supplies supply) {
+		if ((request.getParameter("currentQuantity") != null && supply.getReorderLevel().compareTo(
+				new Integer(request.getParameter("quantity")) - new Integer(request.getParameter("currentQuantity"))) < 0) ||
+				(request.getParameter("currentQuantity") == null && supply.getReorderLevel().compareTo(
+						new Integer(request.getParameter("quantity"))) < 0)) {
+			return "The actual count of the item " + supply.getItemName() + " is below the reorder level.";
+		}
+		else if((request.getParameter("currentQuantity") != null && supply.getReorderLevel().compareTo(
+				new Integer(request.getParameter("quantity")) - new Integer(request.getParameter("currentQuantity"))) == 0) ||
+				(request.getParameter("currentQuantity") == null && supply.getReorderLevel().compareTo(
+						new Integer(request.getParameter("quantity"))) == 0)) {
+			return "The actual count of the item " + supply.getItemName() + " is equal the reorder level.";
+		}
+		return null;
 	}
 }

@@ -6,7 +6,8 @@
 <div class="content">
 	<h3 class="pageHeader">Issue Supplies</h3>
 	<div align="center">
-		<div id="issueAlert" class="alert alert-danger ${message != null ? '':'hidden'}">${message}</div>
+		<div id="issueAlert" class="alertDiv alert alert-danger ${message != null ? '':'hidden'}">${message}</div>
+		<div id="issueWarning" class="alertDiv alert alert-warning ${warning != null ? '':'hidden'}">${warning}</div>
 	</div>
 	<div class="row">
 		<div class="col-md-2"></div>

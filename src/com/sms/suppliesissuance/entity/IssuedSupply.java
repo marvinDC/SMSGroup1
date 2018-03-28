@@ -95,4 +95,12 @@ public class IssuedSupply {
 	public void setCurrSupplyId(Integer currSupplyId) {
 		this.currSupplyId = currSupplyId;
 	}
+	@Override
+	public String toString() {
+		return "IssuedSupply [issueId=" + issueId + ", supplyId=" + supplyId + ", issueDate=" + issueDate
+				+ ", requestor=" + requestor + ", quantity=" + quantity + ", deptId=" + deptId + ", lastUser="
+				+ lastUser + ", lastUpdate=" + lastUpdate + ", ItemName=" + ItemName + ", currQuantity=" + currQuantity
+				+ ", currSupplyId=" + currSupplyId + ", deptName=" + deptName + ", lastUserName=" + lastUserName + "]";
+	}
+	
 }

@@ -94,19 +94,20 @@ public class SuppliesIssuance extends HttpServlet {
 		
 		try {
 			User currUser = (User) session.getAttribute("currentUser");
-			if("add".equals(action)) {
-				suppliesIssuanceService.insertIssueSupply(request, currUser);
-			}
-			else if("update".equals(action)) {
-				suppliesIssuanceService.updateIssuedSupply(request, currUser);
-			}
 			departments = departmentService.getDepartments();
-			issuedSupplies = suppliesIssuanceService.getIssuedSupplies();
 			supplies = suppliesService.getSupplies();
-			request.setAttribute("issuedSupplies", issuedSupplies);
+			
 			request.setAttribute("departments", departments);
 			request.setAttribute("supplies", supplies);
-		} catch (InsufficientAmountException e) {
+			if("add".equals(action)) {
+				suppliesIssuanceService.insertIssueSupply(request, currUser, supplies);
+			}
+			else if("update".equals(action)) {
+				suppliesIssuanceService.updateIssuedSupply(request, currUser, supplies);
+			}
+			issuedSupplies = suppliesIssuanceService.getIssuedSupplies();
+			request.setAttribute("issuedSupplies", issuedSupplies);
+		} catch (Exception e) {
 			try {
 				departments = departmentService.getDepartments();
 				issuedSupplies = suppliesIssuanceService.getIssuedSupplies();
@@ -118,9 +119,6 @@ public class SuppliesIssuance extends HttpServlet {
 			} catch (Exception e1) {
 				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} finally {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(page);
 			dispatcher.forward(request, response);
